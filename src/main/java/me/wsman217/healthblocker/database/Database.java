@@ -44,4 +44,3 @@ public class Database {
         return connection;
     }
 }
-//This is a comment to get git to work hopefully.
