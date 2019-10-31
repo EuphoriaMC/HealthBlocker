@@ -11,3 +11,5 @@
   contributions to this Software belong to EuphoriaMC. Upon joining this team you will be 
   required to accept EuphoriaMc's Terms and Conditions which mostly restate this. Please realize 
   that this policy is in place to keep our developers and our servers ideas safe.  
+
+TO-DO - Add a link to a Google Form for the accepting the Terms and Conditions.
