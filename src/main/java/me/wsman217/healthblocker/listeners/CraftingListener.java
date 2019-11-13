@@ -17,7 +17,7 @@ public class CraftingListener implements Listener {
         if (!isCustomFood)
             return;
         String customFoodType = nbtItem.getString("food_type");
-        FoodInterface foodType = CustomItemHandler.getFromName(customFoodType);
+        FoodInterface foodType = CustomItemHandler.getFromNameSpace(customFoodType);
         if (!e.getWhoClicked().hasPermission(foodType.getPermission())) {
             e.setCancelled(true);
             e.getWhoClicked().sendMessage(ChatColor.RED + "You do not have permission to craft this item.");

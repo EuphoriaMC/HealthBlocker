@@ -19,7 +19,7 @@ public class EatingListener implements Listener {
         if (!isCustomFood)
             return;
         String customFoodType = nbtItem.getString("food_type");
-        FoodInterface foodType = CustomItemHandler.getFromName(customFoodType);
+        FoodInterface foodType = CustomItemHandler.getFromNameSpace(customFoodType);
         Player p = e.getPlayer();
 
         if (!p.hasPermission(foodType.getPermission())) {

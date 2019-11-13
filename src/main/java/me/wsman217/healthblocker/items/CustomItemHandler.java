@@ -48,7 +48,7 @@ public class CustomItemHandler {
         setUpRecipeBook();
     }
 
-    public static FoodInterface getFromName(String name) {
+    public static FoodInterface getFromNameSpace(String name) {
         for (FoodInterface cI : customFoods)
             if (cI.getNamespace().equals(name))
                 return cI;

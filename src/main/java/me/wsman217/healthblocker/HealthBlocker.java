@@ -1,6 +1,7 @@
 package me.wsman217.healthblocker;
 
 import lombok.Getter;
+import me.wsman217.healthblocker.commands.CommandHealth;
 import me.wsman217.healthblocker.customcrafting.multiblock.MultiblockItem;
 import me.wsman217.healthblocker.customcrafting.multiblock.RemovalWand;
 import me.wsman217.healthblocker.database.Database;
@@ -40,6 +41,7 @@ public class HealthBlocker extends JavaPlugin {
         mbHandler = new MultiblockHandler(db);
         mbHandler.generateTable();
         initListeners();
+        initCommands();
     }
 
     @Override
@@ -59,5 +61,11 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new EatingListener(), instance);
         pman.registerEvents(new CraftingListener(), instance);
         pman.registerEvents(new JoinListener(), instance);
+    }
+
+    private void initCommands() {
+        CommandHealth cHealth = new CommandHealth();
+        this.getCommand("health").setExecutor(cHealth);
+        this.getCommand("health").setTabCompleter(cHealth);
     }
 }

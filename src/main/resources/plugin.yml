@@ -2,4 +2,15 @@ main: me.wsman217.healthblocker.HealthBlocker
 name: HealthBlocker
 version: ${project.version}
 author: wsman217
-api-version: 1.14
+api-version: "1.14"
+
+commands:
+  health:
+    description: "Used for info about the HealthBlocker plugin."
+permissions:
+  HealthBlocker.*:
+    default: op
+    children:
+      HealthBlocker.admin: true
+  HealthBlocker.admin:
+    description: "Admin permissions"
