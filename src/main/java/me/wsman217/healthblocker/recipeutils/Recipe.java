@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class Recipe {
 
     private RecipeType recipe;
+    private Tier recipeTier;
 
     public Recipe createFurnaceRecipe(NamespacedKey key, ItemStack input, ItemStack output, float exp, int cookTime) {
         this.recipe = new TypeFurnaceRecipe(key, input, output, exp, cookTime);
@@ -29,7 +30,23 @@ public class Recipe {
         return (TypeShapedRecipe) recipe;
     }
 
+    public Recipe setRecipeTier(Tier recipeTier) {
+        this.recipeTier = recipeTier;
+        return this;
+    }
+
     public RecipeType getRecipeType() {
         return recipe;
+    }
+    public Tier getRecipeTier() {
+        return recipeTier;
+    }
+
+    public enum Tier {
+        TIER1(),
+        TIER2(),
+        TIER3;
+
+        public static final int total = 3;
     }
 }

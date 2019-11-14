@@ -40,7 +40,7 @@ public class RestoredEye implements FoodInterface {
         ItemStack string = new ItemStack(Material.STRING, 1);
         ItemStack spiderEye = new ItemStack(Material.SPIDER_EYE, 1);
 
-        recipe = new Recipe();
+        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1);
         recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("AAA", "ABA", "AAA")
                 .setIngredient('A', string).setIngredient('B', spiderEye).addRecipe();
         Permission permission = new Permission(this.permission);

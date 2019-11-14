@@ -40,7 +40,7 @@ public class DarkMagic implements FoodInterface {
         ItemStack driedKelpBlock = new ItemStack(Material.DRIED_KELP_BLOCK, 1);
         ItemStack goldBlock = new ItemStack(Material.GOLD_BLOCK, 1);
 
-        recipe = new Recipe();
+        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER3);
         recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("AAA", "ABA", "AAA")
                 .setIngredient('A', goldBlock).setIngredient('B', driedKelpBlock).addRecipe();
 

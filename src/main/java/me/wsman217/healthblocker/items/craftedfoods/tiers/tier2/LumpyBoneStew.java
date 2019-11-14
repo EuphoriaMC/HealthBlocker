@@ -54,7 +54,7 @@ public class LumpyBoneStew implements FoodInterface {
         inputs.add(boneMeal);
 
         HealthBlocker plugin = HealthBlocker.getInstance();
-        this.recipe = new Recipe().createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
+        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER2).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
         Permission permission = new Permission(this.permission);
         permission.addParent(CustomItemHandler.tier2, true);

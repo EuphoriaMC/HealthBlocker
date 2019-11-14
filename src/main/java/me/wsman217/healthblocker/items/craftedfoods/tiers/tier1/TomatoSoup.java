@@ -49,7 +49,7 @@ public class TomatoSoup implements FoodInterface {
         inputs.add(sweetBerry);
 
         HealthBlocker plugin = HealthBlocker.getInstance();
-        this.recipe = new Recipe().createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
+        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
         Permission permission = new Permission(this.permission);
         permission.addParent(CustomItemHandler.tier1, true);

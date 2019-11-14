@@ -40,7 +40,7 @@ public class GrandmasCookies implements FoodInterface {
         ItemStack cookie = new ItemStack(Material.COOKIE, 1);
         ItemStack redBlock = new ItemStack(Material.REDSTONE_BLOCK, 1);
 
-        recipe = new Recipe();
+        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1);
         recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("ABA")
                 .setIngredient('A', redBlock).setIngredient('B', cookie).addRecipe();
         Permission permission = new Permission(this.permission);

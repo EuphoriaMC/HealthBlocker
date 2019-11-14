@@ -10,11 +10,13 @@ import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.CherryPie;
 import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.LumpyBoneStew;
 import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.TropicalStew;
 import me.wsman217.healthblocker.items.craftedfoods.tiers.tier3.DarkMagic;
+import me.wsman217.healthblocker.recipeutils.Recipe;
 import org.bukkit.NamespacedKey;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CustomItemHandler {
 
@@ -23,6 +25,7 @@ public class CustomItemHandler {
     public static Permission tier3 = new Permission("healthblocker.food.tier3.*");
 
     public static ArrayList<NamespacedKey> keys = new ArrayList<>();
+    public static HashMap<String, Recipe.Tier> recipeTiers = new HashMap<>();
 
     @Getter
     private static ArrayList<FoodInterface> customFoods = new ArrayList<>();
@@ -46,6 +49,7 @@ public class CustomItemHandler {
 
         setUpPerms();
         setUpRecipeBook();
+        recipeTiers = getRecipeTiers();
     }
 
     public static FoodInterface getFromNameSpace(String name) {
@@ -53,6 +57,21 @@ public class CustomItemHandler {
             if (cI.getNamespace().equals(name))
                 return cI;
         return null;
+    }
+
+    private HashMap<String, Recipe.Tier> getRecipeTiers() {
+        HashMap<String, Recipe.Tier> tiers = new HashMap<>();
+        for (FoodInterface working : customFoods) {
+            Recipe.Tier currentTier = working.getRecipe().getRecipeTier();
+
+            if (currentTier == Recipe.Tier.TIER1)
+                tiers.put(working.getNamespace(), Recipe.Tier.TIER1);
+            else if (currentTier == Recipe.Tier.TIER2)
+                tiers.put(working.getNamespace(), Recipe.Tier.TIER2);
+            else if (currentTier == Recipe.Tier.TIER3)
+                tiers.put(working.getNamespace(), Recipe.Tier.TIER3);
+        }
+        return tiers;
     }
 
     private void setUpPerms() {
