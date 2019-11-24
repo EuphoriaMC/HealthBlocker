@@ -20,6 +20,10 @@ public class CategoryView implements Listener {
     private ItemStack tier2Item = new ItemStack(Material.BOOK);
     private ItemStack tier3Item = new ItemStack(Material.WRITABLE_BOOK);
 
+    public CategoryView() {
+
+    }
+
     public CategoryView(Player p) {
         this.p = p;
     }
@@ -40,14 +44,21 @@ public class CategoryView implements Listener {
             return;
         if (e.getCurrentItem() == null)
             return;
+        e.setCancelled(true);
         Player p = (Player) e.getWhoClicked();
         ItemStack clickedItem = e.getCurrentItem();
 
-        if (clickedItem.isSimilar(tier1Item))
+        if (clickedItem.isSimilar(tier1Item)) {
+            p.closeInventory();
             new Tier1(p).openInv();
-        else if (clickedItem.isSimilar(tier2Item))
+        }
+        else if (clickedItem.isSimilar(tier2Item)) {
+            p.closeInventory();
             new Tier2(p).openInv();
-        else if (clickedItem.isSimilar(tier3Item))
+        }
+        else if (clickedItem.isSimilar(tier3Item)) {
+            p.closeInventory();
             new Tier3(p).openInv();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package me.wsman217.healthblocker.recipeutils.types;
 
+import lombok.Getter;
 import me.wsman217.healthblocker.HealthBlocker;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -11,7 +12,9 @@ import java.util.HashMap;
 public class TypeShapelessRecipe implements RecipeType {
 
     private NamespacedKey key;
+    @Getter
     private ArrayList<HashMap<ItemStack, Integer>> inputs;
+    @Getter
     private ItemStack output;
 
     public TypeShapelessRecipe(NamespacedKey key, ArrayList<HashMap<ItemStack, Integer>> inputs, ItemStack output) {

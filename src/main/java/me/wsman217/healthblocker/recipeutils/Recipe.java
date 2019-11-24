@@ -1,5 +1,6 @@
 package me.wsman217.healthblocker.recipeutils;
 
+import lombok.Getter;
 import me.wsman217.healthblocker.recipeutils.types.RecipeType;
 import me.wsman217.healthblocker.recipeutils.types.TypeFurnaceRecipe;
 import me.wsman217.healthblocker.recipeutils.types.TypeShapedRecipe;

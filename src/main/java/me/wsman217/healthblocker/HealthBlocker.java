@@ -1,11 +1,14 @@
 package me.wsman217.healthblocker;
 
+import javafx.scene.paint.Stop;
 import lombok.Getter;
 import me.wsman217.healthblocker.commands.CommandHealth;
+import me.wsman217.healthblocker.commands.CommandHealthFood;
 import me.wsman217.healthblocker.customcrafting.multiblock.MultiblockItem;
 import me.wsman217.healthblocker.customcrafting.multiblock.RemovalWand;
 import me.wsman217.healthblocker.database.Database;
 import me.wsman217.healthblocker.database.MultiblockHandler;
+import me.wsman217.healthblocker.gui.*;
 import me.wsman217.healthblocker.items.CustomItemHandler;
 import me.wsman217.healthblocker.listeners.CraftingListener;
 import me.wsman217.healthblocker.listeners.EatingListener;
@@ -61,11 +64,19 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new EatingListener(), instance);
         pman.registerEvents(new CraftingListener(), instance);
         pman.registerEvents(new JoinListener(), instance);
+        pman.registerEvents(new CategoryView(), instance);
+        pman.registerEvents(new Tier1(), instance);
+        pman.registerEvents(new Tier2(), instance);
+        pman.registerEvents(new Tier3(), instance);
+        pman.registerEvents(new StopCraftClicks(), instance);
     }
 
     private void initCommands() {
         CommandHealth cHealth = new CommandHealth();
         this.getCommand("health").setExecutor(cHealth);
         this.getCommand("health").setTabCompleter(cHealth);
+        CommandHealthFood cHealthFood = new CommandHealthFood();
+        this.getCommand("healthfood").setExecutor(cHealthFood);
+        this.getCommand("healthfood").setExecutor(cHealthFood);
     }
 }

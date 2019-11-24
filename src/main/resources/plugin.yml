@@ -7,6 +7,8 @@ api-version: "1.14"
 commands:
   health:
     description: "Used for info about the HealthBlocker plugin."
+  healthfood:
+    description: "Not useful"
 permissions:
   HealthBlocker.*:
     default: op

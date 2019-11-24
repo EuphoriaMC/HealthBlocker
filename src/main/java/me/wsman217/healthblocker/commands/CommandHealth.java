@@ -27,7 +27,7 @@ public class CommandHealth implements TabExecutor {
         //Make arguments for ?/help and give
 
         if (!(args.length > 0))
-            return noArgs(p);
+            return helpArg(p);
         if (args[0].equalsIgnoreCase("?") || args[0].equalsIgnoreCase("help") ||
                 !p.hasPermission("Healthblocker.admin"))
             return helpArg(p);
@@ -42,11 +42,6 @@ public class CommandHealth implements TabExecutor {
             else
                 return giveArg(p, false, null, null, null);
         }
-        return true;
-    }
-
-    private boolean noArgs(Player p) {
-
         return true;
     }
 

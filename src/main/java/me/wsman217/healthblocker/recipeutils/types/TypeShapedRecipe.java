@@ -1,5 +1,6 @@
 package me.wsman217.healthblocker.recipeutils.types;
 
+import lombok.Getter;
 import me.wsman217.healthblocker.HealthBlocker;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -10,9 +11,13 @@ import java.util.HashMap;
 public class TypeShapedRecipe implements RecipeType {
 
     private NamespacedKey key;
-    private ItemStack output;
     private ShapedRecipe recipe;
+    @Getter
+    private ItemStack output;
+    @Getter
     private HashMap<Character, ItemStack> inputs = new HashMap<>();
+    @Getter
+    String[] shape;
 
     public TypeShapedRecipe(NamespacedKey key, ItemStack output) {
         this.key = key;
@@ -20,7 +25,9 @@ public class TypeShapedRecipe implements RecipeType {
         this.recipe = new ShapedRecipe(key, output);
     }
 
+    //shape("sss", "ses", "sss")
     public TypeShapedRecipe shape(String... shape) {
+        this.shape = shape;
         recipe.shape(shape);
         return this;
     }
@@ -31,8 +38,7 @@ public class TypeShapedRecipe implements RecipeType {
         return this;
     }
 
-    public TypeShapedRecipe addRecipe() {
+    public void addRecipe() {
         HealthBlocker.getInstance().getServer().addRecipe(recipe);
-        return this;
     }
 }

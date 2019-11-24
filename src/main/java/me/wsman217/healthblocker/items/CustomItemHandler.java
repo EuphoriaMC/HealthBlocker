@@ -12,6 +12,7 @@ import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.TropicalStew;
 import me.wsman217.healthblocker.items.craftedfoods.tiers.tier3.DarkMagic;
 import me.wsman217.healthblocker.recipeutils.Recipe;
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
@@ -55,6 +56,13 @@ public class CustomItemHandler {
     public static FoodInterface getFromNameSpace(String name) {
         for (FoodInterface cI : customFoods)
             if (cI.getNamespace().equals(name))
+                return cI;
+        return null;
+    }
+
+    public static FoodInterface getByItemStack(ItemStack toCompare) {
+        for (FoodInterface cI : customFoods)
+            if (cI.getItemStack().isSimilar(toCompare))
                 return cI;
         return null;
     }
