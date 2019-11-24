@@ -47,7 +47,7 @@ public class CommandHealth implements TabExecutor {
 
     private boolean helpArg(Player p) {
 
-        //Send the help command (Not import at this moment.)
+        //TODO Send the help command (Not import at this moment.)
         return true;
     }
 
@@ -83,8 +83,10 @@ public class CommandHealth implements TabExecutor {
         amount = Math.max(amount, 1);
         amount = Math.min(amount, 64);
         ItemStack customFood = food.getItemStack();
+        int originalAmount = customFood.getAmount();
         customFood.setAmount(amount);
         target.getInventory().addItem(customFood);
+        customFood.setAmount(originalAmount);
         p.sendMessage(ChatColor.LIGHT_PURPLE + target.getName() + " has received " + amount + " of " + food.getName());
         return true;
     }
