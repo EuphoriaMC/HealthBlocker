@@ -14,6 +14,7 @@ public class EatingListener implements Listener {
 
     @EventHandler
     public void onConsumeEvent(PlayerItemConsumeEvent e) {
+        //Check if its a custom food
         NBTItem nbtItem = new NBTItem(e.getItem());
         boolean isCustomFood = nbtItem.getBoolean("custom_food");
         if (!isCustomFood)
@@ -22,12 +23,17 @@ public class EatingListener implements Listener {
         FoodInterface foodType = CustomItemHandler.getFromNameSpace(customFoodType);
         Player p = e.getPlayer();
 
+        //Check if they have permission to eat the food
         if (!p.hasPermission(foodType.getPermission())) {
             e.setCancelled(true);
             p.sendMessage(ChatColor.RED + "You do not have permission to eat this item.");
             return;
         }
         /*p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(40);*/
+        /*
+        Get the min of either the players max health or the players current health plus what the food heals or else
+        the player can end up with more hearts than they are allowed
+        */
         double healthToRegen = Math.min(p.getHealth() + foodType.getHealthRegenned(), p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
         p.setHealth(healthToRegen);
     }

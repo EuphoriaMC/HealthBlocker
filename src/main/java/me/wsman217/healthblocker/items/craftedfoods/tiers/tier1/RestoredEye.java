@@ -14,6 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.Permission;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RestoredEye implements FoodInterface {
 
     private Material mat = Material.SPIDER_EYE;
@@ -32,9 +35,12 @@ public class RestoredEye implements FoodInterface {
         this.item = nbtItem.getItem();
 
         ItemMeta im = item.getItemMeta();
-        im.setDisplayName(ChatColor.GREEN + "Restored Eye");
+        im.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Restored Eye");
         im.addEnchant(Enchantment.LUCK, 1, false);
         im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        List<String> lore = new ArrayList<>();
+        lore.add(ChatColor.LIGHT_PURPLE + "Restores half a heart.");
+        im.setLore(lore);
         item.setItemMeta(im);
 
         ItemStack string = new ItemStack(Material.STRING, 1);

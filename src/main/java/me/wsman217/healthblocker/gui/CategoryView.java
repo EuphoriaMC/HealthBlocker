@@ -29,6 +29,7 @@ public class CategoryView implements Listener {
     }
 
     public void openInv() {
+        //Create the inventory and add the items to it
         Inventory inv = Bukkit.createInventory(new MainHolder(), 9, INV_NAME);
         inv.setItem(2, tier1Item);
         inv.setItem(4, tier2Item);
@@ -48,14 +49,17 @@ public class CategoryView implements Listener {
         Player p = (Player) e.getWhoClicked();
         ItemStack clickedItem = e.getCurrentItem();
 
+        //Open tier 1 inv
         if (clickedItem.isSimilar(tier1Item)) {
             p.closeInventory();
             new Tier1(p).openInv();
         }
+        //Open tier 2 inv
         else if (clickedItem.isSimilar(tier2Item)) {
             p.closeInventory();
             new Tier2(p).openInv();
         }
+        //Open tier 3 inv
         else if (clickedItem.isSimilar(tier3Item)) {
             p.closeInventory();
             new Tier3(p).openInv();

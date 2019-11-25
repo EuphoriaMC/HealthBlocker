@@ -14,6 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.Permission;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DarkMagic implements FoodInterface {
 
     private Material mat = Material.DRIED_KELP;
@@ -32,9 +35,12 @@ public class DarkMagic implements FoodInterface {
         this.item = nbtItem.getItem();
 
         ItemMeta im = item.getItemMeta();
-        im.setDisplayName(ChatColor.LIGHT_PURPLE + "Dark Magic");
+        im.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Dark Magic");
         im.addEnchant(Enchantment.LUCK, 1, false);
         im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        List<String> lore = new ArrayList<>();
+        lore.add(ChatColor.LIGHT_PURPLE + "Restores full health.");
+        im.setLore(lore);
         item.setItemMeta(im);
 
         ItemStack driedKelpBlock = new ItemStack(Material.DRIED_KELP_BLOCK, 1);

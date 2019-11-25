@@ -11,8 +11,13 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        //Discover all the recipes when a player joins
         e.getPlayer().discoverRecipes(CustomItemHandler.keys);
 
+        /*
+        This was for when I was playing with health being higher than 10 hearts it fixes a visual glitch where you
+        don't see the extra hearts you have until you take damage.
+         */
         Bukkit.getScheduler().scheduleSyncDelayedTask(HealthBlocker.getInstance(), () -> {
             e.getPlayer().setHealth(e.getPlayer().getHealth() - 1);
             e.getPlayer().setHealth(e.getPlayer().getHealth() + 1);

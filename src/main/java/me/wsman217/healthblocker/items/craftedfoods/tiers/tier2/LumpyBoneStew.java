@@ -16,6 +16,7 @@ import org.bukkit.permissions.Permission;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class LumpyBoneStew implements FoodInterface {
@@ -34,9 +35,12 @@ public class LumpyBoneStew implements FoodInterface {
         this.item = nbtItem.getItem();
 
         ItemMeta im = item.getItemMeta();
-        im.setDisplayName(ChatColor.YELLOW + "Lumpy Bone Stew");
+        im.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "Lumpy Bone Stew");
         im.addEnchant(Enchantment.LUCK, 1, false);
         im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        List<String> lore = new ArrayList<>();
+        lore.add(ChatColor.LIGHT_PURPLE + "Restores 3 hearts.");
+        im.setLore(lore);
         item.setItemMeta(im);
 
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();

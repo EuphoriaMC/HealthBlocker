@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+//Stop clicking in a crafting table with my custom inventory holder
 public class StopCraftClicks implements Listener {
 
     @EventHandler

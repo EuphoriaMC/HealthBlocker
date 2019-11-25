@@ -2,10 +2,7 @@ package me.wsman217.healthblocker.items;
 
 import lombok.Getter;
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier1.GrandmasCookies;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier1.RestoredEye;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier1.SpikedApple;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier1.TomatoSoup;
+import me.wsman217.healthblocker.items.craftedfoods.tiers.tier1.*;
 import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.CherryPie;
 import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.LumpyBoneStew;
 import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.TropicalStew;
@@ -21,6 +18,7 @@ import java.util.HashMap;
 
 public class CustomItemHandler {
 
+    //The separate permissions for the tiers
     public static Permission tier1 = new Permission("healthblocker.food.tier1.*");
     public static Permission tier2 = new Permission("healthblocker.food.tier2.*");
     public static Permission tier3 = new Permission("healthblocker.food.tier3.*");
@@ -32,12 +30,14 @@ public class CustomItemHandler {
     private static ArrayList<FoodInterface> customFoods = new ArrayList<>();
 
     public CustomItemHandler() {
+        //Add all of the items to the custom foods ArrayList
         //Shapeless
         customFoods.add(new LumpyBoneStew());
         customFoods.add(new SpikedApple());
         customFoods.add(new TropicalStew());
         customFoods.add(new CherryPie());
         customFoods.add(new TomatoSoup());
+        customFoods.add(new AppleJuice());
 
         //Shaped
         customFoods.add(new RestoredEye());
@@ -48,6 +48,7 @@ public class CustomItemHandler {
         //Furnace
         //customItems.add(new FriedWitherSkull());
 
+        //Run through the setup methods
         setUpPerms();
         setUpRecipeBook();
         recipeTiers = getRecipeTiers();

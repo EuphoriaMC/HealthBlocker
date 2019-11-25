@@ -19,6 +19,7 @@ public class CommandHealthFood implements TabExecutor {
             return true;
         }
 
+        //Open the inventory if the command is from a player
         Player p = (Player) sender;
         new CategoryView(p).openInv();
         return true;

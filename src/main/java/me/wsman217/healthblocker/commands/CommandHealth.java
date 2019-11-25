@@ -5,11 +5,9 @@ import me.wsman217.healthblocker.items.FoodInterface;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -17,6 +15,8 @@ import java.util.*;
 public class CommandHealth implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+        //Check if the console sent the command and if so stop it.
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "This command can not be used by the console.");
             return true;
@@ -24,22 +24,22 @@ public class CommandHealth implements TabExecutor {
 
         Player p = (Player) sender;
 
-        //Make arguments for ?/help and give
-
+        //"Parse" the arguments
         if (!(args.length > 0))
             return helpArg(p);
         if (args[0].equalsIgnoreCase("?") || args[0].equalsIgnoreCase("help") ||
                 !p.hasPermission("Healthblocker.admin"))
             return helpArg(p);
         if (args[0].equalsIgnoreCase("give")) {
-            if (args.length >= 4) {
+            if (args.length >= 3) {
+                //Take all the arguments after the first index to the last
                 ArrayList<String> newArgs = new ArrayList<>(Arrays.asList(args).subList(1, args.length));
                 String target = newArgs.get(0);
                 String foodName = newArgs.get(1);
-                String amount = newArgs.get(2);
+                //If they didn't give an amount auto put 1
+                String amount = newArgs.size() == 2 ? "1" : newArgs.get(2);
                 return giveArg(p, true, target, foodName, amount);
-            }
-            else
+            } else
                 return giveArg(p, false, null, null, null);
         }
         return true;
@@ -80,9 +80,11 @@ public class CommandHealth implements TabExecutor {
         }
 
         int amount = Integer.parseInt(amo);
+        //Make sure the amount is within 1 and 64
         amount = Math.max(amount, 1);
         amount = Math.min(amount, 64);
         ItemStack customFood = food.getItemStack();
+        //Save the original amount to change back the storage inside the rams amount
         int originalAmount = customFood.getAmount();
         customFood.setAmount(amount);
         target.getInventory().addItem(customFood);
@@ -96,7 +98,7 @@ public class CommandHealth implements TabExecutor {
 
         if (!(sender instanceof Player))
             return null;
-        Player p = (Player)sender;
+        Player p = (Player) sender;
         ArrayList<String> tabs = new ArrayList<>();
         if (!p.hasPermission("HealthBlocker.admin"))
             return tabs;
@@ -106,9 +108,12 @@ public class CommandHealth implements TabExecutor {
             if (args.length == 2)
                 tabs = addAll(Bukkit.getOnlinePlayers());
             if (args.length == 3)
-                tabs = addAll("grandmas_cookie", "restored_eye", "spiked_apple", "tomato_soup",
-                        "cherry_pie", "lumpy_bone_stew", "tropical_stew",
-                        "dark_magic");
+                //Loop through all custom foods
+                for (FoodInterface fi : CustomItemHandler.getCustomFoods()) {
+                    //Check if it starts with the characters that have already been entered
+                    if (fi.getNamespace().startsWith(args[2]))
+                        tabs.add(fi.getNamespace());
+                }
             if (args.length == 4)
                 tabs = addAll("1", "16", "32", "64");
         }

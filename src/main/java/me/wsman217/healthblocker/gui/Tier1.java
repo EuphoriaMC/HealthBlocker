@@ -33,22 +33,25 @@ public class Tier1 implements Listener {
         Set<String> keys = recipeTiers.keySet();
         ArrayList<FoodInterface> foods = new ArrayList<>();
 
+        //Loop through all the keys of the recipeTiers hashmap
         for (String key : keys) {
+            //If the are tier 1 add them to the foods ArrayList
             if (recipeTiers.get(key) == Recipe.Tier.TIER1)
                 foods.add(CustomItemHandler.getFromNameSpace(key));
         }
 
+        //Find how many rows are needed for the inventory
         int foodAmount = foods.size();
         int rows = (foodAmount / 9) + 1;
 
         Inventory inv = Bukkit.createInventory(new Tier1Holder(), rows * 9, ChatColor.GREEN + "Tier 1 Foods");
 
         int index = 0;
+        //Loop through all the foods and add them to the inv then open it
         for (FoodInterface food : foods) {
             inv.setItem(index, food.getItemStack());
             index++;
         }
-
         this.p.openInventory(inv);
     }
 
