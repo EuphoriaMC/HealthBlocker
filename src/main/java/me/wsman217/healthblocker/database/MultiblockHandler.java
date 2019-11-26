@@ -1,7 +1,7 @@
 package me.wsman217.healthblocker.database;
 
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.customcrafting.multiblock.MultiblockStructureHolder;
+import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlterHolder;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -65,8 +65,8 @@ public class MultiblockHandler {
         return loc;
     }
 
-    public MultiblockStructureHolder getHolder(Player p) {
-        return new MultiblockStructureHolder(getLocation(p));
+    public CraftingAlterHolder getHolder(Player p) {
+        return new CraftingAlterHolder(getLocation(p));
     }
 
     //I DID A STUPID SOMEWHERE HERE ALSO WILL NOT WANT TO USE .distance JUST DO IT BY HAND BY CHECKING WORLD AND SUCH.

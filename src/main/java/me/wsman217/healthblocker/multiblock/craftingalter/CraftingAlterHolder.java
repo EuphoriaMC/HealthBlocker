@@ -1,4 +1,4 @@
-package me.wsman217.healthblocker.customcrafting.multiblock;
+package me.wsman217.healthblocker.multiblock.craftingalter;
 
 import me.wsman217.healthblocker.HealthBlocker;
 import org.bukkit.Bukkit;
@@ -8,7 +8,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 
-public class MultiblockStructureHolder {
+public class CraftingAlterHolder {
 
     private Block edge1, edge2, edge3, edge4;
     private Block corner1, corner2, corner3, corner4;
@@ -21,7 +21,7 @@ public class MultiblockStructureHolder {
      * @param loc The location of the redstone block should come directly
      *            from the database or where a multiblock will be placed.
      */
-    public MultiblockStructureHolder(Location loc) {
+    public CraftingAlterHolder(Location loc) {
         this.redstoneBlock = loc.getBlock();
         this.pistonHead = loc.getWorld().getBlockAt(loc.getBlockX(), loc.getBlockY() + 1, loc.getBlockZ());
 
@@ -42,7 +42,7 @@ public class MultiblockStructureHolder {
     }
 
     public boolean isSimilar(Location loc) {
-        MultiblockStructureHolder holder = new MultiblockStructureHolder(loc);
+        CraftingAlterHolder holder = new CraftingAlterHolder(loc);
         return holder.edge1.getLocation().equals(this.edge1.getLocation()) && holder.edge2.getLocation().equals(this.edge2.getLocation())
                 && holder.edge3.getLocation().equals(this.edge3.getLocation()) && holder.edge4.getLocation().equals(this.edge4.getLocation())
                 && holder.corner1.getLocation().equals(this.corner1.getLocation()) && holder.corner2.getLocation().equals(this.corner2.getLocation())
@@ -52,7 +52,7 @@ public class MultiblockStructureHolder {
                 && holder.redstoneBlock.getLocation().equals(this.redstoneBlock.getLocation()) && holder.pistonHead.getLocation().equals(this.pistonHead.getLocation());
     }
 
-    MultiblockStructureHolder createStructure() {
+    CraftingAlterHolder createStructure() {
         this.redstoneBlock.breakNaturally();
         this.pistonHead.breakNaturally();
         innEdge1.breakNaturally();
@@ -89,7 +89,7 @@ public class MultiblockStructureHolder {
         return this;
     }
 
-    MultiblockStructureHolder removeStructure() {
+    public CraftingAlterHolder removeStructure() {
         this.redstoneBlock.setType(Material.AIR);
         this.pistonHead.setType(Material.AIR);
         this.innEdge1.setType(Material.AIR);
@@ -109,7 +109,7 @@ public class MultiblockStructureHolder {
         World world = innEdge1.getWorld();
         System.out.println(world);
         Bukkit.getScheduler().scheduleSyncDelayedTask(HealthBlocker.getInstance(), () ->
-                        world.dropItem(this.redstoneBlock.getLocation().add(0, 5, 0), MultiblockItem.item)
+                        world.dropItem(this.redstoneBlock.getLocation().add(0, 5, 0), CraftingAlter.item)
                 , 3L);
         return this;
     }

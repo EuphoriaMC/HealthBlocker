@@ -1,22 +1,18 @@
 package me.wsman217.healthblocker.items.craftedfoods.tiers.tier1;
 
-import de.tr7zw.nbtapi.NBTItem;
 import me.wsman217.healthblocker.HealthBlocker;
 import me.wsman217.healthblocker.items.CustomItemHandler;
 import me.wsman217.healthblocker.items.FoodInterface;
+import me.wsman217.healthblocker.items.FoodUtils;
 import me.wsman217.healthblocker.recipeutils.Recipe;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.Permission;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class TomatoSoup implements FoodInterface {
 
@@ -27,20 +23,8 @@ public class TomatoSoup implements FoodInterface {
     private String permission = "healthblocker.food.tier1.tomatosoup";
 
     public TomatoSoup() {
-        this.item = new ItemStack(mat);
-        NBTItem nbtItem = new NBTItem(item);
-        nbtItem.setBoolean("custom_food", true);
-        nbtItem.setString("food_type", nameSpace);
-        this.item = nbtItem.getItem();
-
-        ItemMeta im = item.getItemMeta();
-        im.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Tomato Soup");
-        im.addEnchant(Enchantment.LUCK, 1, false);
-        im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        List<String> lore = new ArrayList<>();
-        lore.add(ChatColor.LIGHT_PURPLE + "Restores 2 hearts.");
-        im.setLore(lore);
-        item.setItemMeta(im);
+        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Tomato Soup"
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
 
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
 
@@ -77,7 +61,8 @@ public class TomatoSoup implements FoodInterface {
 
     @Override
     public ItemStack getItemStack() {
-        return item;
+        return FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Tomato Soup"
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
     }
 
     @Override

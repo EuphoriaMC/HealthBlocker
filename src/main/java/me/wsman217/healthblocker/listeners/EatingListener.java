@@ -24,7 +24,7 @@ public class EatingListener implements Listener {
         Player p = e.getPlayer();
 
         //Check if they have permission to eat the food
-        if (!p.hasPermission(foodType.getPermission())) {
+        if (!p.hasPermission(foodType.getPermission()) && nbtItem.getBoolean("need_perm")) {
             e.setCancelled(true);
             p.sendMessage(ChatColor.RED + "You do not have permission to eat this item.");
             return;

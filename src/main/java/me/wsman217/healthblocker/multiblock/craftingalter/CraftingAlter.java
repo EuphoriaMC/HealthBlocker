@@ -1,4 +1,4 @@
-package me.wsman217.healthblocker.customcrafting.multiblock;
+package me.wsman217.healthblocker.multiblock.craftingalter;
 
 import de.tr7zw.nbtapi.NBTItem;
 import me.wsman217.healthblocker.HealthBlocker;
@@ -16,7 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 
-public class MultiblockItem implements Listener {
+public class CraftingAlter implements Listener {
 
     public static ItemStack item;
     public static ShapedRecipe recipe;
@@ -24,11 +24,11 @@ public class MultiblockItem implements Listener {
     private boolean underDevelopment = true;
     private HealthBlocker plugin;
 
-    public MultiblockItem() {
+    public CraftingAlter() {
         this.plugin = HealthBlocker.getInstance();
     }
 
-    public MultiblockItem init() {
+    public CraftingAlter init() {
         NBTItem nbtItem = new NBTItem(new ItemStack(Material.PISTON));
         nbtItem.setBoolean("multiblockitem", true);
         item = nbtItem.getItem();
@@ -60,7 +60,7 @@ public class MultiblockItem implements Listener {
         if (!e.hasItem())
             return;
         ItemStack item = e.getItem();
-        if (!item.isSimilar(MultiblockItem.item))
+        if (!item.isSimilar(CraftingAlter.item))
             return;
         if (!e.getPlayer().getInventory().getItemInMainHand().isSimilar(item)) {
             e.getPlayer().sendMessage(ChatColor.RED + "Multiblock builder must be used in your main hand.");
@@ -85,7 +85,7 @@ public class MultiblockItem implements Listener {
             e.getPlayer().getInventory().setItemInMainHand(item);
         }
         e.setCancelled(true);
-        new MultiblockStructureHolder(e.getClickedBlock().getLocation()).createStructure();
+        new CraftingAlterHolder(e.getClickedBlock().getLocation()).createStructure();
         Particle.DustOptions particle = new Particle.DustOptions(Color.fromBGR(30, 73, 9), 3);
         e.getPlayer().spawnParticle(Particle.REDSTONE, e.getClickedBlock().getLocation().add(0, 1, 0), 100, 4.0, 0.0, 4.0, particle);
         e.getPlayer().sendMessage(ChatColor.AQUA + "Structure successfully created.");

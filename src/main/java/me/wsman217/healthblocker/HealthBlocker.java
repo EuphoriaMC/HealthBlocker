@@ -1,11 +1,10 @@
 package me.wsman217.healthblocker;
 
-import javafx.scene.paint.Stop;
 import lombok.Getter;
 import me.wsman217.healthblocker.commands.CommandHealth;
 import me.wsman217.healthblocker.commands.CommandHealthFood;
-import me.wsman217.healthblocker.customcrafting.multiblock.MultiblockItem;
-import me.wsman217.healthblocker.customcrafting.multiblock.RemovalWand;
+import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlter;
+import me.wsman217.healthblocker.multiblock.RemovalWand;
 import me.wsman217.healthblocker.database.Database;
 import me.wsman217.healthblocker.database.MultiblockHandler;
 import me.wsman217.healthblocker.gui.*;
@@ -26,7 +25,7 @@ public class HealthBlocker extends JavaPlugin {
     @Getter
     private CustomItemHandler itemHandler;
     @Getter
-    private MultiblockItem mbItem;
+    private CraftingAlter mbItem;
     @Getter
     private RemovalWand rmWand;
     @Getter
@@ -38,7 +37,7 @@ public class HealthBlocker extends JavaPlugin {
     public void onEnable() {
         instance = this;
         this.itemHandler = new CustomItemHandler();
-        this.mbItem = new MultiblockItem().init();
+        this.mbItem = new CraftingAlter().init();
         this.rmWand = new RemovalWand().init();
         this.db = new Database().openDatabaseConnection();
         mbHandler = new MultiblockHandler(db);

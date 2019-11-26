@@ -1,7 +1,8 @@
-package me.wsman217.healthblocker.customcrafting.multiblock;
+package me.wsman217.healthblocker.multiblock;
 
 import de.tr7zw.nbtapi.NBTItem;
 import me.wsman217.healthblocker.HealthBlocker;
+import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlterHolder;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -73,7 +74,7 @@ public class RemovalWand implements Listener {
         }
 
         //NEED TO CHECK IF IT IS A MULTIBLOCK STRUCTURE.
-        MultiblockStructureHolder playersStructure = plugin.getMbHandler().getHolder(e.getPlayer());
+        CraftingAlterHolder playersStructure = plugin.getMbHandler().getHolder(e.getPlayer());
         if (!playersStructure.isSimilar(e.getClickedBlock().getLocation())) {
             e.getPlayer().sendMessage(ChatColor.RED + "You may not remove this structure as you do not own it.");
             return;

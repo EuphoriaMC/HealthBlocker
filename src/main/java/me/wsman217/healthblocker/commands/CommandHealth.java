@@ -2,6 +2,7 @@ package me.wsman217.healthblocker.commands;
 
 import me.wsman217.healthblocker.items.CustomItemHandler;
 import me.wsman217.healthblocker.items.FoodInterface;
+import me.wsman217.healthblocker.items.FoodUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -83,12 +84,9 @@ public class CommandHealth implements TabExecutor {
         //Make sure the amount is within 1 and 64
         amount = Math.max(amount, 1);
         amount = Math.min(amount, 64);
-        ItemStack customFood = food.getItemStack();
-        //Save the original amount to change back the storage inside the rams amount
-        int originalAmount = customFood.getAmount();
+        ItemStack customFood = FoodUtils.setNeedsPerm(food.getItemStack(), false);
         customFood.setAmount(amount);
         target.getInventory().addItem(customFood);
-        customFood.setAmount(originalAmount);
         p.sendMessage(ChatColor.LIGHT_PURPLE + target.getName() + " has received " + amount + " of " + food.getName());
         return true;
     }
