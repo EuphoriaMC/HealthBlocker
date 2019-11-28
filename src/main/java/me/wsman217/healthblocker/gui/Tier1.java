@@ -59,6 +59,7 @@ public class Tier1 implements Listener {
     public void onTier1Click(InventoryClickEvent e) {
         if (!(e.getInventory().getHolder() instanceof Tier1Holder))
             return;
-        GUIUtils.TierListenerStuff(e);
+        ((Tier1Holder) e.getInventory().getHolder()).naturallyClosed = false;
+        GUIUtils.TierListenerStuff(e, 1);
     }
 }

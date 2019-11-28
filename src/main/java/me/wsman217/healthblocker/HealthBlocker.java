@@ -68,6 +68,7 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new Tier2(), instance);
         pman.registerEvents(new Tier3(), instance);
         pman.registerEvents(new StopCraftClicks(), instance);
+        pman.registerEvents(new GUIUtils(), instance);
     }
 
     private void initCommands() {

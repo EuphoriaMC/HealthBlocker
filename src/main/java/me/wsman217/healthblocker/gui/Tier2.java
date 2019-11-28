@@ -45,7 +45,7 @@ public class Tier2 implements Listener {
         int foodAmount = foods.size();
         int rows = (foodAmount / 9) + 1;
 
-        Inventory inv = Bukkit.createInventory(new Tier1Holder(), rows * 9, ChatColor.GREEN + "Tier 2 Foods");
+        Inventory inv = Bukkit.createInventory(new Tier2Holder(), rows * 9, ChatColor.YELLOW + "Tier 2 Foods");
 
         //Loop through all the foods and add them to the inv then open it
         int index = 0;
@@ -61,6 +61,7 @@ public class Tier2 implements Listener {
     public void onTier2Click(InventoryClickEvent e) {
         if (!(e.getInventory().getHolder() instanceof Tier2Holder))
             return;
-        GUIUtils.TierListenerStuff(e);
+        ((Tier2Holder) e.getInventory().getHolder()).naturallyClosed = false;
+        GUIUtils.TierListenerStuff(e, 2);
     }
 }
