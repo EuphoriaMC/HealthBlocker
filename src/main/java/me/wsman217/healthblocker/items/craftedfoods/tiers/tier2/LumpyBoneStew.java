@@ -22,6 +22,7 @@ public class LumpyBoneStew implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "lumpy_bone_stew";
     private String permission = "healthblocker.food.tier2.lumpybonestew";
+    private Permission perm;
 
     public LumpyBoneStew() {
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Lumpy Bone Stew"
@@ -44,9 +45,9 @@ public class LumpyBoneStew implements FoodInterface {
         HealthBlocker plugin = HealthBlocker.getInstance();
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER2).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier2, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        this.perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier2, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -86,7 +87,7 @@ public class LumpyBoneStew implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public Permission getPermission() {
+        return perm;
     }
 }

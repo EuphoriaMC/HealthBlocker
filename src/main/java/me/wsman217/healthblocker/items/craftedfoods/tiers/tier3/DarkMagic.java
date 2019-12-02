@@ -18,6 +18,7 @@ public class DarkMagic implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "dark_magic";
     private String permission = "healthblocker.food.tier3.darkmagic";
+    private Permission perm;
 
     public DarkMagic() {
         HealthBlocker plugin = HealthBlocker.getInstance();
@@ -32,9 +33,9 @@ public class DarkMagic implements FoodInterface {
         recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("AAA", "ABA", "AAA")
                 .setIngredient('A', goldBlock).setIngredient('B', driedKelpBlock).addRecipe();
 
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier3, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier3, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class DarkMagic implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public Permission getPermission() {
+        return perm;
     }
 }

@@ -21,6 +21,7 @@ public class SpikedApple implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "spiked_apple";
     private String permission = "healthblocker.food.tier1.spikedapple";
+    private Permission perm;
 
     public SpikedApple() {
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Spiked Apple"
@@ -39,9 +40,9 @@ public class SpikedApple implements FoodInterface {
         HealthBlocker plugin = HealthBlocker.getInstance();
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier1, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier1, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class SpikedApple implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public Permission getPermission() {
+        return perm;
     }
 }

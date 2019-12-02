@@ -21,6 +21,7 @@ public class TomatoSoup implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "tomato_soup";
     private String permission = "healthblocker.food.tier1.tomatosoup";
+    private Permission perm;
 
     public TomatoSoup() {
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Tomato Soup"
@@ -39,9 +40,9 @@ public class TomatoSoup implements FoodInterface {
         HealthBlocker plugin = HealthBlocker.getInstance();
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier1, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier1, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class TomatoSoup implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public Permission getPermission() {
+        return perm;
     }
 }

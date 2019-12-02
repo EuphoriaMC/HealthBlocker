@@ -68,6 +68,14 @@ public class CustomItemHandler {
         return null;
     }
 
+    public static ArrayList<Permission> getPermissions() {
+        ArrayList<Permission> perms = new ArrayList<>();
+        for (FoodInterface cI : customFoods) {
+            perms.add(cI.getPermission());
+        }
+        return perms;
+    }
+
     private HashMap<String, Recipe.Tier> getRecipeTiers() {
         HashMap<String, Recipe.Tier> tiers = new HashMap<>();
         for (FoodInterface working : customFoods) {

@@ -9,6 +9,9 @@ commands:
     description: "Used for info about the HealthBlocker plugin."
   healthfood:
     description: "Not useful"
+  euphoriaranks:
+    description: "Why?"
+    permission: "HealthBlocker.admin"
 permissions:
   HealthBlocker.*:
     default: op

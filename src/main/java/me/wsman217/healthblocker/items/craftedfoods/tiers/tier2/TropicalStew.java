@@ -21,6 +21,7 @@ public class TropicalStew implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "tropical_stew";
     private String permission = "healthblocker.food.tier2.tropicalstew";
+    private Permission perm;
 
     public TropicalStew() {
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Tropical Stew"
@@ -39,9 +40,9 @@ public class TropicalStew implements FoodInterface {
         HealthBlocker plugin = HealthBlocker.getInstance();
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER2).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier2, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier2, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class TropicalStew implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public Permission getPermission() {
+        return perm;
     }
 }

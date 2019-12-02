@@ -18,6 +18,7 @@ public class RestoredEye implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "restored_eye";
     private String permission = "healthblocker.food.tier1.restoredeye";
+    private Permission perm;
 
     public RestoredEye() {
         HealthBlocker plugin = HealthBlocker.getInstance();
@@ -31,9 +32,9 @@ public class RestoredEye implements FoodInterface {
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1);
         recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("AAA", "ABA", "AAA")
                 .setIngredient('A', string).setIngredient('B', spiderEye).addRecipe();
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier1, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier1, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class RestoredEye implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public Permission getPermission() {
+        return perm;
     }
 }

@@ -27,6 +27,7 @@ public class AppleJuice implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "apple_juice";
     private String permission = "healthblocker.food.tier1.applejuice";
+    private Permission perm;
 
     public AppleJuice() {
         HealthBlocker plugin = HealthBlocker.getInstance();
@@ -52,9 +53,9 @@ public class AppleJuice implements FoodInterface {
         recipe.createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
         //Create the items permission
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier1, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier1, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -99,7 +100,7 @@ public class AppleJuice implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public Permission getPermission() {
+        return perm;
     }
 }

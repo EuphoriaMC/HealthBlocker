@@ -21,6 +21,7 @@ public class CherryPie implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "cherry_pie";
     private String permission = "healthblocker.food.tier2.cherrypie";
+    private Permission perm;
 
     public CherryPie() {
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Cherry Pie"
@@ -39,9 +40,9 @@ public class CherryPie implements FoodInterface {
         HealthBlocker plugin = HealthBlocker.getInstance();
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER2).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier2, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier2, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class CherryPie implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return null;
+    public Permission getPermission() {
+        return perm;
     }
 }

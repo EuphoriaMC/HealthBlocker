@@ -3,6 +3,7 @@ package me.wsman217.healthblocker.items;
 import me.wsman217.healthblocker.recipeutils.Recipe;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permission;
 
 public interface FoodInterface {
     Material getMat();
@@ -19,5 +20,5 @@ public interface FoodInterface {
 
     String getNamespace();
 
-    String getPermission();
+    Permission getPermission();
 }

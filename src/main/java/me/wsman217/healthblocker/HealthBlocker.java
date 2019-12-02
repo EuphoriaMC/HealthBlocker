@@ -3,6 +3,8 @@ package me.wsman217.healthblocker;
 import lombok.Getter;
 import me.wsman217.healthblocker.commands.CommandHealth;
 import me.wsman217.healthblocker.commands.CommandHealthFood;
+import me.wsman217.healthblocker.commands.EuphoriaRanks;
+import me.wsman217.healthblocker.listeners.EntityClickListener;
 import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlter;
 import me.wsman217.healthblocker.multiblock.RemovalWand;
 import me.wsman217.healthblocker.database.Database;
@@ -12,7 +14,9 @@ import me.wsman217.healthblocker.items.CustomItemHandler;
 import me.wsman217.healthblocker.listeners.CraftingListener;
 import me.wsman217.healthblocker.listeners.EatingListener;
 import me.wsman217.healthblocker.listeners.JoinListener;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,18 +46,30 @@ public class HealthBlocker extends JavaPlugin {
         this.db = new Database().openDatabaseConnection();
         mbHandler = new MultiblockHandler(db);
         mbHandler.generateTable();
-        initListeners();
         initCommands();
+        initListeners();
     }
 
     @Override
     public void onDisable() {
-        Iterator recipeIterator = this.getServer().recipeIterator();
+        Iterator<Recipe> recipeIterator = this.getServer().recipeIterator();
         while (recipeIterator.hasNext()) {
-            Recipe recipe = (Recipe) recipeIterator.next();
-            recipe.getResult();
+            Recipe recipe = recipeIterator.next();
+            ItemStack result = recipe.getResult();
+
+            if (CustomItemHandler.getByItemStack(result) != null)
+                recipeIterator.remove();
         }
-        this.getServer().resetRecipes();
+        this.getServer().clearRecipes();
+        while (recipeIterator.hasNext()) {
+            Recipe recipe = recipeIterator.next();
+            this.getServer().addRecipe(recipe);
+        }
+        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier1);
+        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier2);
+        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier3);
+        for (Permission perm : CustomItemHandler.getPermissions())
+            this.getServer().getPluginManager().removePermission(perm);
     }
 
     private void initListeners() {
@@ -69,6 +85,7 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new Tier3(), instance);
         pman.registerEvents(new StopCraftClicks(), instance);
         pman.registerEvents(new GUIUtils(), instance);
+        pman.registerEvents(new EntityClickListener(), instance);
     }
 
     private void initCommands() {
@@ -78,5 +95,6 @@ public class HealthBlocker extends JavaPlugin {
         CommandHealthFood cHealthFood = new CommandHealthFood();
         this.getCommand("healthfood").setExecutor(cHealthFood);
         this.getCommand("healthfood").setExecutor(cHealthFood);
+        this.getCommand("euphoriaranks").setExecutor(new EuphoriaRanks());
     }
 }

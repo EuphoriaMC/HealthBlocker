@@ -18,6 +18,7 @@ public class GrandmasCookies implements FoodInterface {
     private Recipe recipe;
     private String nameSpace = "grandmas_cookie";
     private String permission = "healthblocker.food.tier1.grandmascookies";
+    private Permission perm;
 
     public GrandmasCookies() {
         HealthBlocker plugin = HealthBlocker.getInstance();
@@ -31,9 +32,9 @@ public class GrandmasCookies implements FoodInterface {
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1);
         recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("ABA")
                 .setIngredient('A', redBlock).setIngredient('B', cookie).addRecipe();
-        Permission permission = new Permission(this.permission);
-        permission.addParent(CustomItemHandler.tier1, true);
-        plugin.getServer().getPluginManager().addPermission(permission);
+        perm = new Permission(this.permission);
+        perm.addParent(CustomItemHandler.tier1, true);
+        plugin.getServer().getPluginManager().addPermission(perm);
     }
 
     @Override
@@ -73,8 +74,8 @@ public class GrandmasCookies implements FoodInterface {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public Permission getPermission() {
+        return perm;
     }
 
 }
