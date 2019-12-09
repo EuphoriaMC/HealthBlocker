@@ -4,7 +4,7 @@ import lombok.Getter;
 import me.wsman217.healthblocker.commands.CommandHealth;
 import me.wsman217.healthblocker.commands.CommandHealthFood;
 import me.wsman217.healthblocker.commands.EuphoriaRanks;
-import me.wsman217.healthblocker.listeners.EntityClickListener;
+import me.wsman217.healthblocker.listeners.ClickListeners;
 import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlter;
 import me.wsman217.healthblocker.multiblock.RemovalWand;
 import me.wsman217.healthblocker.database.Database;
@@ -85,7 +85,7 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new Tier3(), instance);
         pman.registerEvents(new StopCraftClicks(), instance);
         pman.registerEvents(new GUIUtils(), instance);
-        pman.registerEvents(new EntityClickListener(), instance);
+        pman.registerEvents(new ClickListeners(), instance);
     }
 
     private void initCommands() {

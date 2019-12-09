@@ -1,5 +1,6 @@
 package me.wsman217.healthblocker.items;
 
+import de.tr7zw.nbtapi.NBTItem;
 import lombok.Getter;
 import me.wsman217.healthblocker.HealthBlocker;
 import me.wsman217.healthblocker.items.craftedfoods.tiers.tier1.*;
@@ -62,9 +63,13 @@ public class CustomItemHandler {
     }
 
     public static FoodInterface getByItemStack(ItemStack toCompare) {
-        for (FoodInterface cI : customFoods)
-            if (cI.getItemStack().isSimilar(toCompare))
+        for (FoodInterface cI : customFoods) {
+            NBTItem nbtItem = new NBTItem(cI.getItemStack());
+            nbtItem.setBoolean("need_perm", false);
+            ItemStack cIWithoutPerm = nbtItem.getItem();
+            if (cI.getItemStack().isSimilar(toCompare) || cIWithoutPerm.isSimilar(toCompare))
                 return cI;
+        }
         return null;
     }
 
