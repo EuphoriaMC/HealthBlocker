@@ -3,6 +3,7 @@ package me.wsman217.healthblocker.listeners;
 import me.wsman217.healthblocker.commands.EuphoriaRanks;
 import me.wsman217.healthblocker.items.CustomItemHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -43,8 +44,7 @@ public class ClickListeners implements Listener {
     public void onPlayerRightClickCustomFood(PlayerInteractEvent e) {
         if (e.getHand() == EquipmentSlot.OFF_HAND)
             return;
-
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getAction() == Action.RIGHT_CLICK_AIR) {
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_AIR) {
             return;
         }
         if (e.getItem() == null)
@@ -56,13 +56,15 @@ public class ClickListeners implements Listener {
 
         Player p = e.getPlayer();
         int foodLevel = p.getFoodLevel();
-        if (foodLevel != 20)
-            return;
-        if (p.getHealth() >= p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue())
+        if (foodLevel < 20)
             return;
 
+        if (p.getHealth() >= p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
+            p.sendMessage(ChatColor.LIGHT_PURPLE + "You do not need to eat this food.");
+            e.setCancelled(true);
+            return;
+        }
         p.setFoodLevel(19);
-        System.out.println(p.getFoodLevel());
     }
 
     private void sendCommand(String rank, String player) {
