@@ -42,19 +42,19 @@ public class EuphoriaRanks implements CommandExecutor {
 
         switch (rank) {
             case "vip":
-                p.sendMessage("Placeholder vip message");
+                p.sendMessage(ChatColor.GOLD + "This is our first donation rank, VIP! Use command /buy to purchase this rank.");
                 return true;
             case "mvp":
-                p.sendMessage("Placeholder mvp message");
+                p.sendMessage(ChatColor.AQUA + "This is our second donation rank, MVP! Use command /buy to purchase this rank.");
                 return true;
             case "elite":
-                p.sendMessage("Placeholder elite message");
+                p.sendMessage(ChatColor.GREEN + "This is our third donation rank, Elite! Use command /buy to purchase this rank.");
                 return true;
             case "master":
-                p.sendMessage("Placeholder master message");
+                p.sendMessage(ChatColor.LIGHT_PURPLE + "This is our fourth donation rank, Master! Use command /buy to purchase this rank.");
                 return true;
             case "euphoric":
-                p.sendMessage("Placeholder euphoric message");
+                p.sendMessage(ChatColor.DARK_PURPLE + "Our final donation rank, Euphoric! Use command /buy to purchase this rank.");
                 return true;
             default:
                 sender.sendMessage(ChatColor.RED + "The rank entered is not a valid rank.");

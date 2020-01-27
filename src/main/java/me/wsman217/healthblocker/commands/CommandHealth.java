@@ -49,10 +49,10 @@ public class CommandHealth implements TabExecutor {
     private boolean helpArg(Player p) {
         p.sendMessage(ChatColor.LIGHT_PURPLE + "EuphoriaMC has a custom plugin that twists the way your health regenerates. " +
                 "Instead of relying on your hunger bar, you must rely on natural regeneration effects (potions, beacons, etc.) " +
-                "and our custom foods that will regenerate your health and your hunger. To view these food type the command " +
-                ChatColor.BOLD + "" + ChatColor.GRAY + "/healthfood. " + ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "This " +
-                "will show you a how to craft our custom foods and how many hearts they regenerate. You can " +
-                "also view this on the "  + ChatColor.BOLD + "" + ChatColor.GRAY + "/discord.");
+                "and our custom foods that will regenerate your health and your hunger. To view these foods, type the command " +
+                ChatColor.GRAY + "/healthfood. " + ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "This " +
+                "will show you how to craft our custom foods and how many hearts they regenerate. You can " +
+                "also view these foods on the "  + ChatColor.BOLD + "" + ChatColor.GRAY + "/discord.");
         return true;
     }
 
