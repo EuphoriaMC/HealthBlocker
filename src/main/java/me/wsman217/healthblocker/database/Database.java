@@ -13,8 +13,8 @@ public class Database {
     public Database openDatabaseConnection() {
         try {
 
-            connection = DriverManager.getConnection("jdbc:mysql://" + "178.63.157.86" + ":" + "3306" + "/"
-                    + "s736_HealthBlocker", "u736_PjCkOAmgDv", "mtetjErRgtdkcs7bx9qcvE6X");
+            connection = DriverManager.getConnection("jdbc:mysql://" + "178.63.127.184" + ":" + "3306" + "/"
+                    + "s882_healthblocker", "u882_ZxAHbgFngY", "PV52pW8cdpDjIm9PQI8GazBq");
 
         } catch (SQLException sQLException) {
             System.out.println("ERROR CONNECTING TO DATABASE!");

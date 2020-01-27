@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -57,10 +58,14 @@ public class CategoryView implements Listener {
 
     public void openInv() {
         //Create the inventory and add the items to it
-        Inventory inv = Bukkit.createInventory(new MainHolder(), 9, INV_NAME);
-        inv.setItem(2, tier1Item);
+        //Inventory inv = Bukkit.createInventory(new MainHolder(), 9, INV_NAME);
+        Inventory inv = Bukkit.createInventory(new MainHolder(), InventoryType.HOPPER, INV_NAME);
+        /*inv.setItem(2, tier1Item);
         inv.setItem(4, tier2Item);
-        inv.setItem(6, tier3Item);
+        inv.setItem(6, tier3Item);*/
+        inv.setItem(0, tier1Item);
+        inv.setItem(2, tier2Item);
+        inv.setItem(4, tier3Item);
         p.openInventory(inv);
     }
 
