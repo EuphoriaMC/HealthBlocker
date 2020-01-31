@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 
+@Deprecated
 public class TypeFurnaceRecipe implements RecipeType {
 
     private NamespacedKey key;

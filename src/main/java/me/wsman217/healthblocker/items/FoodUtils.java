@@ -1,7 +1,6 @@
 package me.wsman217.healthblocker.items;
 
 import de.tr7zw.nbtapi.NBTItem;
-import me.wsman217.healthblocker.items.CustomItemHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

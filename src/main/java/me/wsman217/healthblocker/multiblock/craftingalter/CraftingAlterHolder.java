@@ -52,7 +52,7 @@ public class CraftingAlterHolder {
                 && holder.redstoneBlock.getLocation().equals(this.redstoneBlock.getLocation()) && holder.pistonHead.getLocation().equals(this.pistonHead.getLocation());
     }
 
-    CraftingAlterHolder createStructure() {
+    void createStructure() {
         this.redstoneBlock.breakNaturally();
         this.pistonHead.breakNaturally();
         innEdge1.breakNaturally();
@@ -86,10 +86,9 @@ public class CraftingAlterHolder {
             corner3.setBlockData(daylightDetectorData);
             corner4.setBlockData(daylightDetectorData);
         }, 3L);
-        return this;
     }
 
-    public CraftingAlterHolder removeStructure() {
+    public void removeStructure() {
         this.redstoneBlock.setType(Material.AIR);
         this.pistonHead.setType(Material.AIR);
         this.innEdge1.setType(Material.AIR);
@@ -111,6 +110,5 @@ public class CraftingAlterHolder {
         Bukkit.getScheduler().scheduleSyncDelayedTask(HealthBlocker.getInstance(), () ->
                         world.dropItem(this.redstoneBlock.getLocation().add(0, 5, 0), CraftingAlter.item)
                 , 3L);
-        return this;
     }
 }

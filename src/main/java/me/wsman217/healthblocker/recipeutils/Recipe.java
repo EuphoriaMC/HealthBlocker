@@ -1,8 +1,6 @@
 package me.wsman217.healthblocker.recipeutils;
 
-import lombok.Getter;
 import me.wsman217.healthblocker.recipeutils.types.RecipeType;
-import me.wsman217.healthblocker.recipeutils.types.TypeFurnaceRecipe;
 import me.wsman217.healthblocker.recipeutils.types.TypeShapedRecipe;
 import me.wsman217.healthblocker.recipeutils.types.TypeShapelessRecipe;
 import org.bukkit.NamespacedKey;
@@ -17,10 +15,10 @@ public class Recipe {
     private Tier recipeTier;
 
     //Not in use because furnace recipes are hard to restrict
-    public Recipe createFurnaceRecipe(NamespacedKey key, ItemStack input, ItemStack output, float exp, int cookTime) {
+    /*public Recipe createFurnaceRecipe(NamespacedKey key, ItemStack input, ItemStack output, float exp, int cookTime) {
         this.recipe = new TypeFurnaceRecipe(key, input, output, exp, cookTime);
         return this;
-    }
+    }*/
 
     /**
      * Create shapeless recipes.
@@ -65,8 +63,6 @@ public class Recipe {
     public enum Tier {
         TIER1(),
         TIER2(),
-        TIER3;
-
-        public static final int total = 3;
+        TIER3
     }
 }
