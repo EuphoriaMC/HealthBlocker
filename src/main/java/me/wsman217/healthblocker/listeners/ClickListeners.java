@@ -42,8 +42,6 @@ public class ClickListeners implements Listener {
 
     @EventHandler
     public void onPlayerRightClickCustomFood(PlayerInteractEvent e) {
-        if (e.getHand() == EquipmentSlot.OFF_HAND)
-            return;
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_AIR) {
             return;
         }
@@ -58,7 +56,6 @@ public class ClickListeners implements Listener {
         int foodLevel = p.getFoodLevel();
         if (foodLevel < 20)
             return;
-
         if (p.getHealth() >= p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
             p.sendMessage(ChatColor.LIGHT_PURPLE + "You do not need to eat this food.");
             e.setCancelled(true);

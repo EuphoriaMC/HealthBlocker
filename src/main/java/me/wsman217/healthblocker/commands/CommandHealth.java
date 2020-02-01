@@ -32,16 +32,17 @@ public class CommandHealth implements TabExecutor {
                 !p.hasPermission("Healthblocker.admin"))
             return helpArg(p);
         if (args[0].equalsIgnoreCase("give")) {
-            if (args.length >= 3) {
+            if (args.length >= 4) {
                 //Take all the arguments after the first index to the last
                 ArrayList<String> newArgs = new ArrayList<>(Arrays.asList(args).subList(1, args.length));
                 String target = newArgs.get(0);
                 String foodName = newArgs.get(1);
                 //If they didn't give an amount auto put 1
                 String amount = newArgs.size() == 2 ? "1" : newArgs.get(2);
-                return giveArg(p, true, target, foodName, amount);
+                String lean = newArgs.get(3);
+                return giveArg(p, true, target, foodName, amount, lean);
             } else
-                return giveArg(p, false, null, null, null);
+                return giveArg(p, false, null, null, null, "true");
         }
         return true;
     }
@@ -52,18 +53,18 @@ public class CommandHealth implements TabExecutor {
                 "and our custom foods that will regenerate your health and your hunger. To view these foods, type the command " +
                 ChatColor.GRAY + "/healthfood. " + ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "This " +
                 "will show you how to craft our custom foods and how many hearts they regenerate. You can " +
-                "also view these foods on the "  + ChatColor.BOLD + "" + ChatColor.GRAY + "/discord.");
+                "also view these foods on the " + ChatColor.BOLD + "" + ChatColor.GRAY + "/discord.");
         return true;
     }
 
-    private boolean giveArg(Player p, boolean hasFood, String tar, String foodType, String amo) {
+    private boolean giveArg(Player p, boolean hasFood, String tar, String foodType, String amo, String lean) {
 
         if (!hasFood) {
             p.sendMessage(ChatColor.DARK_PURPLE + "=-=-=-=-Custom Foods-=-=-=-=");
             p.sendMessage(ChatColor.GREEN + "grandmas_cookie, restored_eye, spiked_apple, tomato_soup");
             p.sendMessage(ChatColor.YELLOW + "cherry_pie, lumpy_bone_stew, tropical_stew");
             p.sendMessage(ChatColor.LIGHT_PURPLE + "dark_magic");
-            p.sendMessage(ChatColor.DARK_PURPLE + "Command usage; /health give target [custom food] [amount]");
+            p.sendMessage(ChatColor.DARK_PURPLE + "Command usage; /health give target [custom food] [amount] [need permission to eat]");
             return true;
         }
 
@@ -88,9 +89,16 @@ public class CommandHealth implements TabExecutor {
         //Make sure the amount is within 1 and 64
         amount = Math.max(amount, 1);
         amount = Math.min(amount, 64);
-        ItemStack customFood = FoodUtils.setNeedsPerm(food.getItemStack(), false);
-        customFood.setAmount(amount);
-        target.getInventory().addItem(customFood);
+
+        boolean needPerms = Boolean.parseBoolean(lean);
+        ItemStack customFood = FoodUtils.setNeedsPerm(food.getItemStack(), needPerms);
+        if (customFood.getMaxStackSize() > amount) {
+            customFood.setAmount(amount);
+            target.getInventory().addItem(customFood);
+        }
+        else
+            for (int i = 0; i < amount; i++)
+                target.getInventory().addItem(customFood);
         p.sendMessage(ChatColor.LIGHT_PURPLE + target.getName() + " has received " + amount + " of " + food.getName());
         return true;
     }

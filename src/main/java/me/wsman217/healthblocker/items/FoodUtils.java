@@ -39,6 +39,14 @@ public class FoodUtils {
             return item;
         NBTItem nbtItem = new NBTItem(item);
         nbtItem.setBoolean("need_perm", needsPerm);
-        return nbtItem.getItem();
+        ItemStack updatedItem = nbtItem.getItem();
+        if (!needsPerm) {
+            ItemMeta im = updatedItem.getItemMeta();
+            List<String> lore = im.getLore();
+            lore.add(ChatColor.LIGHT_PURPLE + "This food can be eaten by anyone.");
+            im.setLore(lore);
+            updatedItem.setItemMeta(im);
+        }
+        return updatedItem;
     }
 }
