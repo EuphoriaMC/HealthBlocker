@@ -1,6 +1,5 @@
 package me.wsman217.healthblocker.gui;
 
-import me.wsman217.healthblocker.gui.holders.Tier1Holder;
 import me.wsman217.healthblocker.gui.holders.Tier2Holder;
 import me.wsman217.healthblocker.items.CustomItemHandler;
 import me.wsman217.healthblocker.items.FoodInterface;

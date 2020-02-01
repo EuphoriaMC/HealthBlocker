@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class Database {
     private Connection connection;
-    private HealthBlocker plugin = HealthBlocker.getInstance();
 
     public Database openDatabaseConnection() {
         try {
@@ -23,7 +22,7 @@ public class Database {
         return this;
     }
 
-    public Database closeConnection() {
+    /*public Database closeConnection() {
         try {
             connection.close();
         } catch (SQLException sQLException) {
@@ -31,7 +30,7 @@ public class Database {
             sQLException.printStackTrace();
         }
         return this;
-    }
+    }*/
 
     Connection getConnection() {
         try {

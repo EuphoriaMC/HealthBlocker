@@ -4,8 +4,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
 public class MainHolder implements InventoryHolder {
+
+    private Inventory inv = null;
     @Override
     public Inventory getInventory() {
-        return null;
+        return inv;
     }
 }

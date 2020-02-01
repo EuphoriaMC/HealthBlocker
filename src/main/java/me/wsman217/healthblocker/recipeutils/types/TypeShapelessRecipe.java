@@ -11,14 +11,12 @@ import java.util.HashMap;
 
 public class TypeShapelessRecipe implements RecipeType {
 
-    private NamespacedKey key;
     @Getter
     private ArrayList<HashMap<ItemStack, Integer>> inputs;
     @Getter
     private ItemStack output;
 
     public TypeShapelessRecipe(NamespacedKey key, ArrayList<HashMap<ItemStack, Integer>> inputs, ItemStack output) {
-        this.key = key;
         this.inputs = inputs;
         this.output = output;
 
