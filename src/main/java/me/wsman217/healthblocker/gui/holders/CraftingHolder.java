@@ -7,10 +7,11 @@ public class CraftingHolder implements InventoryHolder {
 
     private int tier;
     public boolean naturallyClosed = true;
+    private Inventory inv = null;
 
     @Override
     public Inventory getInventory() {
-        return null;
+        return inv;
     }
 
     public CraftingHolder setTier(int tier) {

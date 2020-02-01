@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 public class TypeShapedRecipe implements RecipeType {
 
-    private NamespacedKey key;
     private ShapedRecipe recipe;
     @Getter
     private ItemStack output;
@@ -20,7 +19,6 @@ public class TypeShapedRecipe implements RecipeType {
     String[] shape;
 
     public TypeShapedRecipe(NamespacedKey key, ItemStack output) {
-        this.key = key;
         this.output = output;
         this.recipe = new ShapedRecipe(key, output);
     }
