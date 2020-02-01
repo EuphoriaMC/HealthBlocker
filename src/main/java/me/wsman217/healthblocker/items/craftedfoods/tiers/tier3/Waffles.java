@@ -1,9 +1,10 @@
-package me.wsman217.healthblocker.items.craftedfoods.tiers.tier1;
+package me.wsman217.healthblocker.items.craftedfoods.tiers.tier3;
 
 import me.wsman217.healthblocker.HealthBlocker;
 import me.wsman217.healthblocker.items.CustomItemHandler;
 import me.wsman217.healthblocker.items.FoodInterface;
 import me.wsman217.healthblocker.items.FoodUtils;
+import me.wsman217.healthblocker.items.craftedfoods.tiers.tier1.GlassOfMilk;
 import me.wsman217.healthblocker.recipeutils.Recipe;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -11,29 +12,34 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 
-public class GrandmasCookies implements FoodInterface {
+public class Waffles implements FoodInterface {
 
     private Material mat = Material.COOKIE;
     private ItemStack item;
     private Recipe recipe;
-    private String nameSpace = "grandmas_cookie";
-    private String permission = "healthblocker.food.tier1.grandmascookies";
+    private String nameSpace = "waffles";
+    private String permission = "healthblocker.food.tier3.waffles";
     private Permission perm;
 
-    public GrandmasCookies() {
+    public Waffles() {
         HealthBlocker plugin = HealthBlocker.getInstance();
 
-        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Grandma's Cookies"
+        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Waffles"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
 
         ItemStack cookie = new ItemStack(Material.COOKIE, 1);
-        ItemStack redBlock = new ItemStack(Material.REDSTONE_BLOCK, 1);
+        ItemStack wheat = new ItemStack(Material.WHEAT, 1);
+        ItemStack sugar = new ItemStack(Material.SUGAR, 1);
+        ItemStack milk = new ItemStack(Material.MILK_BUCKET, 1);
+        ItemStack grill = new ItemStack(Material.MAGMA_BLOCK, 1);
 
-        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1);
-        recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("ABA")
-                .setIngredient('A', redBlock).setIngredient('B', cookie).addRecipe();
+        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER3);
+        recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("WSW", "MCM", "GGG")
+                .setIngredient('W', wheat).setIngredient('S', sugar).setIngredient('M', milk)
+                .setIngredient('C', cookie).setIngredient('G', grill).addRecipe();
+
         perm = new Permission(this.permission);
-        perm.addParent(CustomItemHandler.tier1, true);
+        perm.addParent(CustomItemHandler.tier3, true);
         plugin.getServer().getPluginManager().addPermission(perm);
     }
 
@@ -54,7 +60,7 @@ public class GrandmasCookies implements FoodInterface {
 
     @Override
     public ItemStack getItemStack() {
-        return FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Grandma's Cookies"
+        return FoodUtils.getItemStack(mat, nameSpace, ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Waffles"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
     }
 
@@ -65,7 +71,7 @@ public class GrandmasCookies implements FoodInterface {
 
     @Override
     public int getHealthRegenned() {
-        return 4;
+        return 16;
     }
 
     @Override
@@ -77,5 +83,4 @@ public class GrandmasCookies implements FoodInterface {
     public Permission getPermission() {
         return perm;
     }
-
 }

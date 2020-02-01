@@ -1,4 +1,4 @@
-package me.wsman217.healthblocker.items.craftedfoods.tiers.tier1;
+package me.wsman217.healthblocker.items.craftedfoods.tiers.tier3;
 
 import me.wsman217.healthblocker.HealthBlocker;
 import me.wsman217.healthblocker.items.CustomItemHandler;
@@ -6,55 +6,45 @@ import me.wsman217.healthblocker.items.FoodInterface;
 import me.wsman217.healthblocker.items.FoodUtils;
 import me.wsman217.healthblocker.recipeutils.Recipe;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.permissions.Permission;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/*
-Most of the custom item classes are built off of a sort of template so all of the classes are very similar with minor changes.
- */
-public class AppleJuice implements FoodInterface {
+public class Spaghetti implements FoodInterface {
 
-    private Material mat = Material.POTION;
+    private Material mat = Material.BEETROOT_SOUP;
     private ItemStack item;
     private Recipe recipe;
-    private String nameSpace = "apple_juice";
-    private String permission = "healthblocker.food.tier1.applejuice";
+    private String nameSpace = "spaghetti";
+    private String permission = "healthblocker.food.tier3.spaghetti";
     private Permission perm;
 
-    public AppleJuice() {
+    public Spaghetti() {
         HealthBlocker plugin = HealthBlocker.getInstance();
 
-        //Create the item and add the custom nvt
-        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Apple Juice"
+        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Spaghetti"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
-        PotionMeta pm = (PotionMeta) item.getItemMeta();
-        pm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-        pm.setColor(Color.fromBGR(50, 0, 255));
-        item.setItemMeta(pm);
 
-        //Create the items recipe
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
-        HashMap<ItemStack, Integer> apple = new HashMap<>();
-        apple.put(new ItemStack(Material.APPLE, 1), 1);
-        inputs.add(apple);
-        HashMap<ItemStack, Integer> glassBottle = new HashMap<>();
-        glassBottle.put(new ItemStack(Material.GLASS_BOTTLE, 1), 1);
-        inputs.add(glassBottle);
+        HashMap<ItemStack, Integer> soup = new HashMap<>();
+        soup.put(new ItemStack(Material.BEETROOT_SOUP, 1), 1);
+        inputs.add(soup);
+        HashMap<ItemStack, Integer> tomatoes = new HashMap<>();
+        tomatoes.put(new ItemStack(Material.BEETROOT, 1), 2);
+        inputs.add(tomatoes);
+        HashMap<ItemStack, Integer> noodles = new HashMap<>();
+        tomatoes.put(new ItemStack(Material.SUGAR_CANE, 1), 3);
+        inputs.add(noodles);
 
-        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1);
+        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER3);
         recipe.createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
-        //Create the items permission
         perm = new Permission(this.permission);
-        perm.addParent(CustomItemHandler.tier1, true);
+        perm.addParent(CustomItemHandler.tier3, true);
         plugin.getServer().getPluginManager().addPermission(perm);
     }
 
@@ -75,13 +65,8 @@ public class AppleJuice implements FoodInterface {
 
     @Override
     public ItemStack getItemStack() {
-        ItemStack item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Apple Juice"
+        return FoodUtils.getItemStack(mat, nameSpace, ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Spaghetti"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
-        PotionMeta pm = (PotionMeta) item.getItemMeta();
-        pm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-        pm.setColor(Color.fromBGR(50, 0, 255));
-        item.setItemMeta(pm);
-        return item;
     }
 
     @Override
@@ -91,7 +76,7 @@ public class AppleJuice implements FoodInterface {
 
     @Override
     public int getHealthRegenned() {
-        return 4;
+        return 15;
     }
 
     @Override

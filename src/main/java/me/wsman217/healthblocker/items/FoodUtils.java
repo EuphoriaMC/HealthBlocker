@@ -42,7 +42,7 @@ public class FoodUtils {
         if (!needsPerm) {
             ItemMeta im = updatedItem.getItemMeta();
             List<String> lore = im.getLore();
-            lore.add(ChatColor.LIGHT_PURPLE + "This food can be eaten by anyone.");
+            lore.add(ChatColor.GRAY + "This food can be eaten by anyone.");
             im.setLore(lore);
             updatedItem.setItemMeta(im);
         }

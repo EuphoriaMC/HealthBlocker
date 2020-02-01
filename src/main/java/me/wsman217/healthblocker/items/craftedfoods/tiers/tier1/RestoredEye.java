@@ -24,7 +24,7 @@ public class RestoredEye implements FoodInterface {
         HealthBlocker plugin = HealthBlocker.getInstance();
 
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Restored Eye"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
 
         ItemStack string = new ItemStack(Material.STRING, 1);
         ItemStack spiderEye = new ItemStack(Material.SPIDER_EYE, 1);
@@ -55,7 +55,7 @@ public class RestoredEye implements FoodInterface {
     @Override
     public ItemStack getItemStack() {
         return FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Restored Eye"
-                , ChatColor.LIGHT_PURPLE + "Restores half a heart.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
     }
 
     @Override

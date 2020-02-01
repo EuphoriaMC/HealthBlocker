@@ -25,7 +25,7 @@ public class TropicalStew implements FoodInterface {
 
     public TropicalStew() {
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Tropical Stew"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
 
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class TropicalStew implements FoodInterface {
     @Override
     public ItemStack getItemStack() {
         return FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Tropical Stew"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
     }
 
     @Override

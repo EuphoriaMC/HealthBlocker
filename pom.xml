@@ -63,8 +63,8 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>D:\DevServers\1.14.4Server\plugins</outputDirectory>
-                    <!--<outputDirectory>E:\DevServers\1.14.4Server\plugins</outputDirectory>-->
+                    <!--<outputDirectory>D:\DevServers\1.14.4Server\plugins</outputDirectory>-->
+                    <outputDirectory>E:\DevServers\1.14.4Server\plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>

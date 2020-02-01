@@ -25,7 +25,7 @@ public class SpikedApple implements FoodInterface {
 
     public SpikedApple() {
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Spiked Apple"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
 
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class SpikedApple implements FoodInterface {
     @Override
     public ItemStack getItemStack() {
         return FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Spiked Apple"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
     }
 
     @Override

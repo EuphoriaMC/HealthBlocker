@@ -26,7 +26,7 @@ public class LumpyBoneStew implements FoodInterface {
 
     public LumpyBoneStew() {
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Lumpy Bone Stew"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
 
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class LumpyBoneStew implements FoodInterface {
     @Override
     public ItemStack getItemStack() {
         return FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Lumpy Bone Stew"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
     }
 
     @Override

@@ -20,31 +20,30 @@ import java.util.HashMap;
 /*
 Most of the custom item classes are built off of a sort of template so all of the classes are very similar with minor changes.
  */
-public class AppleJuice implements FoodInterface {
+public class GlassOfMilk implements FoodInterface {
 
     private Material mat = Material.POTION;
     private ItemStack item;
     private Recipe recipe;
-    private String nameSpace = "apple_juice";
-    private String permission = "healthblocker.food.tier1.applejuice";
+    private String nameSpace = "glass_of_milk";
+    private String permission = "healthblocker.food.tier1.glass_of_milk";
     private Permission perm;
 
-    public AppleJuice() {
+    public GlassOfMilk() {
         HealthBlocker plugin = HealthBlocker.getInstance();
 
-        //Create the item and add the custom nvt
-        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Apple Juice"
+        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Glass of Milk"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
         PotionMeta pm = (PotionMeta) item.getItemMeta();
         pm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-        pm.setColor(Color.fromBGR(50, 0, 255));
+        pm.setColor(Color.fromBGR(255, 255, 255));
         item.setItemMeta(pm);
 
         //Create the items recipe
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
-        HashMap<ItemStack, Integer> apple = new HashMap<>();
-        apple.put(new ItemStack(Material.APPLE, 1), 1);
-        inputs.add(apple);
+        HashMap<ItemStack, Integer> milk = new HashMap<>();
+        milk.put(new ItemStack(Material.MILK_BUCKET, 1), 1);
+        inputs.add(milk);
         HashMap<ItemStack, Integer> glassBottle = new HashMap<>();
         glassBottle.put(new ItemStack(Material.GLASS_BOTTLE, 1), 1);
         inputs.add(glassBottle);
@@ -75,11 +74,11 @@ public class AppleJuice implements FoodInterface {
 
     @Override
     public ItemStack getItemStack() {
-        ItemStack item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Apple Juice"
+        ItemStack item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Glass of Milk"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
         PotionMeta pm = (PotionMeta) item.getItemMeta();
         pm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-        pm.setColor(Color.fromBGR(50, 0, 255));
+        pm.setColor(Color.fromBGR(255, 255, 255));
         item.setItemMeta(pm);
         return item;
     }
@@ -91,7 +90,7 @@ public class AppleJuice implements FoodInterface {
 
     @Override
     public int getHealthRegenned() {
-        return 4;
+        return 5;
     }
 
     @Override

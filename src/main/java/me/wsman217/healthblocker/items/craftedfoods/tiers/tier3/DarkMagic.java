@@ -24,7 +24,7 @@ public class DarkMagic implements FoodInterface {
         HealthBlocker plugin = HealthBlocker.getInstance();
 
         this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Dark Magic"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
 
         ItemStack driedKelpBlock = new ItemStack(Material.DRIED_KELP_BLOCK, 1);
         ItemStack goldBlock = new ItemStack(Material.GOLD_BLOCK, 1);
@@ -56,7 +56,7 @@ public class DarkMagic implements FoodInterface {
     @Override
     public ItemStack getItemStack() {
         return FoodUtils.getItemStack(mat, nameSpace, ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Dark Magic"
-                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2 + " hearts.");
+                , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
     }
 
     @Override
