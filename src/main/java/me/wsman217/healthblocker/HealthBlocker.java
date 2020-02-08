@@ -52,6 +52,12 @@ public class HealthBlocker extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier1);
+        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier2);
+        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier3);
+        for (Permission perm : CustomItemHandler.getPermissions())
+            this.getServer().getPluginManager().removePermission(perm);
+
         Iterator<Recipe> recipeIterator = this.getServer().recipeIterator();
         while (recipeIterator.hasNext()) {
             Recipe recipe = recipeIterator.next();
@@ -65,11 +71,6 @@ public class HealthBlocker extends JavaPlugin {
             Recipe recipe = recipeIterator.next();
             this.getServer().addRecipe(recipe);
         }
-        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier1);
-        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier2);
-        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier3);
-        for (Permission perm : CustomItemHandler.getPermissions())
-            this.getServer().getPluginManager().removePermission(perm);
     }
 
     private void initListeners() {

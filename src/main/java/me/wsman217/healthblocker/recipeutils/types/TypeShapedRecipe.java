@@ -16,7 +16,7 @@ public class TypeShapedRecipe implements RecipeType {
     @Getter
     private HashMap<Character, ItemStack> inputs = new HashMap<>();
     @Getter
-    String[] shape;
+    private String[] shape;
 
     public TypeShapedRecipe(NamespacedKey key, ItemStack output) {
         this.output = output;
