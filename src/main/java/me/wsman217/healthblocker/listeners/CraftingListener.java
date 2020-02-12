@@ -9,18 +9,18 @@ import me.wsman217.healthblocker.recipeutils.types.TypeShapelessRecipe;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CraftingListener implements Listener {
 
@@ -77,20 +77,102 @@ public class CraftingListener implements Listener {
 
         Recipe recipe = foodType.getRecipe();
         if (recipe.getRecipeType() instanceof TypeShapedRecipe) {
-            TypeShapedRecipe shapedRecipe = (TypeShapedRecipe) recipe.getRecipeType();
-            HashMap<Character, ItemStack> inputs = shapedRecipe.getInputs();
-            String[] shape = shapedRecipe.getShape();
-
+            ShapedRecipeStorage shapedRecipe = getRecipeShape(e.getInventory());
         } else if (recipe.getRecipeType() instanceof TypeShapelessRecipe) {
             TypeShapelessRecipe shapelessRecipe = (TypeShapelessRecipe) recipe.getRecipeType();
         }
+    }
+
+    private ShapedRecipeStorage getRecipeShape(Inventory inv) {
+        HashMap<Character, ItemStack> recipe = new HashMap<>();
+        String[] shape;
+        ItemStack[] contents = inv.getContents();
+        ArrayList<String> holder = new ArrayList<>();
+        StringBuilder line1 = new StringBuilder();
+        StringBuilder line2 = new StringBuilder();
+        StringBuilder line3 = new StringBuilder();
+
+        ShapedRecipeStorage recipeStorage = null;
+
+        if (inv.getType() == InventoryType.WORKBENCH) {
+            char index = 'a';
+            for (int i = 1; i <= 9; i++) {
+                ItemStack item = contents[i];
+                item: if (item.getType() != Material.AIR) {
+                    recipe.put(index, item);
+                    if (i <= 3) {
+                        line1.append(index);
+                        index++;
+                        break item;
+                    } else if (i <= 6) {
+                        line2.append(index);
+                        index++;
+                        break item;
+                    } else {
+                        line3.append(index);
+                        index++;
+                        break item;
+                    }
+                } else air: if (item.getType() == Material.AIR) {
+                    if (i <= 3) {
+                        line1.append(" ");
+                        break air;
+                    } else if (i > 4 && i <= 6) {
+                        line2.append(" ");
+                        break air;
+                    } else {
+                        line3.append(" ");
+                        break air;
+                    }
+                }
+            }
+        } else if (inv.getType() == InventoryType.CRAFTING) {
+            char index = 'a';
+            for (int i = 1; i <= 4; i++) {
+                ItemStack item = contents[i];
+                item: if (item.getType() != Material.AIR) {
+                    recipe.put(index, item);
+                    if (i <= 2) {
+                        line1.append(index);
+                    } else {
+                        line2.append(index);
+                    }
+                    index++;
+                    break item;
+                } else air: if (item.getType() == Material.AIR) {
+                    if (i <= 2) {
+                        line1.append(" ");
+                    } else {
+                        line2.append(" ");
+                    }
+                    break air;
+                }
+            }
+            line1.append(" ");
+            line2.append(" ");
+            line3.append("   ");
+        }
+        holder.add(line1.toString());
+        holder.add(line2.toString());
+        holder.add(line3.toString());
+        shape = new String[holder.size()];
+        shape = holder.toArray(shape);
+        recipeStorage = new ShapedRecipeStorage(shape, recipe);
+        return recipeStorage;
     }
 
     public static class ShapedRecipeStorage {
         private String[] shape;
         public String[] shapeReverse;
         public String[] shapeNormalized;
-        public ShapedRecipeStorage setShape(String... shape) {
+        public HashMap<Character, ItemStack> recipe;
+
+        public ShapedRecipeStorage(String[] shape, HashMap<Character, ItemStack> recipe) {
+            this.recipe = recipe;
+            this.setShape(shape);
+        }
+
+        public ShapedRecipeStorage setShape(String[] shape) {
             this.shape = shape;
             return this;
         }
@@ -107,22 +189,63 @@ public class CraftingListener implements Listener {
         }
 
         public String[] normalize() {
-            ArrayList<String> normalized = new ArrayList<>();
-            StringBuilder sb = new StringBuilder();
+            String[] normalized;
+            //Normalize the y axis of the crafting grid.
+            ArrayList<String> yNormalized = new ArrayList<>();
             for (String line : shape)
-                sb.append(sb.length() == 0 ? "" : ",").append(line);
-            String combined = sb.toString();
-            Pattern pat = Pattern.compile("[,]");
-            Matcher match = pat.matcher(combined);
-            int lineCount = 0;
-            while (match.find())
-                lineCount++;
-            int lastCommaIndex = 0;
-            String[] holder = new String[lineCount];
-            for (int i = 0; i < lineCount; i++) {
-                String line = combined.substring(lastCommaIndex, combined.indexOf(',', lastCommaIndex));
-                
+                if (!line.trim().isEmpty())
+                    yNormalized.add(line);
+
+            //Switch the axises so that it is easier to normalize the x axis will have to switch it back after done.
+            ArrayList<String> switchedAxis = new ArrayList<>();
+            StringBuilder line1 = new StringBuilder();
+            StringBuilder line2 = new StringBuilder();
+            StringBuilder line3 = new StringBuilder();
+            for (String line : shape) {
+                char[] sepChars = line.toCharArray();
+                line1.append(sepChars[0]);
+                line2.append(sepChars[1]);
+                line3.append(sepChars[2]);
             }
+            switchedAxis.add(line1.toString());
+            switchedAxis.add(line2.toString());
+            switchedAxis.add(line3.toString());
+
+            //Normalize the x axis now.
+            ArrayList<String> xNormalizedSwitched = new ArrayList<>();
+            for (String line : switchedAxis)
+                if (!line.trim().isEmpty())
+                    xNormalizedSwitched.add(line);
+
+            //Switch x axis back to the x axis.
+            ArrayList<String> xNormalized = new ArrayList<>();
+            line1 = new StringBuilder();
+            line2 = new StringBuilder();
+            line3 = new StringBuilder();
+            for (String line : xNormalizedSwitched) {
+                char[] sepChars = line.toCharArray();
+                if (sepChars.length >= 1)
+                    line1.append(sepChars[0]);
+                if (sepChars.length >= 2)
+                    line2.append(sepChars[1]);
+                if (sepChars.length >= 3)
+                    line3.append(sepChars[2]);
+            }
+            String one = line1.toString(), two = line2.toString(), three = line3.toString();
+            if (!one.isEmpty())
+                xNormalized.add(one);
+            if (!two.isEmpty())
+                xNormalized.add(two);
+            if (!three.isEmpty())
+                xNormalized.add(three);
+
+            //Return the normalized recipe
+            this.shapeNormalized = (String[]) xNormalized.toArray();
+            return shapeNormalized;
         }
+    }
+
+    public static class ShapelessRecipeStorage {
+
     }
 }

@@ -13,7 +13,7 @@ public class Database {
         try {
 
             connection = DriverManager.getConnection("jdbc:mysql://" + "178.63.127.184" + ":" + "3306" + "/"
-                    + "s882_healthblocker", "u882_ZxAHbgFngY", "PV52pW8cdpDjIm9PQI8GazBq");
+                    + "s1142_healthblocker", "u1142_8VojxLVoaY", "SglTHznY1f9LXTHaRGBQPT94");
 
         } catch (SQLException sQLException) {
             System.out.println("ERROR CONNECTING TO DATABASE!");
