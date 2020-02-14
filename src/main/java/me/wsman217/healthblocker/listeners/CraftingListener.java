@@ -16,7 +16,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +56,10 @@ public class CraftingListener implements Listener {
 
     @EventHandler
     public void craftPrepHandler(PrepareItemCraftEvent e) {
+        ShapedRecipeStorage shapedRecipe = getRecipeShape(e.getInventory());
+        System.out.println(Arrays.toString(shapedRecipe.shape));
+        /*shapedRecipe.normalize();
+        System.out.println(Arrays.toString(shapedRecipe.shapeNormalized));*/
         //Check if its a custom food
         if (e.getInventory().getResult() == null)
             return;
@@ -75,16 +78,19 @@ public class CraftingListener implements Listener {
             }
         }
 
-        Recipe recipe = foodType.getRecipe();
+        /*Recipe recipe = foodType.getRecipe();
         if (recipe.getRecipeType() instanceof TypeShapedRecipe) {
             ShapedRecipeStorage shapedRecipe = getRecipeShape(e.getInventory());
+            System.out.println(Arrays.toString(shapedRecipe.shape));
+            shapedRecipe.normalize();
+            System.out.println(Arrays.toString(shapedRecipe.shapeNormalized));
         } else if (recipe.getRecipeType() instanceof TypeShapelessRecipe) {
             TypeShapelessRecipe shapelessRecipe = (TypeShapelessRecipe) recipe.getRecipeType();
-        }
+        }*/
     }
 
     private ShapedRecipeStorage getRecipeShape(Inventory inv) {
-        HashMap<Character, ItemStack> recipe = new HashMap<>();
+        HashMap<ItemStack, Character> recipe = new HashMap<>();
         String[] shape;
         ItemStack[] contents = inv.getContents();
         ArrayList<String> holder = new ArrayList<>();
@@ -98,22 +104,37 @@ public class CraftingListener implements Listener {
             char index = 'a';
             for (int i = 1; i <= 9; i++) {
                 ItemStack item = contents[i];
-                item: if (item.getType() != Material.AIR) {
-                    recipe.put(index, item);
+                item:
+                if (item.getType() != Material.AIR) {
                     if (i <= 3) {
-                        line1.append(index);
-                        index++;
+                        if (recipe.get(item) != null)
+                            line1.append(recipe.get(item));
+                        else {
+                            line1.append(index);
+                            index++;
+                            recipe.put(item, index);
+                        }
                         break item;
                     } else if (i <= 6) {
-                        line2.append(index);
-                        index++;
+                        if (recipe.get(item) != null)
+                            line2.append(recipe.get(item));
+                        else {
+                            line2.append(index);
+                            index++;
+                            recipe.put(item, index);
+                        }
                         break item;
                     } else {
-                        line3.append(index);
-                        index++;
+                        if (recipe.get(item) != null)
+                            line3.append(recipe.get(item));
+                        else {
+                            line3.append(index);
+                            index++;
+                            recipe.put(item, index);
+                        }
                         break item;
                     }
-                } else air: if (item.getType() == Material.AIR) {
+                } else air:if (item.getType() == Material.AIR) {
                     if (i <= 3) {
                         line1.append(" ");
                         break air;
@@ -130,16 +151,25 @@ public class CraftingListener implements Listener {
             char index = 'a';
             for (int i = 1; i <= 4; i++) {
                 ItemStack item = contents[i];
-                item: if (item.getType() != Material.AIR) {
-                    recipe.put(index, item);
+                item:
+                if (item.getType() != Material.AIR) {
                     if (i <= 2) {
-                        line1.append(index);
+                        if (recipe.get(item) != null)
+                            line1.append(recipe.get(item));
+                        else
+                            line1.append(index);
                     } else {
-                        line2.append(index);
+                        if (recipe.get(item) != null)
+                            line2.append(recipe.get(item));
+                        else
+                            line2.append(index);
                     }
-                    index++;
+                    if (recipe.get(item) == null) {
+                        recipe.put(item, index);
+                        index++;
+                    }
                     break item;
-                } else air: if (item.getType() == Material.AIR) {
+                } else air:if (item.getType() == Material.AIR) {
                     if (i <= 2) {
                         line1.append(" ");
                     } else {
@@ -162,12 +192,16 @@ public class CraftingListener implements Listener {
     }
 
     public static class ShapedRecipeStorage {
-        private String[] shape;
+        public String[] shape;
         public String[] shapeReverse;
         public String[] shapeNormalized;
-        public HashMap<Character, ItemStack> recipe;
+        public HashMap<ItemStack, Character> recipe;
 
-        public ShapedRecipeStorage(String[] shape, HashMap<Character, ItemStack> recipe) {
+        public ShapedRecipeStorage(String[] shape) {
+            this.setShape(shape);
+        }
+
+        public ShapedRecipeStorage(String[] shape, HashMap<ItemStack, Character> recipe) {
             this.recipe = recipe;
             this.setShape(shape);
         }
