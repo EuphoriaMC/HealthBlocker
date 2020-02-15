@@ -30,8 +30,8 @@ public class MapleWaffles implements FoodInterface {
         ItemStack mapleSyrup = CustomItemHandler.mapleSyrup.getItemStack();
 
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER3);
-        recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("   ", "SSS", " W ")
-                .setIngredient('W', waffle).setIngredient('S', mapleSyrup).addRecipe();
+        recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("AAA", " B ")
+                .setIngredient('A', mapleSyrup).setIngredient('B', waffle).addRecipe();
 
         perm = new Permission(this.permission);
         perm.addParent(CustomItemHandler.tier3, true);

@@ -11,55 +11,24 @@ import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class CraftingListener implements Listener {
 
     @EventHandler
-    public void craftingListener(CraftItemEvent e) {
-        /*//Check if its a custom food
-        NBTItem nbtItem = new NBTItem(e.getRecipe().getResult());
-        boolean isCustomFood = nbtItem.getBoolean("custom_food");
-        if (!isCustomFood)
-            return;
-        String customFoodType = nbtItem.getString("food_type");
-        FoodInterface foodType = CustomItemHandler.getFromNameSpace(customFoodType);
-        //Check if they have permission to craft the food
-        if (!e.getWhoClicked().hasPermission(foodType.getPermission())) {
-            e.setCancelled(true);
-            e.getWhoClicked().sendMessage(ChatColor.RED + "You do not have permission to craft this item.");
-        }
-
-        Recipe recipe = foodType.getRecipe();
-        if (recipe.getRecipeType() instanceof TypeShapedRecipe) {
-            TypeShapedRecipe shapedRecipe = (TypeShapedRecipe) recipe.getRecipeType();
-            HashMap<Character, ItemStack> inputs = shapedRecipe.getInputs();
-            String[] shape = shapedRecipe.getShape();
-            int index = 0;
-            for (String line : shape) {
-                for (Character letter : line.toCharArray()) {
-                    //ItemStack
-                }
-            }
-        } else if (recipe.getRecipeType() instanceof TypeShapelessRecipe) {
-            TypeShapelessRecipe shapelessRecipe = (TypeShapelessRecipe) recipe.getRecipeType();
-        }*/
-    }
-
-    @EventHandler
     public void craftPrepHandler(PrepareItemCraftEvent e) {
-        ShapedRecipeStorage shapedRecipe = getRecipeShape(e.getInventory());
+        /*ShapedRecipeStorage shapedRecipe = getRecipeShape(e.getInventory());
         System.out.println(Arrays.toString(shapedRecipe.shape));
-        /*shapedRecipe.normalize();
-        System.out.println(Arrays.toString(shapedRecipe.shapeNormalized));*/
+        shapedRecipe.normalize();
+        System.out.println(Arrays.toString(shapedRecipe.shapeNormalized));
+        shapedRecipe.reverseShape();
+        System.out.println(Arrays.toString(shapedRecipe.shapeReverse));*/
         //Check if its a custom food
         if (e.getInventory().getResult() == null)
             return;
@@ -78,19 +47,26 @@ public class CraftingListener implements Listener {
             }
         }
 
-        /*Recipe recipe = foodType.getRecipe();
+        Recipe recipe = foodType.getRecipe();
         if (recipe.getRecipeType() instanceof TypeShapedRecipe) {
             ShapedRecipeStorage shapedRecipe = getRecipeShape(e.getInventory());
-            System.out.println(Arrays.toString(shapedRecipe.shape));
             shapedRecipe.normalize();
-            System.out.println(Arrays.toString(shapedRecipe.shapeNormalized));
+            shapedRecipe.reverseShape();
+            TypeShapedRecipe shRecipe = (TypeShapedRecipe) recipe.getRecipeType();
+            boolean check = shapedRecipe.checkRecipe(shRecipe.getShape(), shRecipe.getInputs());
+            if (!check)
+                for (HumanEntity p : (e.getViewers())) {
+                    e.getInventory().setResult(new ItemStack(Material.AIR));
+                    p.sendMessage(ChatColor.RED + "You do not have the correct ingredients to craft this item.");
+                }
+
         } else if (recipe.getRecipeType() instanceof TypeShapelessRecipe) {
             TypeShapelessRecipe shapelessRecipe = (TypeShapelessRecipe) recipe.getRecipeType();
-        }*/
+        }
     }
 
     private ShapedRecipeStorage getRecipeShape(Inventory inv) {
-        HashMap<ItemStack, Character> recipe = new HashMap<>();
+        HashMap<ItemStack, Character> recipeStore = new HashMap<>();
         String[] shape;
         ItemStack[] contents = inv.getContents();
         ArrayList<String> holder = new ArrayList<>();
@@ -98,39 +74,41 @@ public class CraftingListener implements Listener {
         StringBuilder line2 = new StringBuilder();
         StringBuilder line3 = new StringBuilder();
 
-        ShapedRecipeStorage recipeStorage = null;
+        ShapedRecipeStorage recipeStorage;
 
         if (inv.getType() == InventoryType.WORKBENCH) {
-            char index = 'a';
+            char index = 'A';
             for (int i = 1; i <= 9; i++) {
-                ItemStack item = contents[i];
+                ItemStack itemToTest = contents[i];
+                ItemStack item = itemToTest.clone();
+                item.setAmount(1);
                 item:
                 if (item.getType() != Material.AIR) {
                     if (i <= 3) {
-                        if (recipe.get(item) != null)
-                            line1.append(recipe.get(item));
+                        if (recipeStore.get(item) != null)
+                            line1.append(recipeStore.get(item));
                         else {
                             line1.append(index);
+                            recipeStore.put(item, index);
                             index++;
-                            recipe.put(item, index);
                         }
                         break item;
                     } else if (i <= 6) {
-                        if (recipe.get(item) != null)
-                            line2.append(recipe.get(item));
+                        if (recipeStore.get(item) != null)
+                            line2.append(recipeStore.get(item));
                         else {
                             line2.append(index);
+                            recipeStore.put(item, index);
                             index++;
-                            recipe.put(item, index);
                         }
                         break item;
                     } else {
-                        if (recipe.get(item) != null)
-                            line3.append(recipe.get(item));
+                        if (recipeStore.get(item) != null)
+                            line3.append(recipeStore.get(item));
                         else {
                             line3.append(index);
+                            recipeStore.put(item, index);
                             index++;
-                            recipe.put(item, index);
                         }
                         break item;
                     }
@@ -138,7 +116,7 @@ public class CraftingListener implements Listener {
                     if (i <= 3) {
                         line1.append(" ");
                         break air;
-                    } else if (i > 4 && i <= 6) {
+                    } else if (i <= 6) {
                         line2.append(" ");
                         break air;
                     } else {
@@ -148,24 +126,26 @@ public class CraftingListener implements Listener {
                 }
             }
         } else if (inv.getType() == InventoryType.CRAFTING) {
-            char index = 'a';
+            char index = 'A';
             for (int i = 1; i <= 4; i++) {
-                ItemStack item = contents[i];
+                ItemStack itemToTest = contents[i];
+                ItemStack item = itemToTest.clone();
+                item.setAmount(1);
                 item:
                 if (item.getType() != Material.AIR) {
                     if (i <= 2) {
-                        if (recipe.get(item) != null)
-                            line1.append(recipe.get(item));
+                        if (recipeStore.get(item) != null)
+                            line1.append(recipeStore.get(item));
                         else
                             line1.append(index);
                     } else {
-                        if (recipe.get(item) != null)
-                            line2.append(recipe.get(item));
+                        if (recipeStore.get(item) != null)
+                            line2.append(recipeStore.get(item));
                         else
                             line2.append(index);
                     }
-                    if (recipe.get(item) == null) {
-                        recipe.put(item, index);
+                    if (recipeStore.get(item) == null) {
+                        recipeStore.put(item, index);
                         index++;
                     }
                     break item;
@@ -187,6 +167,10 @@ public class CraftingListener implements Listener {
         holder.add(line3.toString());
         shape = new String[holder.size()];
         shape = holder.toArray(shape);
+
+        HashMap<Character, ItemStack> recipe = new HashMap<>();
+        for (ItemStack item : recipeStore.keySet())
+            recipe.put(recipeStore.get(item), item);
         recipeStorage = new ShapedRecipeStorage(shape, recipe);
         return recipeStorage;
     }
@@ -195,13 +179,9 @@ public class CraftingListener implements Listener {
         public String[] shape;
         public String[] shapeReverse;
         public String[] shapeNormalized;
-        public HashMap<ItemStack, Character> recipe;
+        public HashMap<Character, ItemStack> recipe;
 
-        public ShapedRecipeStorage(String[] shape) {
-            this.setShape(shape);
-        }
-
-        public ShapedRecipeStorage(String[] shape, HashMap<ItemStack, Character> recipe) {
+        public ShapedRecipeStorage(String[] shape, HashMap<Character, ItemStack> recipe) {
             this.recipe = recipe;
             this.setShape(shape);
         }
@@ -213,17 +193,17 @@ public class CraftingListener implements Listener {
 
         public String[] reverseShape() {
             ArrayList<String> reversed = new ArrayList<>();
-            for (String line : shape) {
+            for (String line : shapeNormalized) {
                 StringBuilder sb = new StringBuilder(line);
                 sb.reverse();
                 reversed.add(sb.toString());
             }
-            shapeReverse = (String[]) reversed.toArray();
+            shapeReverse = new String[reversed.size()];
+            shapeReverse = reversed.toArray(shapeReverse);
             return shapeReverse;
         }
 
         public String[] normalize() {
-            String[] normalized;
             //Normalize the y axis of the crafting grid.
             ArrayList<String> yNormalized = new ArrayList<>();
             for (String line : shape)
@@ -235,7 +215,7 @@ public class CraftingListener implements Listener {
             StringBuilder line1 = new StringBuilder();
             StringBuilder line2 = new StringBuilder();
             StringBuilder line3 = new StringBuilder();
-            for (String line : shape) {
+            for (String line : yNormalized) {
                 char[] sepChars = line.toCharArray();
                 line1.append(sepChars[0]);
                 line2.append(sepChars[1]);
@@ -274,12 +254,33 @@ public class CraftingListener implements Listener {
                 xNormalized.add(three);
 
             //Return the normalized recipe
-            this.shapeNormalized = (String[]) xNormalized.toArray();
+            String[] holder = new String[xNormalized.size()];
+            holder = xNormalized.toArray(holder);
+            this.shapeNormalized = holder;
             return shapeNormalized;
         }
-    }
 
-    public static class ShapelessRecipeStorage {
+        public boolean checkRecipe(String[] customFoodShape, HashMap<Character, ItemStack> customFoodRecipe) {
+            if (customFoodShape.length != shapeNormalized.length)
+                return false;
+            for (int i = 0; i < customFoodShape.length; i++)
+                if (customFoodShape[i].length() != shapeNormalized[i].length())
+                    return false;
+            for (int i = 0; i < customFoodShape.length; i++) {
+                char[] charset1 = customFoodShape[i].toCharArray(), charset2 = shapeNormalized[i].toCharArray(), charset3 = shapeReverse[i].toCharArray();
+                for (int j = 0; j < charset1.length; j++) {
+                    if (charset1[j] == ' ')
+                        if (charset2[j] == ' ' || charset3[j] == ' ')
+                            continue;
+                    if (!customFoodRecipe.get(charset1[j]).isSimilar(recipe.get(charset2[j])) || !customFoodRecipe.get(charset1[j]).isSimilar(recipe.get(charset3[j])))
+                        return false;
+                }
+            }
+            return true;
+        }
 
+        public static class ShapelessRecipeStorage {
+
+        }
     }
 }

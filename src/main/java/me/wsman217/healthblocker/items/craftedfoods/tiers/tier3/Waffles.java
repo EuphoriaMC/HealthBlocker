@@ -30,13 +30,13 @@ public class Waffles implements FoodInterface {
         ItemStack cookie = new ItemStack(Material.COOKIE, 1);
         ItemStack wheat = new ItemStack(Material.WHEAT, 1);
         ItemStack sugar = new ItemStack(Material.SUGAR, 1);
-        ItemStack milk = new ItemStack(Material.MILK_BUCKET, 1);
+        ItemStack milk = CustomItemHandler.glassOfMilk.getItemStack();
         ItemStack grill = new ItemStack(Material.MAGMA_BLOCK, 1);
 
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER3);
-        recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("WSW", "MCM", "GGG")
-                .setIngredient('W', wheat).setIngredient('S', sugar).setIngredient('M', milk)
-                .setIngredient('C', cookie).setIngredient('G', grill).addRecipe();
+        recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("ABA", "CDC", "EEE")
+                .setIngredient('A', wheat).setIngredient('B', sugar).setIngredient('C', milk)
+                .setIngredient('D', cookie).setIngredient('E', grill).addRecipe();
 
         perm = new Permission(this.permission);
         perm.addParent(CustomItemHandler.tier3, true);

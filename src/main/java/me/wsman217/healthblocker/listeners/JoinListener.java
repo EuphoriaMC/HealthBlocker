@@ -19,6 +19,8 @@ public class JoinListener implements Listener {
         This was for when I was playing with health being higher than 10 hearts it fixes a visual glitch where you
         don't see the extra hearts you have until you take damage.
          */
+        e.getPlayer().getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(100);
+        e.getPlayer().getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(100);
         Bukkit.getScheduler().scheduleSyncDelayedTask(HealthBlocker.getInstance(), () -> {
             double health = e.getPlayer().getHealth();
             e.getPlayer().setHealth(e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());

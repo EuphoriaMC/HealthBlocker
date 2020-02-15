@@ -19,6 +19,19 @@ public class CommandHealth implements TabExecutor {
 
         //Check if the console sent the command and if so stop it.
         if (!(sender instanceof Player)) {
+            if (args[0].equalsIgnoreCase("give")) {
+                if (args.length >= 4) {
+                    //Take all the arguments after the first index to the last
+                    ArrayList<String> newArgs = new ArrayList<>(Arrays.asList(args).subList(1, args.length));
+                    String target = newArgs.get(0);
+                    String foodName = newArgs.get(1);
+                    //If they didn't give an amount auto put 1
+                    String amount = newArgs.size() == 2 ? "1" : newArgs.get(2);
+                    String lean = newArgs.get(3);
+                    return giveArg(sender, true, target, foodName, amount, lean);
+                } else
+                    return giveArg(sender, false, null, null, null, "true");
+            }
             sender.sendMessage(ChatColor.RED + "This command can not be used by the console.");
             return true;
         }
@@ -57,7 +70,7 @@ public class CommandHealth implements TabExecutor {
         return true;
     }
 
-    private boolean giveArg(Player p, boolean hasFood, String tar, String foodType, String amo, String lean) {
+    private boolean giveArg(CommandSender p, boolean hasFood, String tar, String foodType, String amo, String lean) {
 
         if (!hasFood) {
             p.sendMessage(ChatColor.DARK_PURPLE + "=-=-=-=-Custom Foods-=-=-=-=");

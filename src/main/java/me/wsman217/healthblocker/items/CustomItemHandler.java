@@ -40,7 +40,7 @@ public class CustomItemHandler {
     public static FoodInterface lumpyBoneStew = new LumpyBoneStew(), spikedApple = new SpikedApple(), tropicalStew = new TropicalStew(),
             cherryPie = new CherryPie(), tomatoSoup = new TomatoSoup(), appleJuice = new AppleJuice(), glassOfMilk = new GlassOfMilk(),
             mapleSyrup = new MapleSyrup(), spaghetti = new Spaghetti(), restoredEye = new RestoredEye(), darkMagic = new DarkMagic(),
-            grandmasCookies = new GrandmasCookies(), waffles = new Waffles()/*, mapleWaffles = new MapleWaffles()*/;
+            grandmasCookies = new GrandmasCookies(), waffles = new Waffles(), mapleWaffles = new MapleWaffles();
 
     public CustomItemHandler() {
         //Add all of the items to the custom foods ArrayList
@@ -63,7 +63,7 @@ public class CustomItemHandler {
 
         //We can not use this one just yet because we have to work on the crafting system and making it were when you register a crafting
         //recipe with custom items in it it only works when the custom items are in it.
-        //customFoods.add(mapleWaffles);
+        customFoods.add(mapleWaffles);
 
         //For the time being there will be no furnace recipes.
         //Furnace
