@@ -1,4 +1,4 @@
-package me.wsman217.healthblocker.recipeutils.types;
+package me.wsman217.healthblocker.utils.recipeutils.types;
 
 import me.wsman217.healthblocker.HealthBlocker;
 import org.bukkit.NamespacedKey;

@@ -5,11 +5,11 @@ import me.wsman217.healthblocker.gui.holders.CraftingHolder;
 import me.wsman217.healthblocker.gui.holders.Tier1Holder;
 import me.wsman217.healthblocker.gui.holders.Tier2Holder;
 import me.wsman217.healthblocker.gui.holders.Tier3Holder;
-import me.wsman217.healthblocker.items.CustomItemHandler;
-import me.wsman217.healthblocker.items.FoodInterface;
-import me.wsman217.healthblocker.recipeutils.types.RecipeType;
-import me.wsman217.healthblocker.recipeutils.types.TypeShapedRecipe;
-import me.wsman217.healthblocker.recipeutils.types.TypeShapelessRecipe;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.FoodInterface;
+import me.wsman217.healthblocker.utils.recipeutils.types.RecipeType;
+import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapedRecipe;
+import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapelessRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +33,7 @@ public class GUIUtils implements Listener {
         e.setCancelled(true);
         ItemStack clickedItem = e.getCurrentItem();
         Player p = (Player) e.getWhoClicked();
-        FoodInterface foodInterface = CustomItemHandler.getByItemStack(clickedItem);
+        FoodInterface foodInterface = CustomFoodHandler.getByItemStack(clickedItem);
         if (foodInterface == null)
             return;
         p.closeInventory();

@@ -1,8 +1,8 @@
-package me.wsman217.healthblocker.recipeutils;
+package me.wsman217.healthblocker.utils.recipeutils;
 
-import me.wsman217.healthblocker.recipeutils.types.RecipeType;
-import me.wsman217.healthblocker.recipeutils.types.TypeShapedRecipe;
-import me.wsman217.healthblocker.recipeutils.types.TypeShapelessRecipe;
+import me.wsman217.healthblocker.utils.recipeutils.types.RecipeType;
+import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapedRecipe;
+import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapelessRecipe;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 

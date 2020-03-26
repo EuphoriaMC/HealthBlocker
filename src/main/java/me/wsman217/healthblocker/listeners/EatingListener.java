@@ -1,8 +1,8 @@
 package me.wsman217.healthblocker.listeners;
 
 import de.tr7zw.nbtapi.NBTItem;
-import me.wsman217.healthblocker.items.CustomItemHandler;
-import me.wsman217.healthblocker.items.FoodInterface;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public class EatingListener implements Listener {
         if (!isCustomFood)
             return;
         String customFoodType = nbtItem.getString("food_type");
-        FoodInterface foodType = CustomItemHandler.getFromNameSpace(customFoodType);
+        FoodInterface foodType = CustomFoodHandler.getFromNameSpace(customFoodType);
         Player p = e.getPlayer();
 
         //Check if they have permission to eat the food

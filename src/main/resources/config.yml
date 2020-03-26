@@ -1,0 +1,8 @@
+Database:
+  SQLite: true
+  MySQL:
+    IP: "178.63.127.184"
+    Port: "3306"
+    Database: "s1142_healthblocker"
+    User: "u1142_8VojxLVoaY"
+    Password: "SglTHznY1f9LXTHaRGBQPT94"

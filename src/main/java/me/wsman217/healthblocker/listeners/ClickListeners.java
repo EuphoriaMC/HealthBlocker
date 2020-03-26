@@ -1,7 +1,7 @@
 package me.wsman217.healthblocker.listeners;
 
 import me.wsman217.healthblocker.commands.EuphoriaRanks;
-import me.wsman217.healthblocker.items.CustomItemHandler;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
@@ -48,7 +48,7 @@ public class ClickListeners implements Listener {
         if (e.getItem() == null)
             return;
         ItemStack item = e.getItem();
-        if (CustomItemHandler.getByItemStack(item) == null) {
+        if (CustomFoodHandler.getByItemStack(item) == null) {
             return;
         }
 

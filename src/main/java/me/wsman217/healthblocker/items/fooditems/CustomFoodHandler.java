@@ -1,18 +1,18 @@
-package me.wsman217.healthblocker.items;
+package me.wsman217.healthblocker.items.fooditems;
 
 import de.tr7zw.nbtapi.NBTItem;
 import lombok.Getter;
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier1.*;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.CherryPie;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.LumpyBoneStew;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.MapleSyrup;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier2.TropicalStew;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier3.DarkMagic;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier3.MapleWaffles;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier3.Spaghetti;
-import me.wsman217.healthblocker.items.craftedfoods.tiers.tier3.Waffles;
-import me.wsman217.healthblocker.recipeutils.Recipe;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier1.*;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2.CherryPie;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2.LumpyBoneStew;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2.MapleSyrup;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2.TropicalStew;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3.DarkMagic;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3.MapleWaffles;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3.Spaghetti;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3.Waffles;
+import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CustomItemHandler {
+public class CustomFoodHandler {
 
     //The separate permissions for the tiers
     public static Permission tier1 = new Permission("healthblocker.food.tier1.*");
@@ -42,7 +42,7 @@ public class CustomItemHandler {
             mapleSyrup = new MapleSyrup(), spaghetti = new Spaghetti(), restoredEye = new RestoredEye(), darkMagic = new DarkMagic(),
             grandmasCookies = new GrandmasCookies(), waffles = new Waffles(), mapleWaffles = new MapleWaffles();
 
-    public CustomItemHandler() {
+    public CustomFoodHandler() {
         //Add all of the items to the custom foods ArrayList
         //Shapeless
         customFoods.add(lumpyBoneStew);

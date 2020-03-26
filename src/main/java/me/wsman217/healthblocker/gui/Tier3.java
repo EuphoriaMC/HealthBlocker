@@ -1,9 +1,9 @@
 package me.wsman217.healthblocker.gui;
 
 import me.wsman217.healthblocker.gui.holders.Tier3Holder;
-import me.wsman217.healthblocker.items.CustomItemHandler;
-import me.wsman217.healthblocker.items.FoodInterface;
-import me.wsman217.healthblocker.recipeutils.Recipe;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.FoodInterface;
+import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -29,7 +29,7 @@ public class Tier3 implements Listener {
     }
 
     void openInv() {
-        HashMap<String, Recipe.Tier> recipeTiers = CustomItemHandler.recipeTiers;
+        HashMap<String, Recipe.Tier> recipeTiers = CustomFoodHandler.recipeTiers;
         Set<String> keys = recipeTiers.keySet();
         ArrayList<FoodInterface> foods = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class Tier3 implements Listener {
         for (String key : keys) {
             //If the are tier 1 add them to the foods ArrayList
             if (recipeTiers.get(key) == Recipe.Tier.TIER3)
-                foods.add(CustomItemHandler.getFromNameSpace(key));
+                foods.add(CustomFoodHandler.getFromNameSpace(key));
         }
 
         //Find how many rows are needed for the inventory

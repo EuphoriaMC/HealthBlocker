@@ -1,8 +1,8 @@
 package me.wsman217.healthblocker.commands;
 
-import me.wsman217.healthblocker.items.CustomItemHandler;
-import me.wsman217.healthblocker.items.FoodInterface;
-import me.wsman217.healthblocker.items.FoodUtils;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.FoodInterface;
+import me.wsman217.healthblocker.items.fooditems.FoodUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -87,7 +87,7 @@ public class CommandHealth implements TabExecutor {
             return true;
         }
 
-        FoodInterface food = CustomItemHandler.getFromNameSpace(foodType);
+        FoodInterface food = CustomFoodHandler.getFromNameSpace(foodType);
         if (food == null) {
             p.sendMessage(ChatColor.RED + foodType + " is not a valid food type.");
             return true;
@@ -132,7 +132,7 @@ public class CommandHealth implements TabExecutor {
                 tabs = addAll(Bukkit.getOnlinePlayers());
             if (args.length == 3)
                 //Loop through all custom foods
-                for (FoodInterface fi : CustomItemHandler.getCustomFoods()) {
+                for (FoodInterface fi : CustomFoodHandler.getCustomFoods()) {
                     //Check if it starts with the characters that have already been entered
                     if (fi.getNamespace().startsWith(args[2]))
                         tabs.add(fi.getNamespace());

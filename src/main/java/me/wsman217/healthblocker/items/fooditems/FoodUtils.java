@@ -1,4 +1,4 @@
-package me.wsman217.healthblocker.items;
+package me.wsman217.healthblocker.items.fooditems;
 
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.ChatColor;
@@ -34,7 +34,7 @@ public class FoodUtils {
     }
 
     public static ItemStack setNeedsPerm(ItemStack item, boolean needsPerm) {
-        if (CustomItemHandler.getByItemStack(item) == null)
+        if (CustomFoodHandler.getByItemStack(item) == null)
             return item;
         NBTItem nbtItem = new NBTItem(item);
         nbtItem.setBoolean("need_perm", needsPerm);
