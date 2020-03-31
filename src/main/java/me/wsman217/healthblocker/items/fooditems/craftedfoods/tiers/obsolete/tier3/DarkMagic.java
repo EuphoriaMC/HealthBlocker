@@ -1,7 +1,7 @@
-package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3;
+package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.tier3;
 
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler;
 import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.items.fooditems.FoodUtils;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
@@ -29,13 +29,13 @@ public class DarkMagic implements FoodInterface {
         ItemStack driedKelpBlock = new ItemStack(Material.DRIED_KELP_BLOCK, 1);
         ItemStack goldBlock = new ItemStack(Material.GOLD_BLOCK, 1);
 
-        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER3);
+/*        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER3);
         recipe.createShapedRecipe(new NamespacedKey(plugin, nameSpace), item).shape("AAA", "ABA", "AAA")
                 .setIngredient('A', goldBlock).setIngredient('B', driedKelpBlock).addRecipe();
 
         perm = new Permission(this.permission);
         perm.addParent(CustomFoodHandler.tier3, true);
-        plugin.getServer().getPluginManager().addPermission(perm);
+        plugin.getServer().getPluginManager().addPermission(perm);*/
     }
 
     @Override

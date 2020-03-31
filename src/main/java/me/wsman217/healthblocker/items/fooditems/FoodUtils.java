@@ -1,6 +1,7 @@
 package me.wsman217.healthblocker.items.fooditems;
 
 import de.tr7zw.nbtapi.NBTItem;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class FoodUtils {
 
+    @Deprecated
     public static ItemStack getItemStack(Material mat, String nameSpace, String name, String loreS) {
         ItemStack item = new ItemStack(mat);
         NBTItem nbtItem = new NBTItem(item);
@@ -31,21 +33,5 @@ public class FoodUtils {
         item.setItemMeta(im);
 
         return item;
-    }
-
-    public static ItemStack setNeedsPerm(ItemStack item, boolean needsPerm) {
-        if (CustomFoodHandler.getByItemStack(item) == null)
-            return item;
-        NBTItem nbtItem = new NBTItem(item);
-        nbtItem.setBoolean("need_perm", needsPerm);
-        ItemStack updatedItem = nbtItem.getItem();
-        if (!needsPerm) {
-            ItemMeta im = updatedItem.getItemMeta();
-            List<String> lore = im.getLore();
-            lore.add(ChatColor.GRAY + "This food can be eaten by anyone.");
-            im.setLore(lore);
-            updatedItem.setItemMeta(im);
-        }
-        return updatedItem;
     }
 }

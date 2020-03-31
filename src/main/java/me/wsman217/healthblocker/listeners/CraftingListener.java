@@ -1,7 +1,8 @@
 package me.wsman217.healthblocker.listeners;
 
 import de.tr7zw.nbtapi.NBTItem;
-import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapedRecipe;
@@ -37,7 +38,7 @@ public class CraftingListener implements Listener {
         if (!isCustomFood)
             return;
         String customFoodType = nbtItem.getString("food_type");
-        FoodInterface foodType = CustomFoodHandler.getFromNameSpace(customFoodType);
+        CustomFoodItem foodType = CustomFoodHandler.getFromNameSpace(customFoodType);
         //Check if they have permission to craft the food
         //e.getView().getPlayer()
         for (HumanEntity p : (e.getViewers())) {

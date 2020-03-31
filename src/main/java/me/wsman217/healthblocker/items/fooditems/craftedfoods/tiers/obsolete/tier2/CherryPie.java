@@ -1,7 +1,7 @@
-package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier1;
+package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.tier2;
 
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler;
 import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.items.fooditems.FoodUtils;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
@@ -14,35 +14,35 @@ import org.bukkit.permissions.Permission;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TomatoSoup implements FoodInterface {
+public class CherryPie implements FoodInterface {
 
-    private Material mat = Material.BEETROOT_SOUP;
+    private Material mat = Material.PUMPKIN_PIE;
     private ItemStack item;
     private Recipe recipe;
-    private String nameSpace = "tomato_soup";
-    private String permission = "healthblocker.food.tier1.tomatosoup";
+    private String nameSpace = "cherry_pie";
+    private String permission = "healthblocker.food.tier2.cherrypie";
     private Permission perm;
 
-    public TomatoSoup() {
-        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Tomato Soup"
+    public CherryPie() {
+        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Cherry Pie"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
 
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
 
-        HashMap<ItemStack, Integer> beetSoup = new HashMap<>();
-        beetSoup.put(new ItemStack(Material.BEETROOT_SOUP), 1);
-        inputs.add(beetSoup);
+        HashMap<ItemStack, Integer> pumpPie = new HashMap<>();
+        pumpPie.put(new ItemStack(Material.PUMPKIN_PIE), 1);
+        inputs.add(pumpPie);
 
         HashMap<ItemStack, Integer> sweetBerry = new HashMap<>();
         sweetBerry.put(new ItemStack(Material.SWEET_BERRIES), 2);
         inputs.add(sweetBerry);
-
+/*
         HealthBlocker plugin = HealthBlocker.getInstance();
-        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER1).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
+        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER2).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
         perm = new Permission(this.permission);
-        perm.addParent(CustomFoodHandler.tier1, true);
-        plugin.getServer().getPluginManager().addPermission(perm);
+        perm.addParent(CustomFoodHandler.tier2, true);
+        plugin.getServer().getPluginManager().addPermission(perm);*/
     }
 
     @Override
@@ -57,13 +57,13 @@ public class TomatoSoup implements FoodInterface {
 
     @Override
     public ItemStack getItemStack() {
-        return FoodUtils.getItemStack(mat, nameSpace, ChatColor.GREEN + "" + ChatColor.BOLD + "Tomato Soup"
+        return FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Cherry Pie"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
     }
 
     @Override
     public int getHealthRegenned() {
-        return 4;
+        return 6;
     }
 
     @Override

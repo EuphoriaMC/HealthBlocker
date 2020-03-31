@@ -1,7 +1,7 @@
-package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2;
+package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.tier2;
 
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler;
 import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.items.fooditems.FoodUtils;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
@@ -48,13 +48,13 @@ public class MapleSyrup implements FoodInterface {
         glassBottle.put(new ItemStack(Material.GLASS_BOTTLE, 1), 1);
         inputs.add(glassBottle);
 
-        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER2);
+/*        recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER2);
         recipe.createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
         //Create the items permission
         perm = new Permission(this.permission);
         perm.addParent(CustomFoodHandler.tier2, true);
-        plugin.getServer().getPluginManager().addPermission(perm);
+        plugin.getServer().getPluginManager().addPermission(perm);*/
     }
 
     @Override

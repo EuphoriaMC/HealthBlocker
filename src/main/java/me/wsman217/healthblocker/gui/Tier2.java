@@ -1,7 +1,8 @@
 package me.wsman217.healthblocker.gui;
 
 import me.wsman217.healthblocker.gui.holders.Tier2Holder;
-import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.Bukkit;
@@ -31,7 +32,7 @@ public class Tier2 implements Listener {
     void openInv() {
         HashMap<String, Recipe.Tier> recipeTiers = CustomFoodHandler.recipeTiers;
         Set<String> keys = recipeTiers.keySet();
-        ArrayList<FoodInterface> foods = new ArrayList<>();
+        ArrayList<CustomFoodItem> foods = new ArrayList<>();
 
         //Loop through all the keys of the recipeTiers hashmap
         for (String key : keys) {
@@ -48,8 +49,8 @@ public class Tier2 implements Listener {
 
         //Loop through all the foods and add them to the inv then open it
         int index = 0;
-        for (FoodInterface food : foods) {
-            inv.setItem(index, food.getItemStack());
+        for (CustomFoodItem food : foods) {
+            inv.setItem(index, food.getPermedItem());
             index++;
         }
 

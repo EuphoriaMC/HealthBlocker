@@ -1,7 +1,7 @@
 package me.wsman217.healthblocker.listeners;
 
 import me.wsman217.healthblocker.commands.EuphoriaRanks;
-import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;

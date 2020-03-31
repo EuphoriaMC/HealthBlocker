@@ -1,17 +1,12 @@
-package me.wsman217.healthblocker.items.fooditems;
+package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete;
 
 import de.tr7zw.nbtapi.NBTItem;
 import lombok.Getter;
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier1.*;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2.CherryPie;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2.LumpyBoneStew;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2.MapleSyrup;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2.TropicalStew;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3.DarkMagic;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3.MapleWaffles;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3.Spaghetti;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier3.Waffles;
+import me.wsman217.healthblocker.items.fooditems.FoodInterface;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.tier1.*;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.tier2.*;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.tier3.*;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -24,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Deprecated
 public class CustomFoodHandler {
 
     //The separate permissions for the tiers
@@ -70,9 +66,9 @@ public class CustomFoodHandler {
         //customItems.add(new FriedWitherSkull());
 
         //Run through the setup methods
-        setUpPerms();
+        /*setUpPerms();
         setUpRecipeBook();
-        recipeTiers = getRecipeTiers();
+        recipeTiers = getRecipeTiers();*/
     }
 
     public static FoodInterface getFromNameSpace(String name) {

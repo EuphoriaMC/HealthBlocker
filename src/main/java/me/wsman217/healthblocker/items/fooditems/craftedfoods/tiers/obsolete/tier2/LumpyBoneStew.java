@@ -1,7 +1,7 @@
-package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2;
+package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.tier2;
 
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler;
 import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.items.fooditems.FoodUtils;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
@@ -13,41 +13,46 @@ import org.bukkit.permissions.Permission;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
-public class TropicalStew implements FoodInterface {
+public class LumpyBoneStew implements FoodInterface {
 
-    private Material mat = Material.MUSHROOM_STEW;
+    private Material mat = Material.RABBIT_STEW;
     private ItemStack item;
     private Recipe recipe;
-    private String nameSpace = "tropical_stew";
-    private String permission = "healthblocker.food.tier2.tropicalstew";
+    private String nameSpace = "lumpy_bone_stew";
+    private String permission = "healthblocker.food.tier2.lumpybonestew";
     private Permission perm;
 
-    public TropicalStew() {
-        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Tropical Stew"
+    public LumpyBoneStew() {
+        this.item = FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Lumpy Bone Stew"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
 
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
 
-        HashMap<ItemStack, Integer> mushStew = new HashMap<>();
-        mushStew.put(new ItemStack(Material.MUSHROOM_STEW), 1);
-        inputs.add(mushStew);
+        HashMap<ItemStack, Integer> rabStew = new HashMap<>();
+        rabStew.put(new ItemStack(Material.RABBIT_STEW), 1);
+        inputs.add(rabStew);
 
-        HashMap<ItemStack, Integer> tropFish = new HashMap<>();
-        tropFish.put(new ItemStack(Material.TROPICAL_FISH), 1);
-        inputs.add(tropFish);
+        HashMap<ItemStack, Integer> glistMelon = new HashMap<>();
+        glistMelon.put(new ItemStack(Material.GLISTERING_MELON_SLICE), 1);
+        inputs.add(glistMelon);
 
+        HashMap<ItemStack, Integer> boneMeal = new HashMap<>();
+        boneMeal.put(new ItemStack(Material.BONE_MEAL), 1);
+        inputs.add(boneMeal);
+/*
         HealthBlocker plugin = HealthBlocker.getInstance();
         recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER2).createShapelessRecipe(new NamespacedKey(plugin, nameSpace), inputs, item);
 
-        perm = new Permission(this.permission);
+        this.perm = new Permission(this.permission);
         perm.addParent(CustomFoodHandler.tier2, true);
-        plugin.getServer().getPluginManager().addPermission(perm);
+        plugin.getServer().getPluginManager().addPermission(perm);*/
     }
 
     @Override
     public String getName() {
-        return item.getItemMeta().getDisplayName();
+        return Objects.requireNonNull(item.getItemMeta()).getDisplayName();
     }
 
     @Override
@@ -57,7 +62,7 @@ public class TropicalStew implements FoodInterface {
 
     @Override
     public ItemStack getItemStack() {
-        return FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Tropical Stew"
+        return FoodUtils.getItemStack(mat, nameSpace, ChatColor.YELLOW + "" + ChatColor.BOLD + "Lumpy Bone Stew"
                 , ChatColor.LIGHT_PURPLE + "Restores " + getHealthRegenned() / 2d + " hearts.");
     }
 

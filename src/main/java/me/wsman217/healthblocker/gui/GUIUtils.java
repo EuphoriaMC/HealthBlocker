@@ -5,7 +5,8 @@ import me.wsman217.healthblocker.gui.holders.CraftingHolder;
 import me.wsman217.healthblocker.gui.holders.Tier1Holder;
 import me.wsman217.healthblocker.gui.holders.Tier2Holder;
 import me.wsman217.healthblocker.gui.holders.Tier3Holder;
-import me.wsman217.healthblocker.items.fooditems.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.utils.recipeutils.types.RecipeType;
 import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapedRecipe;
@@ -33,7 +34,7 @@ public class GUIUtils implements Listener {
         e.setCancelled(true);
         ItemStack clickedItem = e.getCurrentItem();
         Player p = (Player) e.getWhoClicked();
-        FoodInterface foodInterface = CustomFoodHandler.getByItemStack(clickedItem);
+        CustomFoodItem foodInterface = CustomFoodHandler.getByItemStack(clickedItem);
         if (foodInterface == null)
             return;
         p.closeInventory();
