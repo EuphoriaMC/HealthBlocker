@@ -12,8 +12,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.Permission;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class CustomFoodItem {
@@ -46,6 +48,11 @@ public abstract class CustomFoodItem {
 
     @Setter
     private int customModelData = -1;
+    @Getter
+    private ArrayList<PotionEffect> effectsWhenEaten;
+    @Getter
+    @Setter
+    private boolean removePotionEffectsGivenByThisFood = false;
 
     public CustomFoodItem(String name, Material mat, int healthRegenned, String namespace, String permission, String lore, Permission permTier) {
         this.name = name;
@@ -117,5 +124,13 @@ public abstract class CustomFoodItem {
 
     public ItemStack getNonPermedItem() {
         return nonPermedItem.clone();
+    }
+
+    public void addPotionEffect(PotionEffect effect) {
+        effectsWhenEaten.add(effect);
+    }
+
+    public void addPotionEffects(PotionEffect... effects) {
+        Collections.addAll(effectsWhenEaten, effects);
     }
 }

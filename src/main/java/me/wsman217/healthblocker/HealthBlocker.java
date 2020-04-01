@@ -10,7 +10,7 @@ import me.wsman217.healthblocker.multiblock.RemovalWand;
 import me.wsman217.healthblocker.database.Database;
 import me.wsman217.healthblocker.database.MultiblockHandler;
 import me.wsman217.healthblocker.gui.*;
-import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import me.wsman217.healthblocker.utils.FileManager;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
