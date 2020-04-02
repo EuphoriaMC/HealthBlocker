@@ -20,9 +20,9 @@ import java.util.HashMap;
 public class SpikedApple extends CustomFoodItem {
     public SpikedApple() {
         super(ChatColor.GREEN + "" + ChatColor.BOLD + "Spiked Apple", Material.APPLE, 2,
-                "", "healthblocker.food.tier1.spiked_apple",
+                "spiked_apple", "healthblocker.food.tier1.spiked_apple",
                 ChatColor.LIGHT_PURPLE + "Restores 1 hearts.", CustomFoodHandler.tier1);
-
+        setCustomModelData(5);
         ItemStack item = createItem();
         setPermedItem(item);
         setNonPermedItem(setNeedsPerm(false));

@@ -49,7 +49,7 @@ public abstract class CustomFoodItem {
     @Setter
     private int customModelData = -1;
     @Getter
-    private ArrayList<PotionEffect> effectsWhenEaten;
+    private ArrayList<PotionEffect> effectsWhenEaten = new ArrayList<>();
     @Getter
     @Setter
     private boolean removePotionEffectsGivenByThisFood = false;
@@ -65,8 +65,6 @@ public abstract class CustomFoodItem {
     }
 
     public ItemStack createItem() {
-        HealthBlocker plugin = HealthBlocker.getInstance();
-
         ItemStack item = new ItemStack(mat);
         NBTItem nbtItem = new NBTItem(item);
         nbtItem.setBoolean("custom_food", true);
@@ -80,7 +78,7 @@ public abstract class CustomFoodItem {
             im.addEnchant(Enchantment.LUCK, 1, false);
             im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             List<String> lore = new ArrayList<>();
-            lore.add(ChatColor.LIGHT_PURPLE + "" + lore);
+            lore.add(ChatColor.LIGHT_PURPLE + "" + this.lore);
             im.setLore(lore);
             if (customModelData != -1)
                 im.setCustomModelData(customModelData);
@@ -89,7 +87,9 @@ public abstract class CustomFoodItem {
 
         perm = new org.bukkit.permissions.Permission(this.permission);
         perm.addParent(permTier, true);
-        plugin.getServer().getPluginManager().addPermission(perm);
+        System.out.println(perm);
+        System.out.println(HealthBlocker.getInstance());
+        HealthBlocker.getInstance().getServer().getPluginManager().addPermission(perm);
 
         return item;
     }

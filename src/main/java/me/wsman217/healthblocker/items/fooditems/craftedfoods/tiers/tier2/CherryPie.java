@@ -1,7 +1,6 @@
-package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier1;
+package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier2;
 
 import me.wsman217.healthblocker.HealthBlocker;
-import me.wsman217.healthblocker.gui.Tier1;
 import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
@@ -16,26 +15,26 @@ import org.bukkit.inventory.meta.PotionMeta;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TomatoSoup extends CustomFoodItem {
-    public TomatoSoup() {
-        super(ChatColor.GREEN + "Tomato Soup" + ChatColor.BOLD + "", Material.BEETROOT_SOUP, 4,
-                "tomato_soup", "healthblocker.food.tier1.beetroot_soup",
-                ChatColor.LIGHT_PURPLE + "Restores 2 hearts.", CustomFoodHandler.tier1);
-        setCustomModelData(6);
+public class CherryPie extends CustomFoodItem {
+    public CherryPie() {
+        super(ChatColor.YELLOW + "" + ChatColor.BOLD + "Cherry Pie", Material.PUMPKIN_PIE, 6,
+                "cherry_pie", "healthblocker.food.tier2.cherry_pie",
+                ChatColor.LIGHT_PURPLE + "Restores 3 hearts.", CustomFoodHandler.tier2);
+        setCustomModelData(7);
         ItemStack item = createItem();
         setPermedItem(item);
         setNonPermedItem(setNeedsPerm(false));
 
         ArrayList<HashMap<ItemStack, Integer>> inputs = new ArrayList<>();
 
-        HashMap<ItemStack, Integer> beetSoup = new HashMap<>();
-        beetSoup.put(new ItemStack(Material.BEETROOT_SOUP), 1);
-        inputs.add(beetSoup);
+        HashMap<ItemStack, Integer> pumpPie = new HashMap<>();
+        pumpPie.put(new ItemStack(Material.PUMPKIN_PIE), 1);
+        inputs.add(pumpPie);
 
         HashMap<ItemStack, Integer> sweetBerry = new HashMap<>();
         sweetBerry.put(new ItemStack(Material.SWEET_BERRIES), 2);
         inputs.add(sweetBerry);
 
-        setRecipe(new Recipe().setRecipeTier(Recipe.Tier.TIER1).createShapelessRecipe(new NamespacedKey(HealthBlocker.getInstance(), getNamespace()), inputs, item));
+        setRecipe(new Recipe().setRecipeTier(Recipe.Tier.TIER2).createShapelessRecipe(new NamespacedKey(HealthBlocker.getInstance(), getNamespace()), inputs, item));
     }
 }

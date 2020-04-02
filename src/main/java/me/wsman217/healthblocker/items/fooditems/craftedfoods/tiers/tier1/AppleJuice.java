@@ -20,7 +20,7 @@ public class AppleJuice extends CustomFoodItem {
         super(ChatColor.GREEN + "" + ChatColor.BOLD + "Apple Juice", Material.POTION, 4,
                 "apple_juice", "healthblocker.food.tier1.applejuice",
                 ChatColor.LIGHT_PURPLE + "Restores 2 hearts.", CustomFoodHandler.tier1);
-
+        setCustomModelData(1);
         ItemStack item = createItem();
         PotionMeta pm = (PotionMeta) item.getItemMeta();
         if (pm != null) {

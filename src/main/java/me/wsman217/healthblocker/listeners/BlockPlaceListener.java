@@ -9,7 +9,7 @@ public class BlockPlaceListener implements Listener {
 
     @EventHandler
     public void onBlockPlaceEvent(BlockPlaceEvent e) {
-        e.setCancelled(true);
-        AlterHandler.nonDirectionalAlter.createStructure(e.getBlock());
+        /*e.setCancelled(true);
+        AlterHandler.nonDirectionalAlter.createStructure(e.getBlock());*/
     }
 }

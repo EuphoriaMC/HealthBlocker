@@ -16,10 +16,10 @@ import org.bukkit.potion.PotionEffectType;
 
 public class RestoredEye extends CustomFoodItem {
     public RestoredEye() {
-        super(ChatColor.GREEN + "" + ChatColor.BOLD + "Restored Eye", Material.POTION, 1,
-                "", "healthblocker.food.tier1.",
+        super(ChatColor.GREEN + "" + ChatColor.BOLD + "Restored Eye", Material.SPIDER_EYE, 1,
+                "restored_eye", "healthblocker.food.tier1.restored_eye",
                 ChatColor.LIGHT_PURPLE + "Restores half a heart.", CustomFoodHandler.tier1);
-
+        setCustomModelData(4);
         ItemStack item = createItem();
         setPermedItem(item);
         setNonPermedItem(setNeedsPerm(false));

@@ -17,9 +17,9 @@ import org.bukkit.potion.PotionEffectType;
 public class GrandmasCookies extends CustomFoodItem {
     public GrandmasCookies() {
         super(ChatColor.GREEN + "" + ChatColor.BOLD + "Grandmas Cookies", Material.COOKIE, 4,
-                "", "healthblocker.food.tier1.",
+                "grandmas_cookies", "healthblocker.food.tier1.",
                 ChatColor.LIGHT_PURPLE + "Restores 2 hearts.", CustomFoodHandler.tier1);
-
+        setCustomModelData(3);
         ItemStack item = createItem();
         setPermedItem(item);
         setNonPermedItem(setNeedsPerm(false));
