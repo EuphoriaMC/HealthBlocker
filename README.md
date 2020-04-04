@@ -2,7 +2,7 @@
 **This is the official repository for the plugin HealthBlocker belonging to EuphoriaMc.**
 
 ## HealthBlocker's license info 
-  The license of this Software is custom. You have permission to copy, modify, and merge 
+  The license of this Software is custom. You have permission to modify, and merge 
   the HealthBlocker Software but upon modifying or merging into the HealthBlocker Software 
   you realize that you no longer own the modifications or code merged into the HealthBlocker
   Software, but you will still recieve credit for modifications/merge that you make. You must 
