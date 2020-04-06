@@ -3,6 +3,7 @@ package me.wsman217.healthblocker;
 import lombok.Getter;
 import me.wsman217.healthblocker.commands.CommandHealth;
 import me.wsman217.healthblocker.commands.CommandHealthFood;
+import me.wsman217.healthblocker.commands.ConvertCommand;
 import me.wsman217.healthblocker.commands.EuphoriaRanks;
 import me.wsman217.healthblocker.listeners.*;
 import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlter;
@@ -36,6 +37,8 @@ public class HealthBlocker extends JavaPlugin {
     private MultiblockHandler mbHandler;
     @Getter
     private static FileManager fileManager;
+    @Getter
+    private static me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler oldHandler;
 
     @Override
     public void onEnable() {
@@ -47,6 +50,7 @@ public class HealthBlocker extends JavaPlugin {
         this.db = new Database().openDatabaseConnection();
         mbHandler = new MultiblockHandler(db);
         mbHandler.generateTable();
+        oldHandler = new me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler();
         initCommands();
         initListeners();
     }
@@ -99,5 +103,6 @@ public class HealthBlocker extends JavaPlugin {
         this.getCommand("healthfood").setExecutor(cHealthFood);
         this.getCommand("healthfood").setExecutor(cHealthFood);
         this.getCommand("euphoriaranks").setExecutor(new EuphoriaRanks());
+        this.getCommand("convertfood").setExecutor(new ConvertCommand());
     }
 }

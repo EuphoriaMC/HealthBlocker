@@ -87,8 +87,6 @@ public abstract class CustomFoodItem {
 
         perm = new org.bukkit.permissions.Permission(this.permission);
         perm.addParent(permTier, true);
-        System.out.println(perm);
-        System.out.println(HealthBlocker.getInstance());
         HealthBlocker.getInstance().getServer().getPluginManager().addPermission(perm);
 
         return item;

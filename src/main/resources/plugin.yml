@@ -12,6 +12,8 @@ commands:
   euphoriaranks:
     description: "Why?"
     permission: "HealthBlocker.admin"
+  convertfood:
+    description: "eh"
 permissions:
   HealthBlocker.*:
     default: op

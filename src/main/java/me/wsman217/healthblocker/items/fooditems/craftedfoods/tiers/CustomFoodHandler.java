@@ -63,6 +63,8 @@ public class CustomFoodHandler {
     }
 
     public static CustomFoodItem getByItemStack(ItemStack toCompare) {
+        toCompare = toCompare.clone();
+        toCompare.setAmount(1);
         for (CustomFoodItem cF : customFoods) {
             if (cF.getPermedItem().isSimilar(toCompare) || cF.getNonPermedItem().isSimilar(toCompare))
                 return cF;
