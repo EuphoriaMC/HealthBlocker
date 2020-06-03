@@ -5,12 +5,9 @@ import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +33,6 @@ public class Spaghetti extends CustomFoodItem {
         tomatoes.put(new ItemStack(Material.SUGAR_CANE, 1), 3);
         inputs.add(noodles);
 
-        setRecipe(new Recipe().setRecipeTier(Recipe.Tier.TIER2).createShapelessRecipe(new NamespacedKey(HealthBlocker.getInstance(), getNamespace()), inputs, item));
+        setRecipe(new Recipe().setRecipeTier(Recipe.Tier.TIER3).createShapelessRecipe(new NamespacedKey(HealthBlocker.getInstance(), getNamespace()), inputs, item));
     }
 }

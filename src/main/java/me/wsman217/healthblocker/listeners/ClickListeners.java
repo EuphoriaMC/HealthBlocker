@@ -1,9 +1,11 @@
 package me.wsman217.healthblocker.listeners;
 
+import de.tr7zw.nbtapi.NBTItem;
 import me.wsman217.healthblocker.commands.EuphoriaRanks;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ClickListeners implements Listener {
 
-    private String[] ranks = EuphoriaRanks.ranks;
+    private final String[] ranks = EuphoriaRanks.ranks;
 
     @EventHandler
     public void onNPCClickEvent(PlayerInteractEntityEvent e) {
@@ -66,5 +68,17 @@ public class ClickListeners implements Listener {
 
     private void sendCommand(String rank, String player) {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "euphoriaranks " + rank + " " + player);
+    }
+
+    @EventHandler
+    public void iDidFuckUp(PlayerInteractEvent e) {
+        if (!e.getPlayer().getName().equalsIgnoreCase("wsman217"))
+            return;
+        if (e.getItem() == null)
+            return;
+        if (e.getItem().getType() != Material.FILLED_MAP)
+            return;
+        NBTItem map = new NBTItem(e.getItem());
+        e.getPlayer().sendMessage(map.asNBTString());
     }
 }

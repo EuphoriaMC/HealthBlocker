@@ -21,19 +21,19 @@ import java.util.List;
 public abstract class CustomFoodItem {
 
     @Getter
-    private String name;
+    private final String name;
     @Getter
-    private Material mat;
+    private final Material mat;
     @Getter
-    private int healthRegenned;
+    private final int healthRegenned;
     @Getter
-    private String namespace;
+    private final String namespace;
     @Getter
-    private String permission;
+    private final String permission;
     @Getter
-    private String lore;
+    private final String lore;
     @Getter
-    private Permission permTier;
+    private final Permission permTier;
 
     @Getter
     @Setter
@@ -49,7 +49,7 @@ public abstract class CustomFoodItem {
     @Setter
     private int customModelData = -1;
     @Getter
-    private ArrayList<PotionEffect> effectsWhenEaten = new ArrayList<>();
+    private final ArrayList<PotionEffect> effectsWhenEaten = new ArrayList<>();
     @Getter
     @Setter
     private boolean removePotionEffectsGivenByThisFood = false;

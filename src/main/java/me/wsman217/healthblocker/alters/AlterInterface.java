@@ -15,10 +15,10 @@ import java.util.HashMap;
 
 public abstract class AlterInterface {
 
-    private Origin origin;
+    private final Origin origin;
     //HashMap of directions linked to a block material.
     //Directions come in x y z order.
-    private HashMap<Triplet<Integer, Integer, Integer>, Material> blockList;
+    private final HashMap<Triplet<Integer, Integer, Integer>, Material> blockList;
     private HashMap<Triplet<Integer, Integer, Integer>, BlockData> blockData;
     private boolean isDirectional = false;
 
@@ -56,7 +56,7 @@ public abstract class AlterInterface {
 
     public void createStructure(Block origin) {
         if (isDirectional) {
-            return;
+
         } else {
             World world = origin.getWorld();
             for (int i = 0; i < 4; i++) {

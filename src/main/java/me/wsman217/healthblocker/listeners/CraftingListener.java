@@ -3,7 +3,6 @@ package me.wsman217.healthblocker.listeners;
 import de.tr7zw.nbtapi.NBTItem;
 import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
-import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapedRecipe;
 import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapelessRecipe;
@@ -192,7 +191,7 @@ public class CraftingListener implements Listener {
             return this;
         }
 
-        public String[] reverseShape() {
+        public void reverseShape() {
             ArrayList<String> reversed = new ArrayList<>();
             for (String line : shapeNormalized) {
                 StringBuilder sb = new StringBuilder(line);
@@ -201,10 +200,9 @@ public class CraftingListener implements Listener {
             }
             shapeReverse = new String[reversed.size()];
             shapeReverse = reversed.toArray(shapeReverse);
-            return shapeReverse;
         }
 
-        public String[] normalize() {
+        public void normalize() {
             //Normalize the y axis of the crafting grid.
             ArrayList<String> yNormalized = new ArrayList<>();
             for (String line : shape)
@@ -258,7 +256,6 @@ public class CraftingListener implements Listener {
             String[] holder = new String[xNormalized.size()];
             holder = xNormalized.toArray(holder);
             this.shapeNormalized = holder;
-            return shapeNormalized;
         }
 
         public boolean checkRecipe(String[] customFoodShape, HashMap<Character, ItemStack> customFoodRecipe) {

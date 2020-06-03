@@ -3,7 +3,6 @@ package me.wsman217.healthblocker.gui;
 import me.wsman217.healthblocker.gui.holders.Tier1Holder;
 import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
-import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

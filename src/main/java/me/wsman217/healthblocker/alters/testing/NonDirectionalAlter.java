@@ -10,9 +10,9 @@ import org.bukkit.block.data.BlockData;
 import java.util.HashMap;
 
 public class NonDirectionalAlter extends AlterInterface {
-    private static Origin origin;
-    private static HashMap<Triplet<Integer, Integer, Integer>, Material> blockList;
-    private static HashMap<Triplet<Integer, Integer, Integer>, BlockData> blockData;
+    private static final Origin origin;
+    private static final HashMap<Triplet<Integer, Integer, Integer>, Material> blockList;
+    private static final HashMap<Triplet<Integer, Integer, Integer>, BlockData> blockData;
 
     static {
         origin = new Origin(Bukkit.createBlockData("minecraft:piston_head[facing=up]"));

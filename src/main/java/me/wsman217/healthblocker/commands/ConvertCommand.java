@@ -1,7 +1,6 @@
 package me.wsman217.healthblocker.commands;
 
 import de.tr7zw.nbtapi.NBTItem;
-import me.wsman217.healthblocker.HealthBlocker;
 import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
 import me.wsman217.healthblocker.items.fooditems.FoodInterface;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;

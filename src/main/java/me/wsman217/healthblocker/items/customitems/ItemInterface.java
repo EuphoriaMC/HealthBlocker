@@ -8,14 +8,14 @@ import org.bukkit.permissions.Permission;
 
 public abstract class ItemInterface {
 
-    private Material mat;
+    private final Material mat;
     private ItemStack item;
-    private String name;
+    private final String name;
     private boolean isAlterRecipe = true;
     private AlterRecipe alterRecipe;
-    private String nameSpace;
-    private Permission permission;
-    private AlterInterface alter;
+    private final String nameSpace;
+    private final Permission permission;
+    private final AlterInterface alter;
 
     public ItemInterface(Material mat, String name, String nameSpace, Permission permission, AlterInterface alter) {
         this.mat = mat;

@@ -13,8 +13,8 @@ import java.util.UUID;
 
 public class MultiblockHandler {
 
-    private Database db;
-    private HealthBlocker plugin = HealthBlocker.getInstance();
+    private final Database db;
+    private final HealthBlocker plugin = HealthBlocker.getInstance();
 
     public MultiblockHandler(Database db) {
         this.db = db;
