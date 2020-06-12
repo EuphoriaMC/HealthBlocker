@@ -10,17 +10,17 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.util.Arrays;
 
-public class EvoHelmet {
+public class EvoBoots {
 
-    private static final Material[] materialTiers = {Material.LEATHER_HELMET, Material.CHAINMAIL_HELMET,
-            Material.IRON_HELMET, Material.DIAMOND_HELMET};
+    private static final Material[] materialTiers = {Material.LEATHER_BOOTS, Material.CHAINMAIL_BOOTS,
+            Material.IRON_BOOTS, Material.DIAMOND_BOOTS};
     @Getter
     private static final ItemStack[] itemTiers = new ItemStack[4];
     @Getter
     private static final double[] damageAmounts = {350, 650, 50};
 
     static {
-        //Leather evo helmet
+        //Leather evo Boot
         ItemStack leatherEvo = createEvoBase(materialTiers[0], 1);
         LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) leatherEvo.getItemMeta();
         if (leatherArmorMeta != null) {
@@ -29,13 +29,13 @@ public class EvoHelmet {
         }
         itemTiers[0] = leatherEvo;
 
-        //Chain evo helmet
+        //Chain evo Boot
         itemTiers[1] = createEvoBase(materialTiers[1], 2);
 
-        //Iron evo helmet
+        //Iron evo Boot
         itemTiers[2] = createEvoBase(materialTiers[2], 3);
 
-        //Diamond evo helmet
+        //Diamond evo Boot
         itemTiers[3] = createEvoBase(materialTiers[3], 4);
     }
 
@@ -47,11 +47,11 @@ public class EvoHelmet {
             return baseEvo;
 
         if (tier < 4)
-            baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo helmet is one of the most", ChatColor.GRAY + "powerful helmets of EuphoriaMC",
+            baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo Boot is one of the most", ChatColor.GRAY + "powerful Boots of EuphoriaMC",
                     ChatColor.GOLD + "0/" + damageAmounts[tier - 1] + " damage taken."));
         else
-            baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo helmet is one of the most", ChatColor.GRAY + "powerful helmets of EuphoriaMC"));
-        baseEvoMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tier " + tier + " Evo Helmet");
+            baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo Boot is one of the most", ChatColor.GRAY + "powerful Boots of EuphoriaMC"));
+        baseEvoMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tier " + tier + " Evo Boot");
         baseEvo.setItemMeta(baseEvoMeta);
         return baseEvo;
     }

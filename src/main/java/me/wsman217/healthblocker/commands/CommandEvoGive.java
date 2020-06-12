@@ -1,6 +1,9 @@
 package me.wsman217.healthblocker.commands;
 
+import me.wsman217.healthblocker.armor.EvoBoots;
+import me.wsman217.healthblocker.armor.EvoChestplate;
 import me.wsman217.healthblocker.armor.EvoHelmet;
+import me.wsman217.healthblocker.armor.EvoLeggings;
 import me.wsman217.healthblocker.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -14,6 +17,7 @@ import java.util.List;
 public class CommandEvoGive implements TabExecutor {
 
     private final String[] armorTypes = {"helmet", "chestplate", "leggings", "boots"};
+    private final int[] tiers = {1, 2, 3, 4};
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -35,6 +39,13 @@ public class CommandEvoGive implements TabExecutor {
                 evoArmor = EvoHelmet.getEvoFromTier(tier);
                 break;
             case "chestplate":
+                evoArmor = EvoChestplate.getEvoFromTier(tier);
+                break;
+            case "leggings":
+                evoArmor = EvoLeggings.getEvoFromTier(tier);
+                break;
+            case "boots":
+                evoArmor = EvoBoots.getEvoFromTier(tier);
                 break;
         }
         p.getInventory().addItem(evoArmor);
