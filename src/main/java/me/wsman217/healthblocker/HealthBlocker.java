@@ -1,10 +1,8 @@
 package me.wsman217.healthblocker;
 
 import lombok.Getter;
-import me.wsman217.healthblocker.commands.CommandHealth;
-import me.wsman217.healthblocker.commands.CommandHealthFood;
-import me.wsman217.healthblocker.commands.ConvertCommand;
-import me.wsman217.healthblocker.commands.EuphoriaRanks;
+import me.wsman217.healthblocker.armor.EvoListener;
+import me.wsman217.healthblocker.commands.*;
 import me.wsman217.healthblocker.database.Database;
 import me.wsman217.healthblocker.database.MultiblockHandler;
 import me.wsman217.healthblocker.gui.*;
@@ -93,6 +91,7 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new GUIUtils(), instance);
         pman.registerEvents(new ClickListeners(), instance);
         pman.registerEvents(new BlockPlaceListener(), instance);
+        pman.registerEvents(new EvoListener(), instance);
     }
 
     private void initCommands() {
@@ -104,5 +103,6 @@ public class HealthBlocker extends JavaPlugin {
         this.getCommand("healthfood").setExecutor(cHealthFood);
         this.getCommand("euphoriaranks").setExecutor(new EuphoriaRanks());
         this.getCommand("convertfood").setExecutor(new ConvertCommand());
+        this.getCommand("evogive").setExecutor(new CommandEvoGive());
     }
 }

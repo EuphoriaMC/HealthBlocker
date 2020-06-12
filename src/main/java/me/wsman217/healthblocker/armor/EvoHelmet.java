@@ -4,11 +4,6 @@ import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -16,11 +11,11 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import java.util.Arrays;
 import java.util.List;
 
-public class EvoHelmet implements Listener {
+public class EvoHelmet {
 
     private static final Material[] materialTiers = {Material.LEATHER_HELMET, Material.CHAINMAIL_HELMET, Material.IRON_HELMET, Material.DIAMOND_HELMET};
     private static final ItemStack[] itemTiers = new ItemStack[4];
-    private static final int[] damageAmounts = {250, 450, 750, 1000};
+    private static final double[] damageAmounts = {350, 650, 50};
 
     static {
         //Leather evo helmet
@@ -47,7 +42,7 @@ public class EvoHelmet implements Listener {
             tier = 1;
         ItemStack baseEvo = new ItemStack(mat);
         NBTItem baseEvoNBT = new NBTItem(baseEvo);
-        baseEvoNBT.setInteger("damage_taken", 0);
+        baseEvoNBT.setDouble("damage_taken", 0d);
         baseEvoNBT.setInteger("tier", tier);
         baseEvoNBT.setBoolean("is_evo", true);
         baseEvo = baseEvoNBT.getItem();
@@ -56,8 +51,11 @@ public class EvoHelmet implements Listener {
         if (baseEvoMeta == null)
             return baseEvo;
 
-        baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo helmet is one of the most", ChatColor.GRAY + "powerful helmets of EuphoriaMC",
-                ChatColor.GOLD + "0/" + damageAmounts[tier - 1] + " damage taken."));
+        if (tier < 4)
+            baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo helmet is one of the most", ChatColor.GRAY + "powerful helmets of EuphoriaMC",
+                    ChatColor.GOLD + "0/" + damageAmounts[tier - 1] + " damage taken."));
+        else
+            baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo helmet is one of the most", ChatColor.GRAY + "powerful helmets of EuphoriaMC"));
         baseEvoMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tier " + tier + " Evo Helmet");
         baseEvo.setItemMeta(baseEvoMeta);
         return baseEvo;
@@ -66,18 +64,11 @@ public class EvoHelmet implements Listener {
     public static ItemStack getEvoFromTier(int tier) {
         if (tier < 1 || tier > 4)
             return null;
-        return itemTiers[tier - 1];
-    }
-
-    public static boolean isEvoShield(ItemStack toTest) {
-        NBTItem item = new NBTItem(toTest);
-        if (!item.hasKey("is_evo"))
-            return false;
-        return item.getBoolean("is_evo");
+        return itemTiers[tier - 1].clone();
     }
 
     public static int getDamageTaken(ItemStack item) {
-        if (!isEvoShield(item))
+        if (!EvoListener.isEvoShield(item))
             return 0;
         NBTItem nbtItem = new NBTItem(item);
         if (!nbtItem.hasKey("damage_taken"))
@@ -85,16 +76,18 @@ public class EvoHelmet implements Listener {
         return nbtItem.getInteger("damage_taken");
     }
 
-    public static ItemStack increaseDamageTaken(ItemStack item, int increaseAmount) {
-        if (!isEvoShield(item))
+    public static ItemStack increaseDamageTaken(ItemStack item, double increaseAmount) {
+        if (!EvoListener.isEvoShield(item))
             return item;
         NBTItem nbtItem = new NBTItem(item);
         if (!nbtItem.hasKey("damage_taken"))
             return item;
-        int newDamageTaken = getDamageTaken(item) + increaseAmount;
-        nbtItem.setInteger("damage_taken", newDamageTaken);
+        double newDamageTaken = getDamageTaken(item) + increaseAmount;
+        nbtItem.setDouble("damage_taken", newDamageTaken);
         int tier = nbtItem.getInteger("tier");
         item = nbtItem.getItem();
+        if (newDamageTaken >= damageAmounts[tier - 1])
+            return itemTiers[tier].clone();
 
         ItemMeta im = item.getItemMeta();
         if (im == null)
@@ -106,25 +99,10 @@ public class EvoHelmet implements Listener {
         int lastPartOfString = loreLine2.indexOf('d') - 1;
         loreLine2 = loreLine2.substring(lastPartOfString);
         loreLine2 = ChatColor.GOLD + "" + newDamageTaken + "/" + damageAmounts[tier - 1] + " " + loreLine2;
+        System.out.println(loreLine2);
         lore.set(2, loreLine2);
+        im.setLore(lore);
         item.setItemMeta(im);
         return item;
-    }
-
-    @EventHandler
-    public void onPlayerTakeDamageEvent(EntityDamageEvent e) {
-        if (e.getEntityType() != EntityType.PLAYER)
-            return;
-        Player p = (Player) e.getEntity();
-        ItemStack[] armor = p.getInventory().getArmorContents();
-        int damageTaken = (int) e.getFinalDamage();
-        int percentTaken = (int) (damageTaken * .1) / 4;
-        for (int i = 0; i < armor.length; i++) {
-            ItemStack armorPiece = armor[i];
-            if (!isEvoShield(armorPiece))
-                continue;
-            armor[i] = increaseDamageTaken(armorPiece, percentTaken);
-        }
-        p.getInventory().setArmorContents(armor);
     }
 }

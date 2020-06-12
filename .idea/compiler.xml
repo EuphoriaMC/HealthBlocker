@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="HealthBlocker" target="9" />
+      <module name="HealthBlocker" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

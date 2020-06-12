@@ -14,6 +14,9 @@ commands:
     permission: "HealthBlocker.admin"
   convertfood:
     description: "eh"
+  evogive:
+    description: "lol"
+    permission: "HealthBlocker.admin"
 permissions:
   HealthBlocker.*:
     default: op

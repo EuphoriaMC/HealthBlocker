@@ -11,4 +11,13 @@ public class Utils {
         j = j < 0 ? parse.length() - 1 : j;
         return Directions.fromString(parse.substring(i, j));
     }
+
+    public static boolean isInt(String toTest) {
+        try {
+            Integer.parseInt(toTest);
+            return true;
+        } catch (NumberFormatException ignore) {
+            return false;
+        }
+    }
 }
