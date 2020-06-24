@@ -1,9 +1,9 @@
 package me.wsman217.healthblocker.gui;
 
 import me.wsman217.healthblocker.gui.holders.Tier1Holder;
-import me.wsman217.healthblocker.items.CustomItemHandler;
-import me.wsman217.healthblocker.items.FoodInterface;
-import me.wsman217.healthblocker.recipeutils.Recipe;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
+import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -29,15 +29,15 @@ public class Tier1 implements Listener {
     }
 
     void openInv() {
-        HashMap<String, Recipe.Tier> recipeTiers = CustomItemHandler.recipeTiers;
+        HashMap<String, Recipe.Tier> recipeTiers = CustomFoodHandler.recipeTiers;
         Set<String> keys = recipeTiers.keySet();
-        ArrayList<FoodInterface> foods = new ArrayList<>();
+        ArrayList<CustomFoodItem> foods = new ArrayList<>();
 
         //Loop through all the keys of the recipeTiers hashmap
         for (String key : keys) {
             //If the are tier 1 add them to the foods ArrayList
             if (recipeTiers.get(key) == Recipe.Tier.TIER1)
-                foods.add(CustomItemHandler.getFromNameSpace(key));
+                foods.add(CustomFoodHandler.getFromNameSpace(key));
         }
 
         //Find how many rows are needed for the inventory
@@ -48,8 +48,8 @@ public class Tier1 implements Listener {
 
         int index = 0;
         //Loop through all the foods and add them to the inv then open it
-        for (FoodInterface food : foods) {
-            inv.setItem(index, food.getItemStack());
+        for (CustomFoodItem food : foods) {
+            inv.setItem(index, food.getPermedItem());
             index++;
         }
         this.p.openInventory(inv);

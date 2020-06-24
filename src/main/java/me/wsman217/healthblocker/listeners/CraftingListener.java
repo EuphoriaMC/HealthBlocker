@@ -1,11 +1,11 @@
 package me.wsman217.healthblocker.listeners;
 
 import de.tr7zw.nbtapi.NBTItem;
-import me.wsman217.healthblocker.items.CustomItemHandler;
-import me.wsman217.healthblocker.items.FoodInterface;
-import me.wsman217.healthblocker.recipeutils.Recipe;
-import me.wsman217.healthblocker.recipeutils.types.TypeShapedRecipe;
-import me.wsman217.healthblocker.recipeutils.types.TypeShapelessRecipe;
+import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
+import me.wsman217.healthblocker.utils.recipeutils.Recipe;
+import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapedRecipe;
+import me.wsman217.healthblocker.utils.recipeutils.types.TypeShapelessRecipe;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -37,7 +37,7 @@ public class CraftingListener implements Listener {
         if (!isCustomFood)
             return;
         String customFoodType = nbtItem.getString("food_type");
-        FoodInterface foodType = CustomItemHandler.getFromNameSpace(customFoodType);
+        CustomFoodItem foodType = CustomFoodHandler.getFromNameSpace(customFoodType);
         //Check if they have permission to craft the food
         //e.getView().getPlayer()
         for (HumanEntity p : (e.getViewers())) {
@@ -191,7 +191,7 @@ public class CraftingListener implements Listener {
             return this;
         }
 
-        public String[] reverseShape() {
+        public void reverseShape() {
             ArrayList<String> reversed = new ArrayList<>();
             for (String line : shapeNormalized) {
                 StringBuilder sb = new StringBuilder(line);
@@ -200,10 +200,9 @@ public class CraftingListener implements Listener {
             }
             shapeReverse = new String[reversed.size()];
             shapeReverse = reversed.toArray(shapeReverse);
-            return shapeReverse;
         }
 
-        public String[] normalize() {
+        public void normalize() {
             //Normalize the y axis of the crafting grid.
             ArrayList<String> yNormalized = new ArrayList<>();
             for (String line : shape)
@@ -257,7 +256,6 @@ public class CraftingListener implements Listener {
             String[] holder = new String[xNormalized.size()];
             holder = xNormalized.toArray(holder);
             this.shapeNormalized = holder;
-            return shapeNormalized;
         }
 
         public boolean checkRecipe(String[] customFoodShape, HashMap<Character, ItemStack> customFoodRecipe) {

@@ -1,19 +1,16 @@
 package me.wsman217.healthblocker;
 
 import lombok.Getter;
-import me.wsman217.healthblocker.commands.CommandHealth;
-import me.wsman217.healthblocker.commands.CommandHealthFood;
-import me.wsman217.healthblocker.commands.EuphoriaRanks;
-import me.wsman217.healthblocker.listeners.ClickListeners;
-import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlter;
-import me.wsman217.healthblocker.multiblock.RemovalWand;
+import me.wsman217.healthblocker.armor.EvoListener;
+import me.wsman217.healthblocker.commands.*;
 import me.wsman217.healthblocker.database.Database;
 import me.wsman217.healthblocker.database.MultiblockHandler;
 import me.wsman217.healthblocker.gui.*;
-import me.wsman217.healthblocker.items.CustomItemHandler;
-import me.wsman217.healthblocker.listeners.CraftingListener;
-import me.wsman217.healthblocker.listeners.EatingListener;
-import me.wsman217.healthblocker.listeners.JoinListener;
+import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
+import me.wsman217.healthblocker.listeners.*;
+import me.wsman217.healthblocker.multiblock.RemovalWand;
+import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlter;
+import me.wsman217.healthblocker.utils.FileManager;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.permissions.Permission;
@@ -27,7 +24,7 @@ public class HealthBlocker extends JavaPlugin {
     @Getter
     private static HealthBlocker instance;
     @Getter
-    private CustomItemHandler itemHandler;
+    private CustomFoodHandler itemHandler;
     @Getter
     private CraftingAlter mbItem;
     @Getter
@@ -36,26 +33,32 @@ public class HealthBlocker extends JavaPlugin {
     private Database db;
     @Getter
     private MultiblockHandler mbHandler;
+    @Getter
+    private static FileManager fileManager;
+    @Getter
+    private static me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler oldHandler;
 
     @Override
     public void onEnable() {
         instance = this;
-        this.itemHandler = new CustomItemHandler();
+        fileManager = FileManager.getInstance().logInfo(true).setup(this);
+        this.itemHandler = new CustomFoodHandler();
         this.mbItem = new CraftingAlter().init();
         this.rmWand = new RemovalWand().init();
         this.db = new Database().openDatabaseConnection();
         mbHandler = new MultiblockHandler(db);
         mbHandler.generateTable();
+        oldHandler = new me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler();
         initCommands();
         initListeners();
     }
 
     @Override
     public void onDisable() {
-        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier1);
-        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier2);
-        this.getServer().getPluginManager().removePermission(CustomItemHandler.tier3);
-        for (Permission perm : CustomItemHandler.getPermissions())
+        this.getServer().getPluginManager().removePermission(CustomFoodHandler.tier1);
+        this.getServer().getPluginManager().removePermission(CustomFoodHandler.tier2);
+        this.getServer().getPluginManager().removePermission(CustomFoodHandler.tier3);
+        for (Permission perm : CustomFoodHandler.getPermissions())
             this.getServer().getPluginManager().removePermission(perm);
 
         Iterator<Recipe> recipeIterator = this.getServer().recipeIterator();
@@ -63,7 +66,7 @@ public class HealthBlocker extends JavaPlugin {
             Recipe recipe = recipeIterator.next();
             ItemStack result = recipe.getResult();
 
-            if (CustomItemHandler.getByItemStack(result) != null)
+            if (CustomFoodHandler.getByItemStack(result) != null)
                 recipeIterator.remove();
         }
         this.getServer().clearRecipes();
@@ -87,6 +90,8 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new StopCraftClicks(), instance);
         pman.registerEvents(new GUIUtils(), instance);
         pman.registerEvents(new ClickListeners(), instance);
+        pman.registerEvents(new BlockPlaceListener(), instance);
+        pman.registerEvents(new EvoListener(), instance);
     }
 
     private void initCommands() {
@@ -97,5 +102,7 @@ public class HealthBlocker extends JavaPlugin {
         this.getCommand("healthfood").setExecutor(cHealthFood);
         this.getCommand("healthfood").setExecutor(cHealthFood);
         this.getCommand("euphoriaranks").setExecutor(new EuphoriaRanks());
+        this.getCommand("convertfood").setExecutor(new ConvertCommand());
+        this.getCommand("evogive").setExecutor(new CommandEvoGive());
     }
 }

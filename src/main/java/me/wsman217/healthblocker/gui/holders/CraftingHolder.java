@@ -7,7 +7,7 @@ public class CraftingHolder implements InventoryHolder {
 
     private int tier;
     public boolean naturallyClosed = true;
-    private Inventory inv = null;
+    private final Inventory inv = null;
 
     @Override
     public Inventory getInventory() {

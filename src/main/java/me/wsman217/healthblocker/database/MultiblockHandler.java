@@ -13,8 +13,8 @@ import java.util.UUID;
 
 public class MultiblockHandler {
 
-    private Database db;
-    private HealthBlocker plugin = HealthBlocker.getInstance();
+    private final Database db;
+    private final HealthBlocker plugin = HealthBlocker.getInstance();
 
     public MultiblockHandler(Database db) {
         this.db = db;
@@ -69,7 +69,7 @@ public class MultiblockHandler {
         return new CraftingAlterHolder(getLocation(p));
     }
 
-    //I DID A STUPID SOMEWHERE HERE ALSO WILL NOT WANT TO USE .distance JUST DO IT BY HAND BY CHECKING WORLD AND SUCH.
+    //TODO I DID A STUPID SOMEWHERE HERE ALSO WILL NOT WANT TO USE .distance JUST DO IT BY HAND BY CHECKING WORLD AND SUCH.
     public boolean isWithing30Blocks(Location ploc) {
         Connection connection = this.db.getConnection();
         boolean isWithin = false;
