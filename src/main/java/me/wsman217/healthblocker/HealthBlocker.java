@@ -1,15 +1,12 @@
 package me.wsman217.healthblocker;
 
 import lombok.Getter;
+import me.wsman217.healthblocker.alter.Pedestal;
 import me.wsman217.healthblocker.armor.EvoListener;
 import me.wsman217.healthblocker.commands.*;
-import me.wsman217.healthblocker.database.Database;
-import me.wsman217.healthblocker.database.MultiblockHandler;
 import me.wsman217.healthblocker.gui.*;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import me.wsman217.healthblocker.listeners.*;
-import me.wsman217.healthblocker.multiblock.RemovalWand;
-import me.wsman217.healthblocker.multiblock.craftingalter.CraftingAlter;
 import me.wsman217.healthblocker.utils.FileManager;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -26,28 +23,18 @@ public class HealthBlocker extends JavaPlugin {
     @Getter
     private CustomFoodHandler itemHandler;
     @Getter
-    private CraftingAlter mbItem;
-    @Getter
-    private RemovalWand rmWand;
-    @Getter
-    private Database db;
-    @Getter
-    private MultiblockHandler mbHandler;
-    @Getter
     private static FileManager fileManager;
     @Getter
     private static me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler oldHandler;
+    @Getter
+    private static final boolean IN_TESTING = true;
+
 
     @Override
     public void onEnable() {
         instance = this;
         fileManager = FileManager.getInstance().logInfo(true).setup(this);
         this.itemHandler = new CustomFoodHandler();
-        this.mbItem = new CraftingAlter().init();
-        this.rmWand = new RemovalWand().init();
-        this.db = new Database().openDatabaseConnection();
-        mbHandler = new MultiblockHandler(db);
-        mbHandler.generateTable();
         oldHandler = new me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler();
         initCommands();
         initListeners();
@@ -78,8 +65,6 @@ public class HealthBlocker extends JavaPlugin {
 
     private void initListeners() {
         PluginManager pman = this.getServer().getPluginManager();
-        pman.registerEvents(mbItem, instance);
-        pman.registerEvents(rmWand, instance);
         pman.registerEvents(new EatingListener(), instance);
         pman.registerEvents(new CraftingListener(), instance);
         pman.registerEvents(new JoinListener(), instance);
@@ -92,6 +77,8 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new ClickListeners(), instance);
         pman.registerEvents(new BlockPlaceListener(), instance);
         pman.registerEvents(new EvoListener(), instance);
+        pman.registerEvents(new TestListener(), instance);
+        pman.registerEvents(new Pedestal(), instance);
     }
 
     private void initCommands() {
@@ -104,5 +91,6 @@ public class HealthBlocker extends JavaPlugin {
         this.getCommand("euphoriaranks").setExecutor(new EuphoriaRanks());
         this.getCommand("convertfood").setExecutor(new ConvertCommand());
         this.getCommand("evogive").setExecutor(new CommandEvoGive());
+        this.getCommand("healthtest").setExecutor(new TestCommand());
     }
 }

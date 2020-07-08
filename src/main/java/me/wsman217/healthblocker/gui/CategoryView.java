@@ -20,9 +20,9 @@ public class CategoryView implements Listener {
     private final String INV_NAME = ChatColor.LIGHT_PURPLE + "Please choose a tier.";
     private Player p;
 
-    private static ItemStack tier1Item = new ItemStack(Material.PAPER);
-    private static ItemStack tier2Item = new ItemStack(Material.BOOK);
-    private static ItemStack tier3Item = new ItemStack(Material.WRITABLE_BOOK);
+    private static final ItemStack tier1Item = new ItemStack(Material.PAPER);
+    private static final ItemStack tier2Item = new ItemStack(Material.BOOK);
+    private static final ItemStack tier3Item = new ItemStack(Material.WRITABLE_BOOK);
 
     static {
         ItemMeta tier1IM = tier1Item.getItemMeta();
@@ -70,6 +70,7 @@ public class CategoryView implements Listener {
 
     @EventHandler
     public void onTierClick(InventoryClickEvent e) {
+        System.out.println("Clicked");
         if (!(e.getInventory().getHolder() instanceof MainHolder))
             return;
         if (!(e.getWhoClicked() instanceof Player))
@@ -82,6 +83,7 @@ public class CategoryView implements Listener {
 
         //Open tier 1 inv
         if (clickedItem.isSimilar(tier1Item)) {
+            System.out.println("Tier 1");
             p.closeInventory();
             new Tier1(p).openInv();
         }
