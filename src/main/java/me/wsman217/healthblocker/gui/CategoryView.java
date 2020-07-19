@@ -58,19 +58,18 @@ public class CategoryView implements Listener {
     public void openInv() {
         //Create the inventory and add the items to it
         //Inventory inv = Bukkit.createInventory(new MainHolder(), 9, INV_NAME);
-        Inventory inv = Bukkit.createInventory(new MainHolder(), InventoryType.HOPPER, INV_NAME);
+        Inventory inv = Bukkit.createInventory(new MainHolder(), 9, INV_NAME);
         /*inv.setItem(2, tier1Item);
         inv.setItem(4, tier2Item);
         inv.setItem(6, tier3Item);*/
         inv.setItem(0, tier1Item);
-        inv.setItem(2, tier2Item);
-        inv.setItem(4, tier3Item);
+        inv.setItem(4, tier2Item);
+        inv.setItem(8, tier3Item);
         p.openInventory(inv);
     }
 
     @EventHandler
     public void onTierClick(InventoryClickEvent e) {
-        System.out.println("Clicked");
         if (!(e.getInventory().getHolder() instanceof MainHolder))
             return;
         if (!(e.getWhoClicked() instanceof Player))
@@ -83,7 +82,6 @@ public class CategoryView implements Listener {
 
         //Open tier 1 inv
         if (clickedItem.isSimilar(tier1Item)) {
-            System.out.println("Tier 1");
             p.closeInventory();
             new Tier1(p).openInv();
         }
