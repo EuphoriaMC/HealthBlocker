@@ -70,12 +70,10 @@ public class CategoryView implements Listener {
 
     @EventHandler
     public void onTierClick(InventoryClickEvent e) {
-        if (!(e.getInventory().getHolder() instanceof MainHolder))
+        System.out.println("Clicked");
+        if (!(e.getInventory().getHolder() instanceof MainHolder) || !(e.getWhoClicked() instanceof Player) || e.getCurrentItem() == null) {
             return;
-        if (!(e.getWhoClicked() instanceof Player))
-            return;
-        if (e.getCurrentItem() == null)
-            return;
+        }
         e.setCancelled(true);
         Player p = (Player) e.getWhoClicked();
         ItemStack clickedItem = e.getCurrentItem();
