@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -26,25 +25,32 @@ public class CategoryView implements Listener {
 
     static {
         ItemMeta tier1IM = tier1Item.getItemMeta();
-        tier1IM.addEnchant(Enchantment.LUCK, 1, true);
-        tier1IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        tier1IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        tier1IM.setDisplayName(ChatColor.GREEN + "Tier 1");
-        tier1Item.setItemMeta(tier1IM);
+        if (tier1IM != null) {
+            tier1IM.addEnchant(Enchantment.LUCK, 1, true);
+            tier1IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            tier1IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            tier1IM.setDisplayName(ChatColor.GREEN + "Tier 1");
+            tier1Item.setItemMeta(tier1IM);
+        }
+
 
         ItemMeta tier2IM = tier2Item.getItemMeta();
-        tier2IM.addEnchant(Enchantment.LUCK, 1, true);
-        tier2IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        tier2IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        tier2IM.setDisplayName(ChatColor.YELLOW + "Tier 2");
-        tier2Item.setItemMeta(tier2IM);
+        if (tier2IM != null) {
+            tier2IM.addEnchant(Enchantment.LUCK, 1, true);
+            tier2IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            tier2IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            tier2IM.setDisplayName(ChatColor.YELLOW + "Tier 2");
+            tier2Item.setItemMeta(tier2IM);
+        }
 
         ItemMeta tier3IM = tier3Item.getItemMeta();
-        tier3IM.addEnchant(Enchantment.LUCK, 1, true);
-        tier3IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        tier3IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        tier3IM.setDisplayName(ChatColor.LIGHT_PURPLE + "Tier 3");
-        tier3Item.setItemMeta(tier3IM);
+        if (tier3IM != null) {
+            tier3IM.addEnchant(Enchantment.LUCK, 1, true);
+            tier3IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            tier3IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            tier3IM.setDisplayName(ChatColor.LIGHT_PURPLE + "Tier 3");
+            tier3Item.setItemMeta(tier3IM);
+        }
     }
 
     public CategoryView() {
@@ -70,7 +76,6 @@ public class CategoryView implements Listener {
 
     @EventHandler
     public void onTierClick(InventoryClickEvent e) {
-        System.out.println("Clicked");
         if (!(e.getInventory().getHolder() instanceof MainHolder) || !(e.getWhoClicked() instanceof Player) || e.getCurrentItem() == null) {
             return;
         }

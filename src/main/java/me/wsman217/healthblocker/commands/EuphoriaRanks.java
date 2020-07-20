@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 //Command layout (2 args needed):
 //euphoriaranks %rank% %player%
+@SuppressWarnings("NullableProblems")
 public class EuphoriaRanks implements CommandExecutor {
 
     //Public and static so it can be used in a listener class.

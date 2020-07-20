@@ -52,6 +52,7 @@ public class EvoChestplate {
         else
             baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo Chestplate is one of the most", ChatColor.GRAY + "powerful Chestplates of EuphoriaMC"));
         baseEvoMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tier " + tier + " Evo Chestplate");
+        baseEvoMeta.setUnbreakable(true);
         baseEvo.setItemMeta(baseEvoMeta);
         return baseEvo;
     }

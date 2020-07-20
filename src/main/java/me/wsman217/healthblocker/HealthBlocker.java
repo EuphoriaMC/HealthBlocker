@@ -25,8 +25,6 @@ public class HealthBlocker extends JavaPlugin {
     @Getter
     private static FileManager fileManager;
     @Getter
-    private static me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler oldHandler;
-    @Getter
     private static final boolean IN_TESTING = true;
 
 
@@ -35,7 +33,6 @@ public class HealthBlocker extends JavaPlugin {
         instance = this;
         fileManager = FileManager.getInstance().logInfo(true).setup(this);
         this.itemHandler = new CustomFoodHandler();
-        oldHandler = new me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler();
         initCommands();
         initListeners();
     }
@@ -90,7 +87,6 @@ public class HealthBlocker extends JavaPlugin {
         this.getCommand("healthfood").setExecutor(cHealthFood);
         this.getCommand("healthfood").setExecutor(cHealthFood);
         this.getCommand("euphoriaranks").setExecutor(new EuphoriaRanks());
-        this.getCommand("convertfood").setExecutor(new ConvertCommand());
         this.getCommand("evogive").setExecutor(new CommandEvoGive());
         this.getCommand("healthtest").setExecutor(new TestCommand());
     }

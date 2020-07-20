@@ -13,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.EntityBlockFormEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EntityEquipment;
@@ -189,9 +188,9 @@ public class Pedestal implements Listener {
     }
 
     public static class PedestalHolder {
-        public ArmorStand armorStand;
-        public Item item;
-        public Player player;
+        public final ArmorStand armorStand;
+        public final Item item;
+        public final Player player;
 
         public PedestalHolder(ArmorStand armorStand, Item item, Player player) {
             this.armorStand = armorStand;

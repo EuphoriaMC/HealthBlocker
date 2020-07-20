@@ -8,10 +8,11 @@ import org.bukkit.inventory.ItemStack;
 @Deprecated
 public class TypeFurnaceRecipe implements RecipeType {
 
-    private NamespacedKey key;
-    private ItemStack input, output;
-    private float exp;
-    private int cookTime;
+    private final NamespacedKey key;
+    private final ItemStack input;
+    private final ItemStack output;
+    private final float exp;
+    private final int cookTime;
 
     public TypeFurnaceRecipe(NamespacedKey key, ItemStack input, ItemStack output, float exp, int cookTime) {
         this.key = key;

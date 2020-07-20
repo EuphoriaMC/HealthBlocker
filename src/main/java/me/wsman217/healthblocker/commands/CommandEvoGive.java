@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 public class CommandEvoGive implements TabExecutor {
 
     private final String[] armorTypes = {"helmet", "chestplate", "leggings", "boots"};

@@ -5,7 +5,7 @@ import org.bukkit.inventory.InventoryHolder;
 
 public class Tier1Holder implements InventoryHolder {
     public boolean naturallyClosed = true;
-    private Inventory inv = null;
+    private final Inventory inv = null;
     @Override
     public Inventory getInventory() {
         return inv;

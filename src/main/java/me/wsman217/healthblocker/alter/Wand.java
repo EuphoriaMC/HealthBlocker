@@ -11,7 +11,6 @@ import org.bukkit.inventory.meta.FireworkEffectMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Collections;
 
 
