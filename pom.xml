@@ -24,6 +24,10 @@
             <url>https://repo.codemc.org/repository/maven-public/</url>
             <layout>default</layout>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -42,6 +46,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.TechFortress</groupId>
+            <artifactId>GriefPrevention</artifactId>
+            <version>16.7.1</version>
         </dependency>
     </dependencies>
 
@@ -65,7 +74,7 @@
                 <configuration>
                     <!--<outputDirectory>D:\DevServers\1.14.4Server\plugins</outputDirectory>-->
                     <!--<outputDirectory>E:\DevServers\1.14.4Server\plugins</outputDirectory>-->
-                    <!--<outputDirectory>C:\users\westo\Desktop\FinalServerBackUpBefore1.16\plugins</outputDirectory>-->
+                    <outputDirectory>C:\users\westo\Desktop\FinalServerBackUpBefore1.16\plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>

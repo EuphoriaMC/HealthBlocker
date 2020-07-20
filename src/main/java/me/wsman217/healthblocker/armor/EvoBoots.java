@@ -52,6 +52,7 @@ public class EvoBoots {
         else
             baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo Boot is one of the most", ChatColor.GRAY + "powerful Boots of EuphoriaMC"));
         baseEvoMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tier " + tier + " Evo Boot");
+        baseEvoMeta.setUnbreakable(true);
         baseEvo.setItemMeta(baseEvoMeta);
         return baseEvo;
     }

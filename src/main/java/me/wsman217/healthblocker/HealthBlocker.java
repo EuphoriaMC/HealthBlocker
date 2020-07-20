@@ -79,6 +79,7 @@ public class HealthBlocker extends JavaPlugin {
         pman.registerEvents(new EvoListener(), instance);
         //pman.registerEvents(new TestListener(), instance);
         pman.registerEvents(new Pedestal(), instance);
+        pman.registerEvents(new PedestalListeners(), instance);
     }
 
     private void initCommands() {
