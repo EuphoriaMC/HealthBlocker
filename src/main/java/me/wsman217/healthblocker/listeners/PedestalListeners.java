@@ -10,6 +10,8 @@ public class PedestalListeners implements Listener {
 
     @EventHandler
     public void onPedestalCreateEvent(PedestalCreateEvent e) {
+        if (e.getPlayer() == null)
+            return;
         GriefPrevention gp = GriefPrevention.instance;
         if (gp.allowBuild(e.getPlayer(), e.getLocation()) != null)
             e.setCancelled(true);
@@ -17,6 +19,8 @@ public class PedestalListeners implements Listener {
 
     @EventHandler
     public void onPedestalRemoveEvent(PedestalRemoveEvent e) {
+        if (e.getPlayer() == null)
+            return;
         GriefPrevention gp = GriefPrevention.instance;
         if (gp.allowBuild(e.getPlayer(), e.getLocation()) != null)
             e.setCancelled(true);

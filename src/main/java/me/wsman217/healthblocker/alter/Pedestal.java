@@ -2,18 +2,22 @@ package me.wsman217.healthblocker.alter;
 
 import me.wsman217.healthblocker.alter.events.pedestal.PedestalCreateEvent;
 import me.wsman217.healthblocker.alter.events.pedestal.PedestalDestroyEvent;
+import me.wsman217.healthblocker.alter.events.pedestal.PedestalItemDespawnEvent;
 import me.wsman217.healthblocker.alter.events.pedestal.PedestalRemoveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.ItemDespawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
@@ -23,6 +27,7 @@ import org.bukkit.util.Vector;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Pedestal implements Listener {
     private static final List<Material> pedestalBlocks = Arrays.asList(Material.QUARTZ_PILLAR, Material.POLISHED_BASALT, Material.CUT_SANDSTONE,
@@ -72,8 +77,156 @@ public class Pedestal implements Listener {
         e.setCancelled(true);
     }
 
+    @EventHandler
+    public void onPedestalItemDespawnEvent(ItemDespawnEvent e) {
+        if (e.getEntity().getType() != EntityType.DROPPED_ITEM)
+            return;
+        Item item = e.getEntity();
+        Block block = item.getLocation().clone().add(0, -1, 0).getBlock();
+        if (isNotPedestalBlock(block))
+            return;
+        PedestalHolder holder = getPedestal(block, null);
+        if (holder == null || holder.isNotPedestal())
+            return;
+
+        if (!holder.item.equals(item))
+            return;
+
+        PedestalItemDespawnEvent event = new PedestalItemDespawnEvent(holder.armorStand, holder.item);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+
+        if (!event.isCancelled())
+            return;
+
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPedestalExplodeEventByBlock(BlockExplodeEvent e) {
+        explosionHandler(e.blockList());
+    }
+
+    @EventHandler
+    public void onPedestalExplodeEventByEntity(EntityExplodeEvent e) {
+        explosionHandler(e.blockList());
+    }
+
+    @EventHandler
+    public void entityChangeBlock(EntityChangeBlockEvent e) {
+        Block block = e.getBlock();
+        if (isNotPedestalBlock(block))
+            return;
+        PedestalHolder holder = getPedestal(block, null);
+        if (holder == null || holder.isNotPedestal())
+            return;
+        e.setCancelled(true);
+    }
+
+    @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPistonExtendEvent(BlockPistonExtendEvent e) {
+        List<Block> blockList = e.getBlocks();
+
+        if (e.getDirection() == BlockFace.DOWN) {
+            if (blockList.size() > 0) {
+                for (Block block : blockList) {
+                    if (isNotPedestalBlock(block))
+                        continue;
+                    PedestalHolder holder = getPedestal(block, null);
+                    if (holder == null || holder.isNotPedestal())
+                        continue;
+                    removePedestal(holder);
+                    return;
+                }
+                Block block = blockList.get(blockList.size() - 1).getLocation().add(0, -2, 0).getBlock();
+                if (isNotPedestalBlock(block))
+                    return;
+                PedestalHolder holder = getPedestal(block, null);
+                if (holder == null || holder.isNotPedestal())
+                    return;
+                removePedestal(holder);
+            } else {
+                Block block = e.getBlock().getLocation().add(0, -2, 0).getBlock();
+                if (isNotPedestalBlock(block))
+                    return;
+                PedestalHolder holder = getPedestal(block, null);
+                if (holder == null || holder.isNotPedestal())
+                    return;
+                removePedestal(holder);
+            }
+            return;
+        }
+
+        if (blockList.size() <= 0) {
+            BlockFace face = e.getDirection();
+            if (face == BlockFace.UP)
+                return;
+            Block block = e.getBlock().getLocation().add(face.getModX(), -1, face.getModZ()).getBlock();
+            if (isNotPedestalBlock(block))
+                return;
+            PedestalHolder holder = getPedestal(block, null);
+            if (holder == null || holder.isNotPedestal())
+                return;
+            removePedestal(holder);
+            return;
+        }
+        extractedBlockMovementMethod(blockList);
+    }
+
+    @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPistonRetract(BlockPistonRetractEvent e) {
+        List<Block> blockList = e.getBlocks();
+        extractedBlockMovementMethod(blockList);
+    }
+
+    private void extractedBlockMovementMethod(List<Block> blockList) {
+        for (Block block : blockList) {
+            if (isNotPedestalBlock(block))
+                if (checkBlockUnder(block)) {
+                    PedestalHolder holder = getPedestal(block, null);
+                    if (holder == null)
+                        return;
+                    removePedestal(holder);
+                    return;
+                } else
+                    continue;
+            PedestalHolder holder = getPedestal(block, null);
+            if (holder == null || holder.isNotPedestal())
+                if (checkBlockUnder(block)) {
+                    if (holder == null)
+                        return;
+                    removePedestal(holder);
+                    return;
+                } else
+                    continue;
+            removePedestal(holder);
+            return;
+        }
+    }
+
+    private boolean checkBlockUnder(Block block) {
+        Block newBlock = block.getLocation().add(0, -1, 0).getBlock();
+        if (isNotPedestalBlock(newBlock))
+            return false;
+        PedestalHolder holder = getPedestal(newBlock, null);
+        return holder == null || holder.isNotPedestal();
+    }
+
+    private void explosionHandler(List<Block> blockList) {
+        blockList = blockList.stream().filter(Pedestal::isPedestalBlock).collect(Collectors.toList());
+        for (Block block : blockList) {
+            PedestalHolder holder = getPedestal(block, null);
+            if (holder == null || holder.isNotPedestal())
+                continue;
+            destroyPedestal(holder);
+        }
+    }
+
     private static double random() {
         return (Math.random() * .5) - .25;
+    }
+
+    public static boolean isPedestalBlock(Block block) {
+        return pedestalBlocks.contains(block.getType());
     }
 
     public static boolean isNotPedestalBlock(Block block) {
@@ -81,7 +234,7 @@ public class Pedestal implements Listener {
     }
 
     private void createPedestal(Block block, ItemStack itemStack, Player player) {
-        if (isNotPedestalBlock(block) || itemStack == null)
+        if (isNotPedestalBlock(block) || itemStack == null || block.getLocation().clone().add(0, 1, 0).getBlock().getType() != Material.AIR)
             return;
 
         Location location = block.getLocation().clone().add(.5, 0, .5);
@@ -100,6 +253,7 @@ public class Pedestal implements Listener {
         armorStand.setVisible(false);
         armorStand.setBasePlate(false);
         armorStand.setCanPickupItems(false);
+        armorStand.setCollidable(false);
 
         EntityEquipment equipment = armorStand.getEquipment();
         if (equipment == null)
