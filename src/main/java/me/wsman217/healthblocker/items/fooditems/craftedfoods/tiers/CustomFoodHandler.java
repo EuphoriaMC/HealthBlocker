@@ -21,17 +21,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CustomFoodHandler {
-    public static Permission tier1 = new Permission("healthblocker.food.tier1.*");
-    public static Permission tier2 = new Permission("healthblocker.food.tier2.*");
-    public static Permission tier3 = new Permission("healthblocker.food.tier3.*");
+    public static final Permission tier1 = new Permission("healthblocker.food.tier1.*");
+    public static final Permission tier2 = new Permission("healthblocker.food.tier2.*");
+    public static final Permission tier3 = new Permission("healthblocker.food.tier3.*");
 
-    public static ArrayList<NamespacedKey> keys = new ArrayList<>();
+    public static final ArrayList<NamespacedKey> keys = new ArrayList<>();
     public static HashMap<String, Recipe.Tier> recipeTiers = new HashMap<>();
     @Getter
-    private static ArrayList<CustomFoodItem> customFoods = new ArrayList<>();
+    private static final ArrayList<CustomFoodItem> customFoods = new ArrayList<>();
 
-    public static CustomFoodItem appleJuice, glassOfMilk, grandmasCookies, restoredEye, spikedApple, tomatoSoup,
-            cherryPie, lumpyBoneStew, mapleSyrup, tropicalStew, darkMagic, spaghetti, waffles;
+    public static final CustomFoodItem appleJuice;
+    public static final CustomFoodItem glassOfMilk;
+    public static final CustomFoodItem grandmasCookies;
+    public static final CustomFoodItem restoredEye;
+    public static final CustomFoodItem spikedApple;
+    public static final CustomFoodItem tomatoSoup;
+    public static final CustomFoodItem cherryPie;
+    public static final CustomFoodItem lumpyBoneStew;
+    public static final CustomFoodItem mapleSyrup;
+    public static final CustomFoodItem tropicalStew;
+    public static final CustomFoodItem darkMagic;
+    public static final CustomFoodItem spaghetti;
+    public static final CustomFoodItem waffles;
 
     static {
         setUpPerms();

@@ -6,7 +6,7 @@ import org.bukkit.inventory.InventoryHolder;
 public class CraftingHolder implements InventoryHolder {
 
     private int tier;
-    public boolean naturallyClosed = true;
+    public final boolean naturallyClosed = true;
     private final Inventory inv = null;
 
     @Override

@@ -8,21 +8,22 @@ import java.util.Objects;
 /**
 This is basically just a rip off of {@link javafx.util.Pair}
  */
+@SuppressWarnings("rawtypes")
 public class Triplet<A, B, C> implements Serializable {
 
-    private A key;
+    private final A key;
 
     public A getKey() {
         return key;
     }
 
-    private B firstValue;
+    private final B firstValue;
 
     public B getFirstValue() {
         return firstValue;
     }
 
-    private C secondValue;
+    private final C secondValue;
 
     public C getSecondValue() {
         return secondValue;

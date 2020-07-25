@@ -22,7 +22,7 @@ public class Waffles extends CustomFoodItem {
         ItemStack cookie = new ItemStack(Material.COOKIE, 1);
         ItemStack wheat = new ItemStack(Material.WHEAT, 1);
         ItemStack sugar = new ItemStack(Material.SUGAR, 1);
-        ItemStack milk = me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.obsolete.CustomFoodHandler.glassOfMilk.getItemStack();
+        ItemStack milk = CustomFoodHandler.glassOfMilk.getPermedItem();
         ItemStack grill = new ItemStack(Material.MAGMA_BLOCK, 1);
 
         Recipe recipe = new Recipe().setRecipeTier(Recipe.Tier.TIER3);

@@ -17,6 +17,10 @@ commands:
   evogive:
     description: "lol"
     permission: "HealthBlocker.admin"
+  healthtest:
+    description: "helpful"
+    permission: "healthblocker.testcommand"
+    default: op
 permissions:
   HealthBlocker.*:
     default: op

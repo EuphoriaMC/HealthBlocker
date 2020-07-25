@@ -52,6 +52,7 @@ public class EvoHelmet {
         else
             baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo helmet is one of the most", ChatColor.GRAY + "powerful helmets of EuphoriaMC"));
         baseEvoMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tier " + tier + " Evo Helmet");
+        baseEvoMeta.setUnbreakable(true);
         baseEvo.setItemMeta(baseEvoMeta);
         return baseEvo;
     }

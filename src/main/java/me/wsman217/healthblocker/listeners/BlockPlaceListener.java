@@ -6,6 +6,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockPlaceListener implements Listener {
 
+    @SuppressWarnings("EmptyMethod")
     @EventHandler
     public void onBlockPlaceEvent(BlockPlaceEvent e) {
         /*e.setCancelled(true);

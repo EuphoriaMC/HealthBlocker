@@ -13,17 +13,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class FileManager {
 
-    private static FileManager instance = new FileManager();
+    private static final FileManager instance = new FileManager();
     private Plugin plugin;
     private String prefix = "";
     private Boolean log = false;
-    private HashMap<Files, File> files = new HashMap<>();
-    private ArrayList<String> homeFolders = new ArrayList<>();
-    private ArrayList<CustomFile> customFiles = new ArrayList<>();
-    private HashMap<String, String> autoGenerateFiles = new HashMap<>();
-    private HashMap<Files, FileConfiguration> configurations = new HashMap<>();
+    private final HashMap<Files, File> files = new HashMap<>();
+    private final ArrayList<String> homeFolders = new ArrayList<>();
+    private final ArrayList<CustomFile> customFiles = new ArrayList<>();
+    private final HashMap<String, String> autoGenerateFiles = new HashMap<>();
+    private final HashMap<Files, FileConfiguration> configurations = new HashMap<>();
 
     public static FileManager getInstance() {
         return instance;
@@ -327,20 +328,18 @@ public class FileManager {
 
         //ENUM_NAME("FileName.yml", "FilePath.yml"),
         //MESSAGE("messages.yml", "messages.yml");
-        CONFIG("config.yml", "config.yml");
+        CONFIG();
 
-        private String fileName;
-        private String fileLocation;
+        private final String fileName;
+        private final String fileLocation;
 
         /**
          * The files that the server will try and load.
          *
-         * @param fileName     The file name that will be in the plugin's folder.
-         * @param fileLocation The location the file is in while in the Jar.
          */
-        private Files(String fileName, String fileLocation) {
-            this.fileName = fileName;
-            this.fileLocation = fileLocation;
+        Files() {
+            this.fileName = "config.yml";
+            this.fileLocation = "config.yml";
         }
 
         /**
@@ -392,11 +391,11 @@ public class FileManager {
                 resourcePath = resourcePath.replace('\\', '/');
                 InputStream in = m.getResource(resourcePath);
                 if (in == null) {
-                    throw new IllegalArgumentException("The embedded resource \'" + resourcePath + "\' cannot be found");
+                    throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found");
                 } else {
                     File outFile = new File(m.getDataFolder(), resourcePath);
                     int lastIndex = resourcePath.lastIndexOf(47);
-                    File outDir = new File(m.getDataFolder(), resourcePath.substring(0, lastIndex >= 0 ? lastIndex : 0));
+                    File outDir = new File(m.getDataFolder(), resourcePath.substring(0, Math.max(lastIndex, 0)));
                     if (!outDir.exists()) {
                         outDir.mkdirs();
                     }
@@ -426,10 +425,10 @@ public class FileManager {
 
     public class CustomFile {
 
-        private String name;
-        private Plugin plugin;
-        private String fileName;
-        private String homeFolder;
+        private final String name;
+        private final Plugin plugin;
+        private final String fileName;
+        private final String homeFolder;
         private FileConfiguration file;
 
         /**

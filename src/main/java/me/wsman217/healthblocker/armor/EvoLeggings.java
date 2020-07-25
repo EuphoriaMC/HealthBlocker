@@ -52,6 +52,7 @@ public class EvoLeggings {
         else
             baseEvoMeta.setLore(Arrays.asList(ChatColor.GRAY + "The evo Legging is one of the most", ChatColor.GRAY + "powerful Leggings of EuphoriaMC"));
         baseEvoMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tier " + tier + " Evo Legging");
+        baseEvoMeta.setUnbreakable(true);
         baseEvo.setItemMeta(baseEvoMeta);
         return baseEvo;
     }

@@ -20,4 +20,12 @@ public class Utils {
             return false;
         }
     }
+
+    public static int parseInt(String intToBe) {
+        try {
+            return Integer.parseInt(intToBe);
+        } catch (NumberFormatException ignore) {
+            return 0;
+        }
+    }
 }

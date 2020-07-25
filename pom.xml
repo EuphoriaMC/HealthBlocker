@@ -6,7 +6,7 @@
 
     <groupId>HealthBlocker</groupId>
     <artifactId>HealthBlocker</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,12 +17,20 @@
     <repositories>
         <repository>
             <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/releases/</url>
         </repository>
         <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.org/repository/maven-public/</url>
             <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>CrazyAdvancementsAPI</id>
+            <url>file:///${project.basedir}/lib/CrazyAdvancementsAPI.jar</url>
         </repository>
     </repositories>
 
@@ -30,7 +38,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
+            <version>1.16.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -43,6 +51,24 @@
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.TechFortress</groupId>
+            <artifactId>GriefPrevention</artifactId>
+            <version>16.7.1</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>CrazyAdvancementsAPI</groupId>
+            <artifactId>CrazyAdvancementsAPI</artifactId>
+            <version>1.0</version>
+        </dependency>-->
+<!--        <dependency>
+            <groupId>CrazyAdvancementsAPI</groupId>
+            <artifactId>CrazyAdvancementsAPI</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>${project.basedir}/src/lib/CrazyAdvancementsAPI.jar</systemPath>
+            <type>jar</type>
+        </dependency>-->
     </dependencies>
 
     <build>
@@ -52,7 +78,7 @@
                 <filtering>true</filtering>
                 <targetPath>.</targetPath>
                 <includes>
-                    <include>plugin.yml</include>
+                    <include>*</include>
                 </includes>
             </resource>
         </resources>
@@ -65,6 +91,7 @@
                 <configuration>
                     <!--<outputDirectory>D:\DevServers\1.14.4Server\plugins</outputDirectory>-->
                     <!--<outputDirectory>E:\DevServers\1.14.4Server\plugins</outputDirectory>-->
+                    <!--<outputDirectory>C:\users\westo\Desktop\FinalServerBackUpBefore1.16\plugins</outputDirectory>-->
                 </configuration>
             </plugin>
         </plugins>

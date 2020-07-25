@@ -10,11 +10,11 @@ import java.util.HashMap;
 
 public class TypeShapedRecipe implements RecipeType {
 
-    private ShapedRecipe recipe;
+    private final ShapedRecipe recipe;
     @Getter
-    private ItemStack output;
+    private final ItemStack output;
     @Getter
-    private HashMap<Character, ItemStack> inputs = new HashMap<>();
+    private final HashMap<Character, ItemStack> inputs = new HashMap<>();
     @Getter
     private String[] shape;
 

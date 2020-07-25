@@ -20,31 +20,38 @@ public class CategoryView implements Listener {
     private final String INV_NAME = ChatColor.LIGHT_PURPLE + "Please choose a tier.";
     private Player p;
 
-    private static ItemStack tier1Item = new ItemStack(Material.PAPER);
-    private static ItemStack tier2Item = new ItemStack(Material.BOOK);
-    private static ItemStack tier3Item = new ItemStack(Material.WRITABLE_BOOK);
+    private static final ItemStack tier1Item = new ItemStack(Material.PAPER);
+    private static final ItemStack tier2Item = new ItemStack(Material.BOOK);
+    private static final ItemStack tier3Item = new ItemStack(Material.WRITABLE_BOOK);
 
     static {
         ItemMeta tier1IM = tier1Item.getItemMeta();
-        tier1IM.addEnchant(Enchantment.LUCK, 1, true);
-        tier1IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        tier1IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        tier1IM.setDisplayName(ChatColor.GREEN + "Tier 1");
-        tier1Item.setItemMeta(tier1IM);
+        if (tier1IM != null) {
+            tier1IM.addEnchant(Enchantment.LUCK, 1, true);
+            tier1IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            tier1IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            tier1IM.setDisplayName(ChatColor.GREEN + "Tier 1");
+            tier1Item.setItemMeta(tier1IM);
+        }
+
 
         ItemMeta tier2IM = tier2Item.getItemMeta();
-        tier2IM.addEnchant(Enchantment.LUCK, 1, true);
-        tier2IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        tier2IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        tier2IM.setDisplayName(ChatColor.YELLOW + "Tier 2");
-        tier2Item.setItemMeta(tier2IM);
+        if (tier2IM != null) {
+            tier2IM.addEnchant(Enchantment.LUCK, 1, true);
+            tier2IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            tier2IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            tier2IM.setDisplayName(ChatColor.YELLOW + "Tier 2");
+            tier2Item.setItemMeta(tier2IM);
+        }
 
         ItemMeta tier3IM = tier3Item.getItemMeta();
-        tier3IM.addEnchant(Enchantment.LUCK, 1, true);
-        tier3IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        tier3IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        tier3IM.setDisplayName(ChatColor.LIGHT_PURPLE + "Tier 3");
-        tier3Item.setItemMeta(tier3IM);
+        if (tier3IM != null) {
+            tier3IM.addEnchant(Enchantment.LUCK, 1, true);
+            tier3IM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            tier3IM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            tier3IM.setDisplayName(ChatColor.LIGHT_PURPLE + "Tier 3");
+            tier3Item.setItemMeta(tier3IM);
+        }
     }
 
     public CategoryView() {
@@ -70,12 +77,9 @@ public class CategoryView implements Listener {
 
     @EventHandler
     public void onTierClick(InventoryClickEvent e) {
-        if (!(e.getInventory().getHolder() instanceof MainHolder))
+        if (!(e.getInventory().getHolder() instanceof MainHolder) || !(e.getWhoClicked() instanceof Player) || e.getCurrentItem() == null) {
             return;
-        if (!(e.getWhoClicked() instanceof Player))
-            return;
-        if (e.getCurrentItem() == null)
-            return;
+        }
         e.setCancelled(true);
         Player p = (Player) e.getWhoClicked();
         ItemStack clickedItem = e.getCurrentItem();

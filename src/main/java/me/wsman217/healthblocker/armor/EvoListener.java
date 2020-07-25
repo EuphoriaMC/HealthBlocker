@@ -115,7 +115,6 @@ public class EvoListener implements Listener {
         int lastPartOfString = loreLine2.indexOf('d') - 1;
         loreLine2 = loreLine2.substring(lastPartOfString);
         loreLine2 = ChatColor.GOLD + "" + newDamageTaken + "/" + damageAmounts[tier - 1] + " " + loreLine2;
-        System.out.println(loreLine2);
         lore.set(2, loreLine2);
         im.setLore(lore);
         item.setItemMeta(im);

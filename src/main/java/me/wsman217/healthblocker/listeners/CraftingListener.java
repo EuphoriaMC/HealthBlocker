@@ -179,13 +179,14 @@ public class CraftingListener implements Listener {
         public String[] shape;
         public String[] shapeReverse;
         public String[] shapeNormalized;
-        public HashMap<Character, ItemStack> recipe;
+        public final HashMap<Character, ItemStack> recipe;
 
         public ShapedRecipeStorage(String[] shape, HashMap<Character, ItemStack> recipe) {
             this.recipe = recipe;
             this.setShape(shape);
         }
 
+        @SuppressWarnings("UnusedReturnValue")
         public ShapedRecipeStorage setShape(String[] shape) {
             this.shape = shape;
             return this;

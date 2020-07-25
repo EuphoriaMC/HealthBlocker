@@ -38,6 +38,7 @@ public class CommandHealth implements TabExecutor {
         return true;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean helpArg(Player p) {
         p.sendMessage(ChatColor.LIGHT_PURPLE + "EuphoriaMC has a custom plugin that twists the way your health regenerates. " +
                 "Instead of relying on your hunger bar, you must rely on natural regeneration effects (potions, beacons, etc.) " +
@@ -48,6 +49,7 @@ public class CommandHealth implements TabExecutor {
         return true;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean giveArg(CommandSender p, boolean hasFood, String tar, String foodType, String amo, String lean) {
 
         if (!hasFood) {
