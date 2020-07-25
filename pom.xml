@@ -28,6 +28,10 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>CrazyAdvancementsAPI</id>
+            <url>file:///${project.basedir}/lib/CrazyAdvancementsAPI.jar</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -52,6 +56,19 @@
             <artifactId>GriefPrevention</artifactId>
             <version>16.7.1</version>
         </dependency>
+        <!--<dependency>
+            <groupId>CrazyAdvancementsAPI</groupId>
+            <artifactId>CrazyAdvancementsAPI</artifactId>
+            <version>1.0</version>
+        </dependency>-->
+<!--        <dependency>
+            <groupId>CrazyAdvancementsAPI</groupId>
+            <artifactId>CrazyAdvancementsAPI</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>${project.basedir}/src/lib/CrazyAdvancementsAPI.jar</systemPath>
+            <type>jar</type>
+        </dependency>-->
     </dependencies>
 
     <build>

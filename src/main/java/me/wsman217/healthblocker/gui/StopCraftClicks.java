@@ -10,7 +10,8 @@ public class StopCraftClicks implements Listener {
 
     @EventHandler
     public void onClickEvent(InventoryClickEvent e) {
-        if (e.getInventory().getHolder() instanceof CraftingHolder)
-            e.setCancelled(true);
+        if (e.getInventory().getHolder() != null)
+            if (e.getInventory().getHolder() instanceof CraftingHolder)
+                e.setCancelled(true);
     }
 }

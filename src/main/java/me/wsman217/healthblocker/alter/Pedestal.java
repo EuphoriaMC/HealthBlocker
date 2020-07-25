@@ -122,7 +122,7 @@ public class Pedestal implements Listener {
         e.setCancelled(true);
     }
 
-    @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPistonExtendEvent(BlockPistonExtendEvent e) {
         List<Block> blockList = e.getBlocks();
 
@@ -169,46 +169,55 @@ public class Pedestal implements Listener {
             removePedestal(holder);
             return;
         }
-        extractedBlockMovementMethod(blockList);
+        extractedBlockMovementMethod(blockList, e.getDirection());
     }
 
-    @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPistonRetract(BlockPistonRetractEvent e) {
         List<Block> blockList = e.getBlocks();
-        extractedBlockMovementMethod(blockList);
+        extractedBlockMovementMethod(blockList, e.getDirection());
     }
 
-    private void extractedBlockMovementMethod(List<Block> blockList) {
+    private void extractedBlockMovementMethod(List<Block> blockList, BlockFace face) {
+        System.out.println(blockList);
         for (Block block : blockList) {
-            if (isNotPedestalBlock(block))
-                if (checkBlockUnder(block)) {
+            System.out.println("Block: " + block);
+            check:
+            if (isNotPedestalBlock(block)) {
+                if (checkBlockUnder(block, face)) {
                     PedestalHolder holder = getPedestal(block, null);
-                    if (holder == null)
-                        return;
+                    if (holder == null || holder.isNotPedestal())
+                        break check;
                     removePedestal(holder);
-                    return;
-                } else
                     continue;
-            PedestalHolder holder = getPedestal(block, null);
-            if (holder == null || holder.isNotPedestal())
-                if (checkBlockUnder(block)) {
-                    if (holder == null)
-                        return;
-                    removePedestal(holder);
-                    return;
-                } else
-                    continue;
-            removePedestal(holder);
-            return;
+                }
+            }
+            PedestalHolder holderTop = getPedestal(block, null);
+            PedestalHolder holderBottom = getPedestal(block.getLocation().add(face.getModX(), -1, face.getModZ()).getBlock(), null);
+
+            check:
+            if (holderTop != null) {
+                if (holderTop.isNotPedestal())
+                    break check;
+                removePedestal(holderTop);
+            }
+
+            check:
+            if (holderBottom != null) {
+                if (holderBottom.isNotPedestal())
+                    break check;
+                removePedestal(holderBottom);
+            }
         }
     }
 
-    private boolean checkBlockUnder(Block block) {
-        Block newBlock = block.getLocation().add(0, -1, 0).getBlock();
+    private boolean checkBlockUnder(Block block, BlockFace face) {
+        Block newBlock = block.getLocation().add(face.getModX(), -1, face.getModZ()).getBlock();
+        System.out.println(newBlock);
         if (isNotPedestalBlock(newBlock))
-            return false;
+            return true;
         PedestalHolder holder = getPedestal(newBlock, null);
-        return holder == null || holder.isNotPedestal();
+        return holder != null && !holder.isNotPedestal();
     }
 
     private void explosionHandler(List<Block> blockList) {
@@ -217,12 +226,12 @@ public class Pedestal implements Listener {
             PedestalHolder holder = getPedestal(block, null);
             if (holder == null || holder.isNotPedestal())
                 continue;
-            destroyPedestal(holder);
+            removePedestal(holder);
         }
     }
 
-    private static double random() {
-        return (Math.random() * .5) - .25;
+    private static double random(double mult, double sub) {
+        return (Math.random() * mult) - sub;
     }
 
     public static boolean isPedestalBlock(Block block) {
@@ -283,8 +292,9 @@ public class Pedestal implements Listener {
         item.setItemStack(event.getItemStack());
         item.setTicksLived(1);
         item.setGravity(true);
-        item.setPickupDelay(4);
-        item.setVelocity(new Vector(random(), random() + .25, random()));
+        item.setPickupDelay(10);
+
+        item.setVelocity(new Vector(random(.25, .175), random(.175, 0), random(.25, .175)));
         armorStand.remove();
     }
 
