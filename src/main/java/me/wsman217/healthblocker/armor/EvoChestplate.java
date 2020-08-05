@@ -17,7 +17,7 @@ public class EvoChestplate {
     @Getter
     private static final ItemStack[] itemTiers = new ItemStack[4];
     @Getter
-    private static final double[] damageAmounts = {350, 650, 50};
+    private static final double[] damageAmounts = {350, 650, 1000};
 
     static {
         //Leather evo Chestplate

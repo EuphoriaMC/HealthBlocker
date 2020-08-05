@@ -3,6 +3,7 @@ package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier1;
 import me.wsman217.healthblocker.HealthBlocker;
 import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
+import me.wsman217.healthblocker.utils.Constants;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -28,6 +29,6 @@ public class GrandmasCookies extends CustomFoodItem {
                 .setIngredient('A', redBlock).setIngredient('B', cookie).addRecipe();
         setRecipe(recipe);
 
-        addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5, 1, false, true, true));
+        addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5 * Constants.TICK, 1, false, true, true));
     }
 }

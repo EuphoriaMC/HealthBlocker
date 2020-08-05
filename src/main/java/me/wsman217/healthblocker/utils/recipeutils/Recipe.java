@@ -56,6 +56,7 @@ public class Recipe {
     public RecipeType getRecipeType() {
         return recipe;
     }
+
     public Tier getRecipeTier() {
         return recipeTier;
     }

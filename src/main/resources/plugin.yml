@@ -2,6 +2,7 @@ main: me.wsman217.healthblocker.HealthBlocker
 name: HealthBlocker
 version: ${project.version}
 author: wsman217
+depend: [CrazyAdvancementsAPI]
 api-version: "1.14"
 
 commands:

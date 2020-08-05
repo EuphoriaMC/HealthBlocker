@@ -3,6 +3,7 @@ package me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.tier1;
 import me.wsman217.healthblocker.HealthBlocker;
 import me.wsman217.healthblocker.items.fooditems.CustomFoodItem;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
+import me.wsman217.healthblocker.utils.Constants;
 import me.wsman217.healthblocker.utils.recipeutils.Recipe;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -38,7 +39,7 @@ public class SpikedApple extends CustomFoodItem {
         recipe.createShapelessRecipe(new NamespacedKey(HealthBlocker.getInstance(), getNamespace()), inputs, getPermedItem());
         setRecipe(recipe);
 
-        addPotionEffects(new PotionEffect(PotionEffectType.CONFUSION, 10, 1, false, true, true),
-                new PotionEffect(PotionEffectType.BLINDNESS, 10, 1, false, true, true));
+        addPotionEffects(new PotionEffect(PotionEffectType.CONFUSION, 5 * Constants.TICK, 1, false, true, true),
+                new PotionEffect(PotionEffectType.BLINDNESS, 5 * Constants.TICK, 1, false, true, true));
     }
 }

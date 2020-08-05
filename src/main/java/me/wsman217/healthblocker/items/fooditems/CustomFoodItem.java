@@ -1,5 +1,6 @@
 package me.wsman217.healthblocker.items.fooditems;
 
+import com.avaje.ebean.validation.NotNull;
 import de.tr7zw.nbtapi.NBTItem;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +55,7 @@ public abstract class CustomFoodItem {
     @Setter
     private boolean removePotionEffectsGivenByThisFood = false;
 
-    public CustomFoodItem(String name, Material mat, int healthRegenned, String namespace, String permission, String lore, Permission permTier) {
+    public CustomFoodItem(String name, Material mat, int healthRegenned, String namespace,  String permission, String lore, Permission permTier) {
         this.name = name;
         this.mat = mat;
         this.healthRegenned = healthRegenned;

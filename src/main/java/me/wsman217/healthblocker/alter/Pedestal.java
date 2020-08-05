@@ -179,9 +179,7 @@ public class Pedestal implements Listener {
     }
 
     private void extractedBlockMovementMethod(List<Block> blockList, BlockFace face) {
-        System.out.println(blockList);
         for (Block block : blockList) {
-            System.out.println("Block: " + block);
             check:
             if (isNotPedestalBlock(block)) {
                 if (checkBlockUnder(block, face)) {
@@ -213,7 +211,6 @@ public class Pedestal implements Listener {
 
     private boolean checkBlockUnder(Block block, BlockFace face) {
         Block newBlock = block.getLocation().add(face.getModX(), -1, face.getModZ()).getBlock();
-        System.out.println(newBlock);
         if (isNotPedestalBlock(newBlock))
             return true;
         PedestalHolder holder = getPedestal(newBlock, null);

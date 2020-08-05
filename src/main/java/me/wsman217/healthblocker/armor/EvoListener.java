@@ -3,7 +3,7 @@ package me.wsman217.healthblocker.armor;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,18 +11,22 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
 public class EvoListener implements Listener {
 
     @EventHandler
-    public void onPlayerTakeDamageEvent(EntityDamageEvent e) {
-        if (e.getEntityType() != EntityType.PLAYER)
+    public void onEntityDamageEvent(EntityDamageEvent e) {
+        if (!(e.getEntity() instanceof LivingEntity))
             return;
-        Player p = (Player) e.getEntity();
-        ItemStack[] armor = p.getInventory().getArmorContents();
+        LivingEntity entity = (LivingEntity) e.getEntity();
+        if (entity.getEquipment() == null)
+            return;
+        ItemStack[] armor = entity.getEquipment().getArmorContents();
         double damageTaken = e.getFinalDamage();
+        damageTaken = Math.min(damageTaken, 15);
         double amountOfEvoPieces = Arrays.stream(armor).filter(EvoListener::isEvoShield).filter(EvoListener::isNotLastTier).count();
         double percentTaken = (damageTaken * .8) / amountOfEvoPieces;
 
@@ -39,20 +43,22 @@ public class EvoListener implements Listener {
                         armor[i] = increaseDamageTaken(armorPiece, percentTaken, EvoChestplate.getDamageAmounts(), EvoChestplate.getItemTiers());
                         break;
                     case 1:
-                        increaseDamageTaken(armorPiece, percentTaken, EvoLeggings.getDamageAmounts(), EvoLeggings.getItemTiers());
+                        armor[i] = increaseDamageTaken(armorPiece, percentTaken, EvoLeggings.getDamageAmounts(), EvoLeggings.getItemTiers());
                         break;
                     case 0:
-                        increaseDamageTaken(armorPiece, percentTaken, EvoBoots.getDamageAmounts(), EvoBoots.getItemTiers());
+                        armor[i] = increaseDamageTaken(armorPiece, percentTaken, EvoBoots.getDamageAmounts(), EvoBoots.getItemTiers());
                         break;
                 }
             }
 
-        p.getInventory().setArmorContents(armor);
-        p.updateInventory();
+        entity.getEquipment().setArmorContents(armor);
+
+        /*if (entity instanceof Player)
+            ((Player) entity).updateInventory();*/
     }
 
     public static boolean isEvoShield(ItemStack toTest) {
-        if (toTest == null)
+        if (toTest == null || toTest.getType() == Material.AIR)
             return false;
         NBTItem item = new NBTItem(toTest);
         if (!item.hasKey("is_evo"))
@@ -83,13 +89,13 @@ public class EvoListener implements Listener {
         return baseEvo;
     }
 
-    public static int getDamageTaken(ItemStack item) {
+    public static double getDamageTaken(ItemStack item) {
         if (!EvoListener.isEvoShield(item))
             return 0;
         NBTItem nbtItem = new NBTItem(item);
         if (!nbtItem.hasKey("damage_taken"))
             return 0;
-        return nbtItem.getInteger("damage_taken");
+        return nbtItem.getDouble("damage_taken");
     }
 
     public static ItemStack increaseDamageTaken(ItemStack item, double increaseAmount, double[] damageAmounts, ItemStack[] itemTiers) {
@@ -114,7 +120,8 @@ public class EvoListener implements Listener {
         String loreLine2 = lore.get(2);
         int lastPartOfString = loreLine2.indexOf('d') - 1;
         loreLine2 = loreLine2.substring(lastPartOfString);
-        loreLine2 = ChatColor.GOLD + "" + newDamageTaken + "/" + damageAmounts[tier - 1] + " " + loreLine2;
+        DecimalFormat df = new DecimalFormat("#.#");
+        loreLine2 = ChatColor.GOLD + "" + df.format(newDamageTaken) + "/" + damageAmounts[tier - 1] + " " + loreLine2;
         lore.set(2, loreLine2);
         im.setLore(lore);
         item.setItemMeta(im);

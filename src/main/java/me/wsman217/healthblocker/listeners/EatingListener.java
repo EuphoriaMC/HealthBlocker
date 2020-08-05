@@ -30,6 +30,9 @@ public class EatingListener implements Listener {
         CustomFoodItem foodType = CustomFoodHandler.getFromNameSpace(customFoodType);
         Player p = e.getPlayer();
 
+        if (foodType == null)
+            return;
+
         //Check if they have permission to eat the food
         if (!p.hasPermission(foodType.getPermission()) && nbtItem.getBoolean("need_perm")) {
             e.setCancelled(true);

@@ -1,11 +1,10 @@
 package me.wsman217.healthblocker.listeners;
 
-import de.tr7zw.nbtapi.NBTItem;
+import me.wsman217.healthblocker.HealthBlocker;
 import me.wsman217.healthblocker.commands.EuphoriaRanks;
 import me.wsman217.healthblocker.items.fooditems.craftedfoods.tiers.CustomFoodHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -56,29 +55,19 @@ public class ClickListeners implements Listener {
 
         Player p = e.getPlayer();
         int foodLevel = p.getFoodLevel();
-        if (foodLevel < 20)
-            return;
+        if (foodLevel == 20) {
+            p.setFoodLevel(19);
+            Bukkit.getScheduler().runTaskLater(HealthBlocker.getInstance(), () -> p.setFoodLevel(20), 1);
+        }
+
         if (p.getHealth() >= p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
             p.sendMessage(ChatColor.LIGHT_PURPLE + "You do not need to eat this food.");
             e.setCancelled(true);
-            return;
+            p.openInventory(p.getInventory()).close();
         }
-        p.setFoodLevel(19);
     }
 
     private void sendCommand(String rank, String player) {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "euphoriaranks " + rank + " " + player);
-    }
-
-    @EventHandler
-    public void iDidFuckUp(PlayerInteractEvent e) {
-        if (!e.getPlayer().getName().equalsIgnoreCase("wsman217"))
-            return;
-        if (e.getItem() == null)
-            return;
-        if (e.getItem().getType() != Material.FILLED_MAP)
-            return;
-        NBTItem map = new NBTItem(e.getItem());
-        e.getPlayer().sendMessage(map.asNBTString());
     }
 }
