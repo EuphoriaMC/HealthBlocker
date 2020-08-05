@@ -1,6 +1,7 @@
 package me.wsman217.healthblocker;
 
 import lombok.Getter;
+import me.wsman217.healthblocker.advancements.AchievementManager;
 import me.wsman217.healthblocker.alter.Pedestal;
 import me.wsman217.healthblocker.armor.EvoListener;
 import me.wsman217.healthblocker.commands.*;
@@ -27,24 +28,27 @@ public class HealthBlocker extends JavaPlugin {
     @Getter
     private static final boolean IN_TESTING = true;
 
-
     @Override
     public void onEnable() {
         instance = this;
         fileManager = FileManager.getInstance().logInfo(true).setup(this);
         this.itemHandler = new CustomFoodHandler();
+        AchievementManager.init();
         initCommands();
         initListeners();
     }
 
     @Override
     public void onDisable() {
+        //Remove permission nodes (Mostly just for development so I can run a /reload without it throwing lots of errors)
         this.getServer().getPluginManager().removePermission(CustomFoodHandler.tier1);
         this.getServer().getPluginManager().removePermission(CustomFoodHandler.tier2);
         this.getServer().getPluginManager().removePermission(CustomFoodHandler.tier3);
+
         for (Permission perm : CustomFoodHandler.getPermissions())
             this.getServer().getPluginManager().removePermission(perm);
 
+        //Same as permissions but with recipes
         Iterator<Recipe> recipeIterator = this.getServer().recipeIterator();
         while (recipeIterator.hasNext()) {
             Recipe recipe = recipeIterator.next();

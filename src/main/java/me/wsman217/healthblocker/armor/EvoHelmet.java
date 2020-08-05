@@ -17,7 +17,7 @@ public class EvoHelmet {
     @Getter
     private static final ItemStack[] itemTiers = new ItemStack[4];
     @Getter
-    private static final double[] damageAmounts = {350, 650, 50};
+    private static final double[] damageAmounts = {200, 500, 850};
 
     static {
         //Leather evo helmet

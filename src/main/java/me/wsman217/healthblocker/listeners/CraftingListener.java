@@ -30,7 +30,7 @@ public class CraftingListener implements Listener {
         shapedRecipe.reverseShape();
         System.out.println(Arrays.toString(shapedRecipe.shapeReverse));*/
         //Check if its a custom food
-        if (e.getInventory().getResult() == null)
+        if (e.getInventory().getResult() == null || e.getRecipe() == null)
             return;
         NBTItem nbtItem = new NBTItem(e.getRecipe().getResult());
         boolean isCustomFood = nbtItem.getBoolean("custom_food");
@@ -38,6 +38,8 @@ public class CraftingListener implements Listener {
             return;
         String customFoodType = nbtItem.getString("food_type");
         CustomFoodItem foodType = CustomFoodHandler.getFromNameSpace(customFoodType);
+        if (foodType == null)
+            return;
         //Check if they have permission to craft the food
         //e.getView().getPlayer()
         for (HumanEntity p : (e.getViewers())) {
